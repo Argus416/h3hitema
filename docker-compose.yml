@@ -1,0 +1,12 @@
+version: "3"
+services:
+    datascience-notebook:
+        image: jupyter/datascience-notebook
+        volumes:
+            - /Users/mohamad-alkhatib/Desktop/h3hitema/Python
+        ports:
+            - 8888:8888
+        container_name: jupyter_notebook
+        command: "start-notebook.sh \
+            --NotebookApp.password=123 \
+            --NotebookApp.certfile=/etc/ssl/notebook/jupyter.pem"
