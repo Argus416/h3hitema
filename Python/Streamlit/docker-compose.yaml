@@ -3,4 +3,4 @@ services:
     streamlitoo:
         build: .
         ports:
-            - "8501:8502"
+            - "8501:8501"
