@@ -83,12 +83,40 @@ st.altair_chart(c,use_container_width=True)
 
 
 # **************************************************
+col1, col2 = st.columns( [ 1 , 3 ] )
 
-# option = st.selectbox(
-#     'How would you like to be contacted?',
-#     ('Email', 'Home phone', 'Mobile phone'))
+degrees = df.groupby(['degree'])
+degrees = list(dict(list(degrees)).keys())
+degrees.insert(0,'All')
 
-# d=df[df["degree"] == "BACHELORS"].groupby(["degree", "industry"]).describe().salary
-d=df.groupby(["degree", "industry"]).describe().salary
+degree = col1.selectbox(
+    'Salaire en fonction de diplôme',
+    degrees
+)
 
-st.dataframe(data=d, use_container_width=True)
+industries = df.groupby(['industry'])
+industries = list(dict(list(industries)).keys())
+industries.insert(0, 'All')
+
+industry = col1.selectbox(
+    'Industry en fonction de diplôme',
+    industries
+)
+
+cond = df
+
+if(degree != "All" and industry == "All"):
+    cond = df[df["degree"] == degree]
+
+if(degree == "All" and industry != "All"):
+    cond = df[df["industry"] == industry]
+    
+if(degree != "All" and industry != "All"):
+    cond = df[(df["degree"] == degree) & (df["industry"] == industry)]
+
+    
+
+d = cond.groupby(["degree", "industry"]).describe().salary
+
+
+col2.dataframe(data=d, use_container_width=True)
