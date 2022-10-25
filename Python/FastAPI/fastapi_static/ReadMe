@@ -4,3 +4,4 @@ Pour faire tourner le serveur
 2- En ligne de commande, faites passer `docker-compose up`
 
 le serveur marche sur le port http://localhost:8000
+endpoint disponilbe http://localhost:8000/redoc OR http://localhost:8000/docs
