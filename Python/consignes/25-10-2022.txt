@@ -4,8 +4,8 @@ Pour cela vous pouvez suivre la to do list suivante (pas nécessairement dans l�
 
 ✅ 01- Finir de développer son application streamlit.io
 ✅ 02- Préparer votre deploiement streamlit en créant un fichier requirement.txt contenant les packages dont votre app a besoin (se renseigner sur ce fichier, qui est un standard de dev)
-03- Regardez comment travailler dans un environement virtuel et les differentes librairies qui le permettent (virtualenv, pyenv…)
-✅ 04- Déployer son app avec streamlit et m’envoyer le lien par GitHub 
+✅ 03- Regardez comment travailler dans un environement virtuel et les differentes librairies qui le permettent (virtualenv, pyenv…)
+ 04- Déployer son app avec streamlit et m’envoyer le lien par GitHub 
 ✅ 05- Faire une veille technologique sur l’outil docker 
 ✅ 06- Faire une « cheat sheet » avec les principales commandes docker que vous avez compris 
 07- Finir de developper son app template FastAPI (aller jusqu’au chapitre 7)

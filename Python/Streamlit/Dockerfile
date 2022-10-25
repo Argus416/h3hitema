@@ -4,7 +4,13 @@ WORKDIR /app
 
 COPY . .
 
-RUN pip3 install -r requirements.txt
+# RUN pip freeze > requirements.txt
+
+RUN pip install pipreqs
+
+RUN pipreqs --mode gt .
+
+RUN pip install -r requirements.txt
 
 EXPOSE 8501
 
