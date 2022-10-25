@@ -16,11 +16,13 @@ RUN source Scripts/activate
 
 # Méthode 2
 RUN pip install pipreqs
-RUN pipreqs app/
+RUN pipreqs --force app/
 
 RUN pip install -r app/requirements.txt
 
 RUN pip install uvicorn
+RUN pip install sqlalchemy
+RUN pip install psycopg2
 
 EXPOSE 8000
 
