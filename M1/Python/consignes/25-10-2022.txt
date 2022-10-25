@@ -14,7 +14,7 @@ Pour cela vous pouvez suivre la to do list suivante (pas nécessairement dans l�
 ✅ 10- Mettre dans un docker container ces deux projet (streamlit & FastAPI)
 
 11- (Bonus) faire des test de votre application FastAPI (regarder la lib TestClient)
-12- (Bonus) Monter une base de données Postgres via docker qui communique avec votre API 
+✅ 12- (Bonus) Monter une base de données Postgres via docker qui communique avec votre API 
 13- (Bonus) se renseigner sur les volumes docker et monter un volume pour votre application 
 
 
