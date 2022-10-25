@@ -1,13 +1,10 @@
 FROM python:3.10
 
-RUN pip3 install streamlit
-RUN pip3 install pandas
-RUN pip3 install seaborn
-RUN pip3 install altair
-
 WORKDIR /app
 
 COPY . .
+
+RUN pip3 install -r requirements.txt
 
 EXPOSE 8501
 

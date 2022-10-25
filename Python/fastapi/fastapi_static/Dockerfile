@@ -1,11 +1,10 @@
 FROM python:3.10
 
-RUN pip3 install FastAPI
-RUN pip3 install uvicorn
-
 WORKDIR /app
 
 COPY . .
+
+RUN pip3 install -r requirements.txt
 
 EXPOSE 8000
 
