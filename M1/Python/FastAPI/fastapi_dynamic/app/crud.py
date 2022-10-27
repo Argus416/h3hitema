@@ -29,32 +29,31 @@ def create_item(db: Session, item: schemas.ItemCreate):
 
 
 def update_item(db: Session, item_id: int, item: schemas.ItemCreate):
-    errorMessage = HTTPException(status_code=500, detail="Can't update item, please contact the support")
     try:
         item_update_body= item.dict()
         update_item = db.query(models.Item).filter(models.Item.id == item_id).update(item_update_body)
         db.commit()
         
-        if(delete_item == 0):
-            raise errorMessage
+        if(update_item == 0):
+            return {"response": "Can't update item, item wasn't found"}
 
-        return item_update_body
+        return update_item
             
     except Exception as e:
         print(e)
-        raise errorMessage
+        raise HTTPException(status_code=500, detail="Can't update item, please contact the support")
     
     
 def delete_item(db:Session, item_id: int):
-    errorMessage = HTTPException(status_code=500, detail="Can't delete item, please contact the support")
     try:
         delete_item = db.query(models.Item).filter(models.Item.id == item_id).delete()
         db.commit()
         if(delete_item == 0):
-            raise errorMessage
+            return {"response": "Can't delete item, item wasn't found"}
+
             
         return {"response": "Item deleted"}
         
     except Exception as e:
         print(e)
-        raise errorMessage
+        raise HTTPException(status_code=500, detail="Can't delete item, please contact the support")
