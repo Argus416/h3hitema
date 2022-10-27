@@ -22,13 +22,13 @@ def create_item(db: Session, item: schemas.ItemCreate):
         db.add(db_item)
         db.commit()
         db.refresh(db_item)
-        return db_item
+        return {"detail" : "item created"}
     except Exception as e:
         print(e)
         raise HTTPException(status_code=500, detail="Can't create item, please contact the support")
 
 
-def update_user(db: Session, item_id: int, item: schemas.ItemCreate):
+def update_item(db: Session, item_id: int, item: schemas.ItemCreate):
     errorMessage = HTTPException(status_code=500, detail="Can't update item, please contact the support")
     try:
         item_update_body= item.dict()
@@ -43,6 +43,7 @@ def update_user(db: Session, item_id: int, item: schemas.ItemCreate):
     except Exception as e:
         print(e)
         raise errorMessage
+    
     
 def delete_item(db:Session, item_id: int):
     errorMessage = HTTPException(status_code=500, detail="Can't delete item, please contact the support")

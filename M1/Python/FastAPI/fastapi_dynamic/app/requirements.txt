@@ -1,2 +1,5 @@
+uvicorn
 sqlalchemy
 psycopg2
+sqlalchemy
+pytest

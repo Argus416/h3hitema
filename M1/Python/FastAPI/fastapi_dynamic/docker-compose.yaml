@@ -2,6 +2,7 @@ version: "3.9"
 
 services:
     postgres:
+        hostname: postgres.com
         image: postgres
         container_name: postgres
         environment:
@@ -10,17 +11,12 @@ services:
             POSTGRES_DB: fastapi
         networks:
             - postgres
+
         expose:
-            - 8000
             - 5432
+            - 8000
         ports:
             - 5432:5432
-        # deploy:
-        #     restart_policy:
-        #         condition: on-failure # condition: none, on-failure, or any (default)
-        #         delay: 3s # Duration between restart attempts
-        #         max_attempts: 3 # Maximum number of attempts outside of the restart window
-        #         window: 120s # Duration for determining if a restart is successful
 
     fastapi:
         build: .
@@ -46,5 +42,7 @@ services:
 networks:
     postgres:
         driver: bridge
-# volumes:
-#     fastapi_volume:
+        # ipam:
+        #     config:
+        #         - subnet: 10.5.0.0/16
+        #           gateway: 10.5.0.1
