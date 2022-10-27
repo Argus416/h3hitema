@@ -5,3 +5,7 @@ Pour faire tourner le serveur
 
 le serveur marche sur le port http://localhost:8000
 endpoint disponilbe http://localhost:8000/redoc OR http://localhost:8000/docs
+
+---
+
+Mon cheat sheet : https://mohamad-alkhatib.notion.site/Docker-f4309b81a44846b3b56fbc15ff1cda54
