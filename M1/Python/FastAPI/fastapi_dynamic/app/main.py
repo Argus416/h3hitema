@@ -38,8 +38,7 @@ def get_db():
 
 
 @app.get('/')
-# , response_class=responses.HTMLResponse
-def welcome(request: Request, db: Session = Depends(get_db)):
+def welcome(request: Request, response_class=responses.HTMLResponse, db: Session = Depends(get_db)):
     print(request, "request")
     items = crud.get_items(db)
     return templates.TemplateResponse('index.html', {
@@ -53,25 +52,36 @@ def get_items(db: Session = Depends(get_db)):
     items = crud.get_items(db)
     return items
 
-@app.get("/items/{item_id}", response_model=schemas.Item)
-def get_item(item_id:int , db: Session = Depends(get_db)):
-    item = crud.get_item(db, item_id=item_id)
-    return item
 
-@app.post("/items/")
-def create_item(item: schemas.ItemCreate, db: Session= Depends(get_db)):
+@app.get("/item/{item_id}")
+def get_item(item_id:int, request: Request, response_class=responses.HTMLResponse, db: Session = Depends(get_db)):
+    item = crud.get_item(db, item_id=item_id)
+    
+    return templates.TemplateResponse('items/details.html', {
+        "request": request, 
+        "title": item.title,
+        "item": item
+    })
+    
+
+@app.post("/items/create")
+def create_item(item: schemas.ItemCreate, request: Request, db: Session= Depends(get_db)):
     db_item = crud.create_item( db= db, item=item )
     return db_item
+
 
 @app.put("/items/{item_id}")
 def update_item(item_id:int, item: schemas.ItemCreate, db:Session= Depends(get_db)):
     item = crud.update_item(db = db, item_id = item_id, item=item )
     return item
     
+    
 @app.delete("/items/{item_id}")
 def delete_user(item_id : int, db:Session = Depends(get_db)):
     delete_item = crud.delete_item(db=db, item_id = item_id)
     return delete_item
+
+
 
 
 client = TestClient(app)

@@ -19,10 +19,12 @@ def get_item(db: Session, item_id: int ):
 def create_item(db: Session, item: schemas.ItemCreate):
     try:
         db_item = models.Item(**item.dict())
+        print(db_item, "db_item")
         db.add(db_item)
         db.commit()
         db.refresh(db_item)
         return {"detail" : "item created"}
+
     except Exception as e:
         print(e)
         raise HTTPException(status_code=500, detail="Can't create item, please contact the support")
