@@ -1,7 +1,10 @@
 import json
 from os import stat
-from fastapi import Depends, FastAPI, HTTPException, Request, Response
+from re import template
+from fastapi import Depends, FastAPI, HTTPException, Request, Response,responses
+from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
+from pathlib import Path
 
 from . import crud, models, schemas
 from .database import SessionLocal, engine
@@ -11,6 +14,9 @@ from fastapi.testclient import TestClient
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+
+BASE_DIR = Path(__file__).resolve().parent
+templates = Jinja2Templates(directory=str(Path(BASE_DIR, 'templates')))
 
 
 @app.middleware("http")
@@ -23,7 +29,6 @@ async def db_session_middleware(request: Request, call_next):
         request.state.db.close()
     return response
 
-# Dependency
 def get_db():
     db = SessionLocal()
     try:
@@ -33,11 +38,18 @@ def get_db():
 
 
 @app.get('/')
-def welcome():
-    return {"detail": "Welcome !"}
+# , response_class=responses.HTMLResponse
+def welcome(request: Request, db: Session = Depends(get_db)):
+    print(request, "request")
+    items = crud.get_items(db)
+    return templates.TemplateResponse('index.html', {
+            "request": request, 
+            "title": "Home page",
+            "items": items
+        })
 
 @app.get("/items/", response_model=list[schemas.Item])
-def read_items(db: Session = Depends(get_db)):
+def get_items(db: Session = Depends(get_db)):
     items = crud.get_items(db)
     return items
 
