@@ -46,7 +46,7 @@ const Main = () => {
 				dataSource={items}
 				renderItem={(item) => (
 					<List.Item style={{ display: "flex", justifContent: "space-between", alignItems: "center" }}>
-						{item.title} <Button onClick={() => clickHandler(item.id)}> details </Button>
+						{item.title} <Button onClick={() => clickHandler(item.id)}> M.Chaise JEDI </Button>
 					</List.Item>
 				)}
 			/>{" "}
