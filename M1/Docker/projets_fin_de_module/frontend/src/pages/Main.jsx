@@ -39,18 +39,17 @@ const Main = () => {
 
 	return (
 		<Content style={{ width: "85%", margin: "0 auto" }}>
-			<Divider orientation="left">Tous les articles</Divider>
+			<Divider orientation="left"> Tous les articles </Divider>{" "}
 			<List
 				size="small"
 				bordered
 				dataSource={items}
 				renderItem={(item) => (
 					<List.Item style={{ display: "flex", justifContent: "space-between", alignItems: "center" }}>
-						{item.title}
-						<Button onClick={() => clickHandler(item.id)}>toto</Button>
+						{item.title} <Button onClick={() => clickHandler(item.id)}> details </Button>
 					</List.Item>
 				)}
-			/>
+			/>{" "}
 		</Content>
 	);
 };
