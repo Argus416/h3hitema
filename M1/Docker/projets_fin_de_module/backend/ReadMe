@@ -1,0 +1,21 @@
+Pour faire tourner le serveur
+
+1- installer Docker
+2- En ligne de commande, faites passer `docker-compose up`
+
+le serveur marche sur le port http://localhost:8000
+endpoint disponilbe http://localhost:8000/redoc OR http://localhost:8000/docs
+
+---
+
+Tester les routes
+
+1- Accèder sur le conteneur
+`docker exec -it fastapi_dynamic bash`
+
+2- Lancer le test
+`pytest app/main.py`
+
+---
+
+Mon cheat sheet Docker: https://mohamad-alkhatib.notion.site/Docker-f4309b81a44846b3b56fbc15ff1cda54

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+	{% include "_includes/head.html" %}
+	<body>
+		{% include "_includes/nav.html" %}
+
+		<main class="mt-3">
+			<section class="container">
+				<h1 class="h4 mb-3">Create new item</h1>
+
+				<form action="/items/create" method="POST">
+					<div class="mb-3">
+						<label for="title" class="form-label">Item</label>
+						<input type="text" name="title" class="form-control" id="title" />
+					</div>
+					<div class="mb-3">
+						<label for="description" class="form-label">Description</label>
+						<textarea class="form-control" id="description" name="description" rows="3"></textarea>
+					</div>
+					<button type="submit" class="btn btn-primary">Add</button>
+				</form>
+			</section>
+		</main>
+	</body>
+</html>
