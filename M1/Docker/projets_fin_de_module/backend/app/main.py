@@ -10,11 +10,18 @@ from . import crud, models, schemas
 from .database import SessionLocal, engine
 
 from fastapi.testclient import TestClient
+from fastapi.middleware.cors import CORSMiddleware
 
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 # BASE_DIR = Path(__file__).resolve().parent
 # templates = Jinja2Templates(directory=str(Path(BASE_DIR, 'templates')))
 
@@ -70,8 +77,6 @@ def update_item(item_id:int, item: schemas.ItemCreate, db:Session= Depends(get_d
 def delete_user(item_id : int, db:Session = Depends(get_db)):
     delete_item = crud.delete_item(db=db, item_id = item_id)
     return delete_item
-
-
 
 
 client = TestClient(app)
