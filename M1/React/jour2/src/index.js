@@ -14,6 +14,7 @@ import Exo5 from "./components/exo/Exo5";
 
 import State2 from "./components/cours/State2";
 import Articles from "./components/cours/props/Articles";
+import StateReduce from "./components/cours/StateReduce";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -33,6 +34,7 @@ root.render(
 			<Route path="/cours/1" element={<Event />} />
 			<Route path="/cours/2" element={<State2 />} />
 			<Route path="/cours/3" element={<Articles />} />
+			<Route path="/cours/4" element={<StateReduce />} />
 		</Routes>
 	</BrowserRouter>
 	// </React.StrictMode>

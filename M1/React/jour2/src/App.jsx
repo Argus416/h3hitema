@@ -14,6 +14,7 @@ const App = () => {
 		{ id: 1, link: "/cours/1", title: "Event & State" },
 		{ id: 2, link: "/cours/2", title: "State2" },
 		{ id: 3, link: "/cours/3", title: "Props" },
+		{ id: 4, link: "/cours/4", title: "State Reduce" },
 	];
 	return (
 		<div className="App">
