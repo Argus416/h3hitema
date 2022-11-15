@@ -16,6 +16,7 @@ import State2 from "./components/cours/State2";
 import Articles from "./components/cours/props/Articles";
 import StateReduce from "./components/cours/StateReduce";
 import Exo6 from "./components/exo/Exo6";
+import Error404 from "./pages/Error404";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -25,18 +26,23 @@ root.render(
 
 		<Routes>
 			<Route path="/" element={<App />} />
+			<Route path="/exo">
+				<Route path="1" element={<Exo1 />} />
+				<Route path="2" element={<Exo2 />} />
+				<Route path="3" element={<Exo3 />} />
+				<Route path="4" element={<Exo4 />} />
+				<Route path="5" element={<Exo5 />} />
+				<Route path="6" element={<Exo6 />} />
+			</Route>
 
-			<Route path="/exo/1" element={<Exo1 />} />
-			<Route path="/exo/2" element={<Exo2 />} />
-			<Route path="/exo/3" element={<Exo3 />} />
-			<Route path="/exo/4" element={<Exo4 />} />
-			<Route path="/exo/5" element={<Exo5 />} />
-			<Route path="/exo/6" element={<Exo6 />} />
+			<Route path="/cours">
+				<Route path="1" element={<Event />} />
+				<Route path="2" element={<State2 />} />
+				<Route path="3" element={<Articles />} />
+				<Route path="4" element={<StateReduce />} />
+			</Route>
 
-			<Route path="/cours/1" element={<Event />} />
-			<Route path="/cours/2" element={<State2 />} />
-			<Route path="/cours/3" element={<Articles />} />
-			<Route path="/cours/4" element={<StateReduce />} />
+			<Route path="*" element={<Error404 />} />
 		</Routes>
 	</BrowserRouter>
 	// </React.StrictMode>
