@@ -5,9 +5,10 @@ const App = () => {
 	const linksExo = [
 		{ id: 1, link: "/exo/1", title: "Exo 1" },
 		{ id: 2, link: "/exo/2", title: "Exo 2" },
+		{ id: 3, link: "/exo/3", title: "Exo 3" },
 	];
 
-	const linksCourse = [{ id: 1, link: "/cours/1", title: "Event" }];
+	const linksCourse = [{ id: 1, link: "/cours/1", title: "Event & State" }];
 	return (
 		<div className="App">
 			<div className="container">
