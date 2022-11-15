@@ -15,7 +15,7 @@ const Exo2 = () => {
 			<ul>
 				{articles.map((article) => {
 					return (
-						!article.publie && (
+						article.publie && (
 							<li onMouseOver={() => mouseOverHanlder(article)} key={article.id}>
 								{article.titre}
 							</li>
