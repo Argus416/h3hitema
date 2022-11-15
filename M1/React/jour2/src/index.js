@@ -10,6 +10,7 @@ import Exo1 from "./components/exo/Exo1";
 import Exo2 from "./components/exo/Exo2";
 import Exo3 from "./components/exo/Exo3";
 import State2 from "./components/cours/State2";
+import Exo4 from "./components/exo/Exo4";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -23,6 +24,7 @@ root.render(
 				<Route path="/exo/1" element={<Exo1 />} />
 				<Route path="/exo/2" element={<Exo2 />} />
 				<Route path="/exo/3" element={<Exo3 />} />
+				<Route path="/exo/4" element={<Exo4 />} />
 
 				<Route path="/cours/1" element={<Event />} />
 				<Route path="/cours/2" element={<State2 />} />
