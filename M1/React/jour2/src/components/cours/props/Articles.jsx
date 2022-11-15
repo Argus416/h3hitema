@@ -1,8 +1,9 @@
 import { faker } from "@faker-js/faker";
+import { useState } from "react";
 import Article from "./Article";
 
 const Articles = () => {
-	const articles = Array(10)
+	const createArticles = Array(10)
 		.fill(null)
 		.map(() => {
 			return {
@@ -12,15 +13,22 @@ const Articles = () => {
 			};
 		});
 
-	console.log("====================================");
-	console.log(articles);
-	console.log("====================================");
+	const [articles, setArticles] = useState(createArticles);
+
+	const likeHandler = (data) => {
+		setArticles(() => {
+			return articles.map((article) => {
+				if (data.id === article.id) article.like++;
+				return article;
+			});
+		});
+	};
 
 	return (
 		<div className="container">
 			<h1>Articles</h1>
 			{articles.map((article) => (
-				<Article article={article} key={article.id} />
+				<Article article={article} key={article.id} likeHandler={likeHandler} />
 			))}
 		</div>
 	);

@@ -15,24 +15,24 @@ import Articles from "./components/cours/props/Articles";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-	<React.StrictMode>
-		<BrowserRouter>
-			<Menu />
+	// <React.StrictMode>
+	<BrowserRouter>
+		<Menu />
 
-			<Routes>
-				<Route path="/" element={<App />} />
+		<Routes>
+			<Route path="/" element={<App />} />
 
-				<Route path="/exo/1" element={<Exo1 />} />
-				<Route path="/exo/2" element={<Exo2 />} />
-				<Route path="/exo/3" element={<Exo3 />} />
-				<Route path="/exo/4" element={<Exo4 />} />
+			<Route path="/exo/1" element={<Exo1 />} />
+			<Route path="/exo/2" element={<Exo2 />} />
+			<Route path="/exo/3" element={<Exo3 />} />
+			<Route path="/exo/4" element={<Exo4 />} />
 
-				<Route path="/cours/1" element={<Event />} />
-				<Route path="/cours/2" element={<State2 />} />
-				<Route path="/cours/3" element={<Articles />} />
-			</Routes>
-		</BrowserRouter>
-	</React.StrictMode>
+			<Route path="/cours/1" element={<Event />} />
+			<Route path="/cours/2" element={<State2 />} />
+			<Route path="/cours/3" element={<Articles />} />
+		</Routes>
+	</BrowserRouter>
+	// </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
