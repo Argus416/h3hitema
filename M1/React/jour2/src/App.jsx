@@ -8,6 +8,7 @@ const App = () => {
 		{ id: 3, link: "/exo/3", title: "Exo 3" },
 		{ id: 4, link: "/exo/4", title: "Exo 4" },
 		{ id: 5, link: "/exo/5", title: "Exo 5" },
+		{ id: 6, link: "/exo/6", title: "Exo 6" },
 	];
 
 	const linksCourse = [
