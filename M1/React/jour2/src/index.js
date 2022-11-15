@@ -11,6 +11,7 @@ import Exo2 from "./components/exo/Exo2";
 import Exo3 from "./components/exo/Exo3";
 import State2 from "./components/cours/State2";
 import Exo4 from "./components/exo/Exo4";
+import Articles from "./components/cours/props/Articles";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -28,6 +29,7 @@ root.render(
 
 				<Route path="/cours/1" element={<Event />} />
 				<Route path="/cours/2" element={<State2 />} />
+				<Route path="/cours/3" element={<Articles />} />
 			</Routes>
 		</BrowserRouter>
 	</React.StrictMode>

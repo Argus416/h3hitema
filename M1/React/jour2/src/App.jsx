@@ -6,12 +6,13 @@ const App = () => {
 		{ id: 1, link: "/exo/1", title: "Exo 1" },
 		{ id: 2, link: "/exo/2", title: "Exo 2" },
 		{ id: 3, link: "/exo/3", title: "Exo 3" },
-		{ id: 3, link: "/exo/4", title: "Exo 4" },
+		{ id: 4, link: "/exo/4", title: "Exo 4" },
 	];
 
 	const linksCourse = [
 		{ id: 1, link: "/cours/1", title: "Event & State" },
-		{ id: 1, link: "/cours/2", title: "State2" },
+		{ id: 2, link: "/cours/2", title: "State2" },
+		{ id: 3, link: "/cours/3", title: "Props" },
 	];
 	return (
 		<div className="App">
