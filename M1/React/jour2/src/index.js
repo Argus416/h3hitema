@@ -5,10 +5,11 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Menu from "./components/Menu";
-import Event from "./components/Event";
-import Exo1 from "./components/Exo1";
-import Exo2 from "./components/Exo2";
-import Exo3 from "./components/Exo3";
+import Event from "./components/cours/Event";
+import Exo1 from "./components/exo/Exo1";
+import Exo2 from "./components/exo/Exo2";
+import Exo3 from "./components/exo/Exo3";
+import State2 from "./components/cours/State2";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -24,6 +25,7 @@ root.render(
 				<Route path="/exo/3" element={<Exo3 />} />
 
 				<Route path="/cours/1" element={<Event />} />
+				<Route path="/cours/2" element={<State2 />} />
 			</Routes>
 		</BrowserRouter>
 	</React.StrictMode>
