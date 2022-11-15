@@ -5,6 +5,7 @@ const App = () => {
 	const links = [
 		{ id: 1, link: "/1", title: "Exo 1" },
 		{ id: 2, link: "/2", title: "Exo 2" },
+		{ id: 3, link: "/3", title: "Event" },
 	];
 	return (
 		<div className="App">

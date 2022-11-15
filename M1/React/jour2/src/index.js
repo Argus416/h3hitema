@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PageOne from "./pages/PageOne";
 import PageTwo from "./pages/PageTwo";
 import Menu from "./components/Menu";
+import Event from "./components/Event";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -18,6 +19,7 @@ root.render(
 				<Route path="/" element={<App />} />
 				<Route path="/1" element={<PageOne />} />
 				<Route path="/2" element={<PageTwo />} />
+				<Route path="/3" element={<Event />} />
 			</Routes>
 		</BrowserRouter>
 	</React.StrictMode>
