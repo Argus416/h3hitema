@@ -59,10 +59,10 @@ const Exo6 = () => {
 						</li>
 						<div>
 							<button className="btn btn-primary" onClick={() => dispatch({ type: "addNote", id: student.id })}>
-								+
+								+2
 							</button>
 							<button className="btn btn-warning mx-3" onClick={() => dispatch({ type: "reduceNote", id: student.id })}>
-								-
+								-2
 							</button>
 							<button className="btn btn-danger" onClick={() => dispatch({ type: "changeStudentName", id: student.id })}>
 								change name
