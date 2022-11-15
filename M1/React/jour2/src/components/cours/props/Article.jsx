@@ -4,7 +4,7 @@ const Article = ({ article, likeHandler }) => {
 			<h5>{article.title}</h5>
 			<div className="w-25 text-end">
 				<button className="btn btn-outline-success me-3" onClick={() => likeHandler(article)}>
-					Aimer
+					👍
 				</button>
 				<span>{article.like} likes</span>
 			</div>

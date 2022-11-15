@@ -7,6 +7,7 @@ const App = () => {
 		{ id: 2, link: "/exo/2", title: "Exo 2" },
 		{ id: 3, link: "/exo/3", title: "Exo 3" },
 		{ id: 4, link: "/exo/4", title: "Exo 4" },
+		{ id: 5, link: "/exo/5", title: "Exo 5" },
 	];
 
 	const linksCourse = [
