@@ -1,4 +1,5 @@
 import { useState, useEffect, useReducer } from "react";
+import { Link } from "react-router-dom";
 import { api } from "../../../classes/Api";
 import Spinner from "../../Global/Spinner";
 
@@ -35,7 +36,7 @@ const Effect = () => {
 				{data?.length >= 1 ? (
 					data.map((todo) => (
 						<li className="list-group-item" key={todo.id}>
-							{todo.title}
+							<Link to={`/cours/5/${todo.id}`}>{todo.title}</Link>
 						</li>
 					))
 				) : (
