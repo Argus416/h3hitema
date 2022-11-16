@@ -1,11 +1,27 @@
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style/App.scss";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { api } from "./classes/Api";
 import Pagination from "./components/Global/Pagination";
 import Spinner from "./components/Global/Spinner";
+import { BasketContext } from "./contexts/basketContext";
+
 const Card = ({ cocktail }) => {
+	const { addToBasket, removeFromBasket, basket } = useContext(BasketContext);
+	console.log("====================================");
+	console.log(basket, "basket");
+	console.log("====================================");
+	const addToBasketHandler = (cocktail) => {
+		addToBasket(cocktail);
+	};
+
+	const removeFromBasketHandler = (cocktail) => {
+		removeFromBasket(cocktail);
+	};
+
+	const inBaseket = basket.find((ele) => cocktail.idDrink === ele.idDrink);
+
 	return (
 		<div className="col-3 mb-3">
 			<div className="card">
@@ -13,6 +29,17 @@ const Card = ({ cocktail }) => {
 				<div className="card-body">
 					<h5 className="card-title">{cocktail.strDrink}</h5>
 					<p className="card-text">{cocktail?.strInstructions?.slice(0, 40)} </p>
+				</div>
+
+				<div className="d-flex gap-3 px-2 py-2">
+					<button onClick={() => addToBasketHandler(cocktail)} className="btn btn-primary w-100">
+						Ajouter
+					</button>
+					{inBaseket && (
+						<button onClick={() => removeFromBasketHandler(cocktail)} className="btn btn-danger w-100">
+							Supprimer
+						</button>
+					)}
 				</div>
 			</div>
 		</div>

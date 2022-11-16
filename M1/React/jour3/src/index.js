@@ -11,28 +11,34 @@ import About from "./pages/About";
 import Error404 from "./pages/Error404";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import Basket from "./components/Basket";
 import { UserContextProvider } from "./contexts/userContext";
+import { BasketContextProvider } from "./contexts/basketContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
 	<React.StrictMode>
 		<BrowserRouter>
 			<UserContextProvider>
-				<Menu />
+				<BasketContextProvider>
+					<Menu />
 
-				<Routes>
-					<Route path="/" element={<App />} />
-					<Route path="/exo"></Route>
-					<Route path="/cours"></Route>
+					<Routes>
+						<Route path="/" element={<App />} />
+						<Route path="/exo"></Route>
+						<Route path="/cours"></Route>
 
-					<Route path="/contact" element={<Contact />} />
-					<Route path="/a-propos" element={<About />} />
+						<Route path="/contact" element={<Contact />} />
+						<Route path="/a-propos" element={<About />} />
 
-					<Route path="/login" element={<Login />} />
-					<Route path="/signup" element={<Signup />} />
+						<Route path="/login" element={<Login />} />
+						<Route path="/signup" element={<Signup />} />
 
-					<Route path="*" element={<Error404 />} />
-				</Routes>
+						<Route path="/basket" element={<Basket />} />
+
+						<Route path="*" element={<Error404 />} />
+					</Routes>
+				</BasketContextProvider>
 			</UserContextProvider>
 		</BrowserRouter>
 	</React.StrictMode>

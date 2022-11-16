@@ -59,11 +59,18 @@ const Menu = () => {
 								</li>
 							</>
 						) : (
-							<li className="nav-item">
-								<button className="btn btn-danger" onClick={logOutHandler}>
-									Déconnexion
-								</button>
-							</li>
+							<>
+								<li className="nav-item">
+									<NavLink to="/basket" className={({ isActive }) => activeLink(isActive)}>
+										Pannier
+									</NavLink>
+								</li>
+								<li className="nav-item">
+									<button className="btn btn-danger" onClick={logOutHandler}>
+										Déconnexion
+									</button>
+								</li>
+							</>
 						)}
 					</ul>
 				</div>
