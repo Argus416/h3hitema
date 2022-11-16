@@ -19,43 +19,47 @@ const Card = ({ cocktail }) => {
 };
 
 const App = () => {
-	const [cocktails, setCocktails] = useState({});
-	const [searchCocktail, setSearchCocktail] = useState("margarita");
+	const [cocktails, setCocktails] = useState([]);
+	const [searchCocktail, setSearchCocktail] = useState(" ");
 
 	useEffect(() => {
 		const getCocktails = async () => {
-			const data = await api.getCocktail(searchCocktail);
-			setCocktails(data);
+			const { drinks } = await api.getCocktail(searchCocktail);
+			setCocktails(drinks);
 		};
 
 		getCocktails();
 	}, [searchCocktail]);
 
 	const searchHandler = (e) => {
-		setSearchCocktail(e.target.value);
+		const { value } = e.target;
+		if (value.trim().length) {
+			setSearchCocktail(value.trim());
+		}
 	};
 
 	return (
 		<div className="App">
 			<div className="container">
-				<div className="d-flex justify-content-between align-items-center mb-3">
-					<h1 className="h2 ">Home</h1>
-					<div className="input-group w-25">
-						<input
-							type="text"
-							className="form-control"
-							onChange={(e) => {
-								searchHandler(e);
-							}}
-							placeholder="Rechecher un cocktail"
-							aria-label="Rechecher un cocktail"
-							aria-describedby="addon-wrapping"
-						/>
+				<section>
+					<div className="d-flex justify-content-between align-items-center mb-3">
+						<h1 className="h2 ">Home</h1>
+						<div className="input-group w-25">
+							<input
+								type="text"
+								className="form-control"
+								onChange={(e) => {
+									searchHandler(e);
+								}}
+								placeholder="Rechecher un cocktail"
+								aria-label="Rechecher un cocktail"
+								aria-describedby="addon-wrapping"
+							/>
+						</div>
 					</div>
-				</div>
-				<div className="row">
-					{Object.keys(cocktails).length >= 1 && cocktails.drinks.map((cocktail) => <Card key={cocktail.idDrink} cocktail={cocktail} />)}
-				</div>
+					<div className="row">{cocktails?.length >= 1 && cocktails.map((cocktail) => <Card key={cocktail.idDrink} cocktail={cocktail} />)}</div>
+				</section>
+				{!(searchCocktail?.length && cocktails?.length) && <h1 className="h2 ">Aucun cocktail n'a été trouvé</h1>}
 			</div>
 		</div>
 	);
