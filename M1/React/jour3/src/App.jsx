@@ -18,18 +18,53 @@ const Card = ({ cocktail }) => {
 	);
 };
 
+const Pagination = ({ nbPage, changePaginationIndex }) => {
+	nbPage = Array(nbPage)
+		.fill(null)
+		.map((x, index) => index + 1);
+
+	return (
+		<nav aria-label="Page navigation example">
+			<ul className="pagination">
+				{nbPage.map((nb) => (
+					<li className="page-item" key={nb}>
+						<button className="page-link" onClick={() => changePaginationIndex(nb)}>
+							{nb}
+						</button>
+					</li>
+				))}
+			</ul>
+		</nav>
+	);
+};
+
 const App = () => {
 	const [cocktails, setCocktails] = useState([]);
 	const [searchCocktail, setSearchCocktail] = useState(" ");
+	const [currentIndex, setCurrentIndex] = useState(1);
+	const [nbPages, setNbPages] = useState(0);
+	const nbCocktailsPerPage = 8;
+
+	const changePaginationIndex = (newIndex) => {
+		setCurrentIndex(newIndex);
+		console.log("====================================");
+		console.log("toto");
+		console.log("====================================");
+	};
 
 	useEffect(() => {
 		const getCocktails = async () => {
-			const { drinks } = await api.getCocktail(searchCocktail);
+			let { drinks } = await api.getCocktail(searchCocktail);
+
+			setNbPages(Math.ceil(drinks?.length / nbCocktailsPerPage));
+
+			drinks = drinks.slice((currentIndex - 1) * nbCocktailsPerPage, currentIndex * nbCocktailsPerPage);
+			console.log((currentIndex - 1) * nbCocktailsPerPage, currentIndex * nbCocktailsPerPage);
 			setCocktails(drinks);
 		};
 
 		getCocktails();
-	}, [searchCocktail]);
+	}, [searchCocktail, currentIndex]);
 
 	const searchHandler = (e) => {
 		const { value } = e.target;
@@ -58,6 +93,10 @@ const App = () => {
 						</div>
 					</div>
 					<div className="row">{cocktails?.length >= 1 && cocktails.map((cocktail) => <Card key={cocktail.idDrink} cocktail={cocktail} />)}</div>
+
+					<div className="d-flex justify-content-center">
+						<Pagination nbPage={nbPages} changePaginationIndex={changePaginationIndex} />
+					</div>
 				</section>
 				{!(searchCocktail?.length && cocktails?.length) && <h1 className="h2 ">Aucun cocktail n'a été trouvé</h1>}
 			</div>
