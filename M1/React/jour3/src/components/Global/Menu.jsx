@@ -38,6 +38,12 @@ const Menu = () => {
 								A propos
 							</NavLink>
 						</li>
+
+						<li className="nav-item">
+							<NavLink to="/login" className={({ isActive }) => activeLink(isActive)}>
+								Connexion
+							</NavLink>
+						</li>
 					</ul>
 				</div>
 			</div>

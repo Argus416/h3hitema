@@ -9,6 +9,8 @@ import Contact from "./pages/Contact";
 import About from "./pages/About";
 
 import Error404 from "./pages/Error404";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -23,6 +25,9 @@ root.render(
 
 				<Route path="/contact" element={<Contact />} />
 				<Route path="/a-propos" element={<About />} />
+
+				<Route path="/login" element={<Login />} />
+				<Route path="/signup" element={<Signup />} />
 
 				<Route path="*" element={<Error404 />} />
 			</Routes>

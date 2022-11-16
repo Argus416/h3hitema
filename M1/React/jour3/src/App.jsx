@@ -24,7 +24,22 @@ const App = () => {
 	const [searchCocktail, setSearchCocktail] = useState(" ");
 	const [currentIndex, setCurrentIndex] = useState(1);
 	const [nbPages, setNbPages] = useState(0);
-	const nbCocktailsPerPage = 4;
+	const nbCocktailsPerPage = 8;
+
+	// ! TO REMOVE
+	// const arr2 = [0, 1, 2, [[[[[[[[3, 4]]]]]]]]];
+	// const rec = (array) => {
+	// 	cond = array.every((x) => !Array.isArray(x));
+	// 	if (!cond) {
+	// 		array = array.flat();
+	// 		return rec(array);
+	// 	}
+	// 	return array;
+	// };
+
+	// console.log(rec(arr2));
+
+	// expected output: [0, 1, 2, [3, 4]]
 
 	const changePaginationIndex = (newIndex) => {
 		setCurrentIndex(newIndex);
@@ -83,6 +98,6 @@ const App = () => {
 			</div>
 		</div>
 	);
-};
+};;;;
 
 export default App;
