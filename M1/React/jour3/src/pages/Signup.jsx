@@ -6,12 +6,12 @@ const Signup = () => {
 					<h1 className="h3 mb-4 fw-normal">Signup</h1>
 
 					<div className="mb-3">
-						<label for="email">Email</label>
+						<label htmlFor="email">Email</label>
 						<input type="email" className="form-control" id="email" placeholder="name@example.com" />
 					</div>
 
 					<div className="mb-3">
-						<label for="password">Mots de passe</label>
+						<label htmlFor="password">Mots de passe</label>
 						<input type="password" className="form-control" id="password" placeholder="Password" />
 					</div>
 

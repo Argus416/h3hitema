@@ -11,26 +11,29 @@ import About from "./pages/About";
 import Error404 from "./pages/Error404";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import { UserContextProvider } from "./contexts/userContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
 	<React.StrictMode>
 		<BrowserRouter>
-			<Menu />
+			<UserContextProvider>
+				<Menu />
 
-			<Routes>
-				<Route path="/" element={<App />} />
-				<Route path="/exo"></Route>
-				<Route path="/cours"></Route>
+				<Routes>
+					<Route path="/" element={<App />} />
+					<Route path="/exo"></Route>
+					<Route path="/cours"></Route>
 
-				<Route path="/contact" element={<Contact />} />
-				<Route path="/a-propos" element={<About />} />
+					<Route path="/contact" element={<Contact />} />
+					<Route path="/a-propos" element={<About />} />
 
-				<Route path="/login" element={<Login />} />
-				<Route path="/signup" element={<Signup />} />
+					<Route path="/login" element={<Login />} />
+					<Route path="/signup" element={<Signup />} />
 
-				<Route path="*" element={<Error404 />} />
-			</Routes>
+					<Route path="*" element={<Error404 />} />
+				</Routes>
+			</UserContextProvider>
 		</BrowserRouter>
 	</React.StrictMode>
 );

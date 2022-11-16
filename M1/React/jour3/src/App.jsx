@@ -4,7 +4,7 @@ import "./style/App.scss";
 import { useEffect, useState } from "react";
 import { api } from "./classes/Api";
 import Pagination from "./components/Global/Pagination";
-
+import Spinner from "./components/Global/Spinner";
 const Card = ({ cocktail }) => {
 	return (
 		<div className="col-3 mb-3">
@@ -88,7 +88,9 @@ const App = () => {
 							/>
 						</div>
 					</div>
-					<div className="row">{cocktails?.length >= 1 && cocktails.map((cocktail) => <Card key={cocktail.idDrink} cocktail={cocktail} />)}</div>
+					<div className="row">
+						{cocktails?.length >= 1 ? cocktails.map((cocktail) => <Card key={cocktail.idDrink} cocktail={cocktail} />) : <Spinner />}
+					</div>
 
 					<div className="d-flex justify-content-center">
 						{nbPages > 1 && <Pagination nbPage={nbPages} currentIndex={currentIndex} changePaginationIndex={changePaginationIndex} />}

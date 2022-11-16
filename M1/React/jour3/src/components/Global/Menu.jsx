@@ -1,13 +1,20 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.svg";
+import { UserContext } from "../../contexts/userContext";
+import { useContext } from "react";
+
 const Menu = () => {
-	const activeLinkClass = {
-		color: "#fff",
-	};
+	const navigate = useNavigate();
+	const { isLogged, logout } = useContext(UserContext);
 
 	const activeLink = (isActive) => {
 		const commonClasses = "nav-link";
 		return isActive ? `${commonClasses} active` : `${commonClasses}`;
+	};
+
+	const logOutHandler = () => {
+		logout();
+		navigate("/");
 	};
 
 	return (
@@ -38,12 +45,26 @@ const Menu = () => {
 								A propos
 							</NavLink>
 						</li>
-
-						<li className="nav-item">
-							<NavLink to="/login" className={({ isActive }) => activeLink(isActive)}>
-								Connexion
-							</NavLink>
-						</li>
+						{!isLogged ? (
+							<>
+								<li className="nav-item">
+									<NavLink to="/login" className={({ isActive }) => activeLink(isActive)}>
+										Connexion
+									</NavLink>
+								</li>
+								<li className="nav-item">
+									<NavLink to="/signup" className={({ isActive }) => activeLink(isActive)}>
+										Créer un compte
+									</NavLink>
+								</li>
+							</>
+						) : (
+							<li className="nav-item">
+								<button className="btn btn-danger" onClick={logOutHandler}>
+									Déconnexion
+								</button>
+							</li>
+						)}
 					</ul>
 				</div>
 			</div>
