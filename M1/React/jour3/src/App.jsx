@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./style/App.scss";
 import { useEffect, useState } from "react";
 import { api } from "./classes/Api";
+import Pagination from "./components/Global/Pagination";
 
 const Card = ({ cocktail }) => {
 	return (
@@ -18,26 +19,6 @@ const Card = ({ cocktail }) => {
 	);
 };
 
-const Pagination = ({ nbPage, changePaginationIndex }) => {
-	nbPage = Array(nbPage)
-		.fill(null)
-		.map((x, index) => index + 1);
-
-	return (
-		<nav aria-label="Page navigation example">
-			<ul className="pagination">
-				{nbPage.map((nb) => (
-					<li className="page-item" key={nb}>
-						<button className="page-link" onClick={() => changePaginationIndex(nb)}>
-							{nb}
-						</button>
-					</li>
-				))}
-			</ul>
-		</nav>
-	);
-};
-
 const App = () => {
 	const [cocktails, setCocktails] = useState([]);
 	const [searchCocktail, setSearchCocktail] = useState(" ");
@@ -47,9 +28,6 @@ const App = () => {
 
 	const changePaginationIndex = (newIndex) => {
 		setCurrentIndex(newIndex);
-		console.log("====================================");
-		console.log("toto");
-		console.log("====================================");
 	};
 
 	useEffect(() => {
@@ -57,9 +35,9 @@ const App = () => {
 			let { drinks } = await api.getCocktail(searchCocktail);
 
 			setNbPages(Math.ceil(drinks?.length / nbCocktailsPerPage));
-
-			drinks = drinks.slice((currentIndex - 1) * nbCocktailsPerPage, currentIndex * nbCocktailsPerPage);
-			console.log((currentIndex - 1) * nbCocktailsPerPage, currentIndex * nbCocktailsPerPage);
+			const calcSlicingOne = (currentIndex - 1) * nbCocktailsPerPage;
+			const calcSlicingTwo = currentIndex * nbCocktailsPerPage;
+			drinks = drinks.slice(calcSlicingOne, calcSlicingTwo);
 			setCocktails(drinks);
 		};
 
@@ -70,6 +48,7 @@ const App = () => {
 		const { value } = e.target;
 		if (value.trim().length) {
 			setSearchCocktail(value.trim());
+			setCurrentIndex(1);
 		}
 	};
 
@@ -95,7 +74,7 @@ const App = () => {
 					<div className="row">{cocktails?.length >= 1 && cocktails.map((cocktail) => <Card key={cocktail.idDrink} cocktail={cocktail} />)}</div>
 
 					<div className="d-flex justify-content-center">
-						<Pagination nbPage={nbPages} changePaginationIndex={changePaginationIndex} />
+						<Pagination nbPage={nbPages} currentIndex={currentIndex} changePaginationIndex={changePaginationIndex} />
 					</div>
 				</section>
 				{!(searchCocktail?.length && cocktails?.length) && <h1 className="h2 ">Aucun cocktail n'a été trouvé</h1>}
