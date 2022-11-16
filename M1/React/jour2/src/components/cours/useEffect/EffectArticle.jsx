@@ -8,7 +8,8 @@ const EffectArticle = () => {
 	const [article, setArticle] = useState({});
 
 	useEffect(() => {
-		api.getPost(params.articleId).then((data) => setArticle(data));
+		const { articleId } = params;
+		api.getPost(articleId).then((data) => setArticle(data));
 	}, []);
 
 	return (
