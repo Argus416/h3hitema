@@ -17,7 +17,7 @@ class Api {
 	async getPost(id) {
 		try {
 			let data = await fetch(`${url}/${id}`);
-			data = data.json();
+			data = await data.json();
 
 			return data;
 		} catch (e) {

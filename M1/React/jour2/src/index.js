@@ -27,27 +27,27 @@ root.render(
 			<Menu />
 
 			<Routes>
-				<Route path="/" exact element={<App />} />
-				<Route exact path="/exo">
-					<Route path="1" exact element={<Exo1 />} />
-					<Route path="2" exact element={<Exo2 />} />
-					<Route path="3" exact element={<Exo3 />} />
-					<Route path="4" exact element={<Exo4 />} />
-					<Route path="5" exact element={<Exo5 />} />
-					<Route path="6" exact element={<Exo6 />} />
+				<Route path="/" element={<App />} />
+				<Route path="/exo">
+					<Route path="1" element={<Exo1 />} />
+					<Route path="2" element={<Exo2 />} />
+					<Route path="3" element={<Exo3 />} />
+					<Route path="4" element={<Exo4 />} />
+					<Route path="5" element={<Exo5 />} />
+					<Route path="6" element={<Exo6 />} />
 				</Route>
 
 				<Route path="/cours">
-					<Route path="1" exact element={<Event />} />
-					<Route path="2" exact element={<State2 />} />
-					<Route path="3" exact element={<Articles />} />
-					<Route path="4" exact element={<StateReduce />} />
-					<Route path="5" exact element={<Effect />}>
-						<Route path=":id" exact element={<EffectArticle />} />
-					</Route>
+					<Route path="1" element={<Event />} />
+					<Route path="2" element={<State2 />} />
+					<Route path="3" element={<Articles />} />
+					<Route path="4" element={<StateReduce />} />
+					<Route path="5" element={<Effect />} />
 				</Route>
 
-				<Route path="*" exact element={<Error404 />} />
+				<Route path="cours/5/:articleId" element={<EffectArticle />} />
+
+				<Route path="*" element={<Error404 />} />
 			</Routes>
 		</BrowserRouter>
 	</React.StrictMode>
