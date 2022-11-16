@@ -24,7 +24,7 @@ const App = () => {
 	const [searchCocktail, setSearchCocktail] = useState(" ");
 	const [currentIndex, setCurrentIndex] = useState(1);
 	const [nbPages, setNbPages] = useState(0);
-	const nbCocktailsPerPage = 8;
+	const nbCocktailsPerPage = 4;
 
 	const changePaginationIndex = (newIndex) => {
 		setCurrentIndex(newIndex);
@@ -37,7 +37,9 @@ const App = () => {
 			setNbPages(Math.ceil(drinks?.length / nbCocktailsPerPage));
 			const calcSlicingOne = (currentIndex - 1) * nbCocktailsPerPage;
 			const calcSlicingTwo = currentIndex * nbCocktailsPerPage;
-			drinks = drinks.slice(calcSlicingOne, calcSlicingTwo);
+			if (drinks.length) {
+				drinks = drinks.slice(calcSlicingOne, calcSlicingTwo);
+			}
 			setCocktails(drinks);
 		};
 
@@ -74,7 +76,7 @@ const App = () => {
 					<div className="row">{cocktails?.length >= 1 && cocktails.map((cocktail) => <Card key={cocktail.idDrink} cocktail={cocktail} />)}</div>
 
 					<div className="d-flex justify-content-center">
-						<Pagination nbPage={nbPages} currentIndex={currentIndex} changePaginationIndex={changePaginationIndex} />
+						{nbPages > 1 && <Pagination nbPage={nbPages} currentIndex={currentIndex} changePaginationIndex={changePaginationIndex} />}
 					</div>
 				</section>
 				{!(searchCocktail?.length && cocktails?.length) && <h1 className="h2 ">Aucun cocktail n'a été trouvé</h1>}
