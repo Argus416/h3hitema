@@ -42,10 +42,11 @@ root.render(
 					<Route path="2" element={<State2 />} />
 					<Route path="3" element={<Articles />} />
 					<Route path="4" element={<StateReduce />} />
-					<Route path="5" element={<Effect />} />
+					<Route path="5">
+						<Route index element={<Effect />} />
+						<Route path=":articleId" element={<EffectArticle />} />
+					</Route>
 				</Route>
-
-				<Route path="cours/5/:articleId" element={<EffectArticle />} />
 
 				<Route path="*" element={<Error404 />} />
 			</Routes>
