@@ -1,8 +1,8 @@
-const url = `https://jsonplaceholder.typicode.com/posts`;
+const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php`;
 class Api {
-	async getPosts(length = 0) {
+	async getCocktails(length = 0) {
 		try {
-			let data = await fetch(url);
+			let data = await fetch(`${url}?f=a`);
 			data = await data.json();
 			if (length !== 0) data = data.splice(0, length);
 
@@ -12,11 +12,10 @@ class Api {
 		}
 	}
 
-	async getPost(id) {
+	async getCocktail(name) {
 		try {
-			let data = await fetch(`${url}/${id}`);
+			let data = await fetch(`${url}?s=${name}`);
 			data = await data.json();
-
 			return data;
 		} catch (e) {
 			console.error(e);

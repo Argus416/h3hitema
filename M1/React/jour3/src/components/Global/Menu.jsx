@@ -5,6 +5,11 @@ const Menu = () => {
 		color: "#fff",
 	};
 
+	const activeLink = (isActive) => {
+		const commonClasses = "nav-link";
+		return isActive ? `${commonClasses} active` : `${commonClasses}`;
+	};
+
 	return (
 		<nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
 			<div className="container">
@@ -17,19 +22,19 @@ const Menu = () => {
 				<div className="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul className="navbar-nav ms-auto mb-2 mb-lg-0">
 						<li className="nav-item">
-							<NavLink to="/" className="nav-link" style={({ isActive }) => (isActive ? activeLinkClass : undefined)}>
+							<NavLink to="/" className={({ isActive }) => activeLink(isActive)}>
 								Home
 							</NavLink>
 						</li>
 
 						<li className="nav-item">
-							<NavLink to="/contact" className="nav-link" style={({ isActive }) => (isActive ? activeLinkClass : undefined)}>
+							<NavLink to="/contact" className={({ isActive }) => activeLink(isActive)}>
 								Contact
 							</NavLink>
 						</li>
 
 						<li className="nav-item">
-							<NavLink to="/a-propos" className="nav-link" style={({ isActive }) => (isActive ? activeLinkClass : undefined)}>
+							<NavLink to="/a-propos" className={({ isActive }) => activeLink(isActive)}>
 								A propos
 							</NavLink>
 						</li>
