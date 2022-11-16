@@ -20,20 +20,39 @@ const Card = ({ cocktail }) => {
 
 const App = () => {
 	const [cocktails, setCocktails] = useState({});
+	const [searchCocktail, setSearchCocktail] = useState("margarita");
 
 	useEffect(() => {
 		const getCocktails = async () => {
-			const data = await api.getCocktail("margarita");
+			const data = await api.getCocktail(searchCocktail);
 			setCocktails(data);
 		};
 
 		getCocktails();
-	}, []);
+	}, [searchCocktail]);
+
+	const searchHandler = (e) => {
+		setSearchCocktail(e.target.value);
+	};
 
 	return (
 		<div className="App">
 			<div className="container">
-				<h1 className="h2 mb-3">Home </h1>
+				<div className="d-flex justify-content-between align-items-center mb-3">
+					<h1 className="h2 ">Home</h1>
+					<div className="input-group w-25">
+						<input
+							type="text"
+							className="form-control"
+							onChange={(e) => {
+								searchHandler(e);
+							}}
+							placeholder="Rechecher un cocktail"
+							aria-label="Rechecher un cocktail"
+							aria-describedby="addon-wrapping"
+						/>
+					</div>
+				</div>
 				<div className="row">
 					{Object.keys(cocktails).length >= 1 && cocktails.drinks.map((cocktail) => <Card key={cocktail.idDrink} cocktail={cocktail} />)}
 				</div>
