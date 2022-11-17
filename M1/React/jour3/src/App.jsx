@@ -6,12 +6,12 @@ import { api } from "./classes/Api";
 import Pagination from "./components/Global/Pagination";
 import Spinner from "./components/Global/Spinner";
 import { BasketContext } from "./contexts/basketContext";
+import { UserContext } from "./contexts/userContext";
 
 const Card = ({ cocktail }) => {
 	const { addToBasket, removeFromBasket, basket } = useContext(BasketContext);
-	console.log("====================================");
-	console.log(basket, "basket");
-	console.log("====================================");
+	const { isLogged } = useContext(UserContext);
+
 	const addToBasketHandler = (cocktail) => {
 		addToBasket(cocktail);
 	};
@@ -32,14 +32,16 @@ const Card = ({ cocktail }) => {
 				</div>
 
 				<div className="d-flex gap-3 px-2 py-2">
-					<button onClick={() => addToBasketHandler(cocktail)} className="btn btn-primary w-100">
-						Ajouter
-					</button>
-					{inBaseket && (
-						<button onClick={() => removeFromBasketHandler(cocktail)} className="btn btn-danger w-100">
-							Supprimer
-						</button>
-					)}
+					{isLogged &&
+						(inBaseket ? (
+							<button onClick={() => removeFromBasketHandler(cocktail)} className="btn btn-danger w-100">
+								Supprimer
+							</button>
+						) : (
+							<button onClick={() => addToBasketHandler(cocktail)} className="btn btn-primary w-100">
+								Ajouter
+							</button>
+						))}
 				</div>
 			</div>
 		</div>
@@ -127,6 +129,6 @@ const App = () => {
 			</div>
 		</div>
 	);
-};;;;
+};
 
 export default App;
