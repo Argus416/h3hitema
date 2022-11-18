@@ -31,15 +31,31 @@ const Calendar = () => {
 		}
 	};
 
-	const prevMongth = getDaysInMonthUTC(month - 1, year - 1);
+	const toto = [];
 	const currentMonth = getDaysInMonthUTC(month, year);
-	const nextMonth = getDaysInMonthUTC(month + 1, year + 1);
 
-	const allDaysGroupedOrder = useMemo(() => rangeDate(currentMonth), [year, month]);
-
-	// console.log("====================================");
-	console.log(allDaysGroupedOrder, "toto");
-	// console.log("====================================");
+	const renduCalendrier = () => {
+		const calendrier = [];
+		{
+			currentMonth.map((day, index) => {
+				day = day.getDate();
+				if (index % 7 === 0) {
+					calendrier.push(
+						<>
+							<br /> {day} -
+						</>
+					);
+				} else {
+					calendrier.push(<>{day} - </>);
+				}
+			});
+			console.log("====================================");
+			console.log(calendrier);
+			console.log("====================================");
+			return calendrier;
+		}
+	};
+	renduCalendrier();
 
 	return (
 		<Box sx={{ height: "100vh" }}>
@@ -49,7 +65,7 @@ const Calendar = () => {
 				</Button>
 				<TextField
 					id="outlined-number"
-					label="Number"
+					label="Année"
 					type="number"
 					InputLabelProps={{
 						shrink: true,
@@ -62,7 +78,6 @@ const Calendar = () => {
 					<ArrowForwardIcon />
 				</Button>
 			</Box>
-
 			<Box sx={{ marginTop: 5, display: "flex", alignItems: "center", gap: 2 }}>
 				<Button variant="contained" onClick={monthDes}>
 					<ArrowBackIcon />
@@ -70,7 +85,7 @@ const Calendar = () => {
 				{/* {month} */}
 				<TextField
 					id="outlined-number"
-					label="Number"
+					label="Mois"
 					type="number"
 					InputLabelProps={{
 						shrink: true,
@@ -82,38 +97,12 @@ const Calendar = () => {
 					<ArrowForwardIcon />
 				</Button>
 			</Box>
-
 			<Box sx={{ marginTop: 5, display: "flex", justifyContent: "center", flexDirection: "column", gap: 2 }}>
 				{/* <p>{currentMonth.join(", ")}</p> */}
-
-				<table>
-					<thead>
-						<tr>
-							<th>Lundi</th>
-							<th>Mardi</th>
-							<th>Mercredi</th>
-							<th>Jeudi</th>
-							<th>Vendredi</th>
-							<th>Samedi</th>
-							<th>Dimanche</th>
-						</tr>
-					</thead>
-
-					<tbody>
-						<tr style={{ textAlign: "center" }}>
-							<td>1</td>
-							<td>2</td>
-							<td>3</td>
-							<td>4</td>
-							<td>5</td>
-							<td>6</td>
-							<td>7</td>
-						</tr>
-					</tbody>
-				</table>
+				{renduCalendrier()}
 			</Box>
 		</Box>
 	);
-};;;;;;;;;;;;;;;;;;;;;
+};
 
 export default Calendar;
