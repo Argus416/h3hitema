@@ -39,6 +39,12 @@ const Menu = () => {
 								Optimisation
 							</NavLink>
 						</li>
+
+						<li className="nav-item">
+							<NavLink to="/exomemo" className={({ isActive }) => activeLink(isActive)}>
+								Exo memo
+							</NavLink>
+						</li>
 					</ul>
 				</div>
 			</div>

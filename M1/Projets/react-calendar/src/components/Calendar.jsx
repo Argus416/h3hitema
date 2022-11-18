@@ -1,8 +1,11 @@
 import { Box, Button } from "@mui/material";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { getDaysInMonth, getDaysInMonthUTC } from "../Helpers/Date";
+import { getDaysInMonth, getDaysInMonthUTC, getLastWeek, rangeDate } from "../Helpers/Date";
+import TextField from "@mui/material/TextField";
+
+import moment from "moment";
 
 const Calendar = () => {
 	const date = new Date();
@@ -28,16 +31,33 @@ const Calendar = () => {
 		}
 	};
 
-	let allDays = getDaysInMonth(month, year);
-	allDays = allDays.map((day) => day + " ").join();
-	console.log(allDays, "allDays");
+	const prevMongth = getDaysInMonthUTC(month - 1, year - 1);
+	const currentMonth = getDaysInMonthUTC(month, year);
+	const nextMonth = getDaysInMonthUTC(month + 1, year + 1);
+
+	const allDaysGroupedOrder = useMemo(() => rangeDate(currentMonth), [year, month]);
+
+	// console.log("====================================");
+	console.log(allDaysGroupedOrder, "toto");
+	// console.log("====================================");
+
 	return (
-		<Box>
+		<Box sx={{ height: "100vh" }}>
 			<Box sx={{ marginTop: 5, display: "flex", alignItems: "center", gap: 2 }}>
 				<Button variant="contained" onClick={() => setYear(year - 1)}>
 					<ArrowBackIcon />
 				</Button>
-				{year}
+				<TextField
+					id="outlined-number"
+					label="Number"
+					type="number"
+					InputLabelProps={{
+						shrink: true,
+					}}
+					value={year}
+					onChange={(e) => setYear(e.target.value)}
+				/>
+				{/* {year} */}
 				<Button variant="contained" onClick={() => setYear(year + 1)}>
 					<ArrowForwardIcon />
 				</Button>
@@ -47,15 +67,53 @@ const Calendar = () => {
 				<Button variant="contained" onClick={monthDes}>
 					<ArrowBackIcon />
 				</Button>
-				{month}
+				{/* {month} */}
+				<TextField
+					id="outlined-number"
+					label="Number"
+					type="number"
+					InputLabelProps={{
+						shrink: true,
+					}}
+					value={month}
+					onChange={(e) => setMonth(e.target.value)}
+				/>
 				<Button variant="contained" onClick={monthInc}>
 					<ArrowForwardIcon />
 				</Button>
 			</Box>
 
-			<Box sx={{ marginTop: 5, display: "flex", alignItems: "center", gap: 2 }}>{allDays}</Box>
+			<Box sx={{ marginTop: 5, display: "flex", justifyContent: "center", flexDirection: "column", gap: 2 }}>
+				{/* <p>{currentMonth.join(", ")}</p> */}
+
+				<table>
+					<thead>
+						<tr>
+							<th>Lundi</th>
+							<th>Mardi</th>
+							<th>Mercredi</th>
+							<th>Jeudi</th>
+							<th>Vendredi</th>
+							<th>Samedi</th>
+							<th>Dimanche</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr style={{ textAlign: "center" }}>
+							<td>1</td>
+							<td>2</td>
+							<td>3</td>
+							<td>4</td>
+							<td>5</td>
+							<td>6</td>
+							<td>7</td>
+						</tr>
+					</tbody>
+				</table>
+			</Box>
 		</Box>
 	);
-};
+};;;;;;;;;;;;;;;;;;;;;
 
 export default Calendar;

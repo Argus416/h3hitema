@@ -9,6 +9,7 @@ import Menu from "./components/Global/Menu";
 import Error404 from "./pages/Error404";
 import { UserContextProvider } from "./contexts/userContext";
 import Optimisation from "./pages/Optimisation";
+import ExoMemoParent from "./pages/exo/exo-memo/ExoMemoParent";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -20,6 +21,8 @@ root.render(
 				<Routes>
 					<Route path="/" element={<App />} />
 					<Route path="/optimisation" element={<Optimisation />} />
+
+					<Route path="/exomemo" element={<ExoMemoParent />} />
 
 					<Route path="*" element={<Error404 />} />
 				</Routes>
