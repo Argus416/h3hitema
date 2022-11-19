@@ -4,8 +4,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { getDaysInMonth, getDaysInMonthUTC, getLastWeek, rangeDate } from "../Helpers/Date";
 import TextField from "@mui/material/TextField";
-
-import moment from "moment";
+import _ from "loadsh";
 
 const Calendar = () => {
 	const date = new Date();
@@ -31,31 +30,30 @@ const Calendar = () => {
 		}
 	};
 
-	const toto = [];
-	const currentMonth = getDaysInMonthUTC(month, year);
-
-	const renduCalendrier = () => {
-		const calendrier = [];
-		{
-			currentMonth.map((day, index) => {
-				day = day.getDate();
-				if (index % 7 === 0) {
-					calendrier.push(
-						<>
-							<br /> {day} -
-						</>
-					);
-				} else {
-					calendrier.push(<>{day} - </>);
-				}
-			});
-			console.log("====================================");
-			console.log(calendrier);
-			console.log("====================================");
-			return calendrier;
-		}
-	};
-	renduCalendrier();
+	let currentMonth = getDaysInMonthUTC(month, year);
+	currentMonth = _.chunk(currentMonth, 7);
+	console.log("====================================");
+	console.log(currentMonth);
+	console.log("====================================");
+	// const renduCalendrier = () => {
+	// 	const calendrier = [];
+	// 	{
+	// 		currentMonth.map((day, index) => {
+	// 			day = day.getDate();
+	// 			if (index % 7 === 0 && index !== 0) {
+	// 				calendrier.push(
+	// 					<>
+	// 						<br /> {day} -
+	// 					</>
+	// 				);
+	// 			} else {
+	// 				calendrier.push(<> {day} - </>);
+	// 			}
+	// 		});
+	// 	}
+	// 	return calendrier;
+	// };
+	// renduCalendrier();
 
 	return (
 		<Box sx={{ height: "100vh" }}>
@@ -98,11 +96,33 @@ const Calendar = () => {
 				</Button>
 			</Box>
 			<Box sx={{ marginTop: 5, display: "flex", justifyContent: "center", flexDirection: "column", gap: 2 }}>
-				{/* <p>{currentMonth.join(", ")}</p> */}
-				{renduCalendrier()}
+				<table>
+					<thead>
+						<tr>
+							<th>Lundi</th>
+							<th>Mardi</th>
+							<th>Mercredi</th>
+							<th>Jeudi</th>
+							<th>Vendredi</th>
+							<th>Samedi</th>
+							<th>Dimanche</th>
+						</tr>
+					</thead>
+					<tbody>
+						{currentMonth.map((week, weekIndex) => (
+							<tr key={weekIndex} style={{ marginInline: 5 }}>
+								{week.map((day, dayIndex) => (
+									<td key={dayIndex} style={{ textAlign: "center" }}>
+										{day.getDate()}
+									</td>
+								))}
+							</tr>
+						))}
+					</tbody>
+				</table>
 			</Box>
 		</Box>
 	);
-};
+};;;;;;;;;;;;;
 
 export default Calendar;

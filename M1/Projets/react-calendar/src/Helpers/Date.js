@@ -5,6 +5,13 @@ export const getPreviousDay = (date = new Date()) => {
     return previous;
 };
 
+export const getNextDay = (date = new Date()) => {
+    const forward = new Date(date.getTime());
+    forward.setDate(date.getDate() + 1);
+
+    return forward;
+};
+
 export const getDaysInMonth = (month, year) => {
     const allDays = new Array(31)
         .fill(null)
@@ -15,34 +22,42 @@ export const getDaysInMonth = (month, year) => {
     return allDays;
 };
 
+const isMonday = (date = new Date()) => {
+    if (date.getUTCDay() === 0) return true;
+    return false;
+};
+
 export const getDaysInMonthUTC = (month, year) => {
-    const allDays = new Array(31)
+    let allDays = new Array(31)
         .fill(null)
         .map((v, i) => new Date(year, month - 1, i + 1))
         .filter((v) => v.getMonth() === month - 1);
 
     const daysToAdd = [];
 
-    const generateDatesToMonday = () => {
-        while (isMonday(daysToAdd.at(-1)) !== true) {
-            let day = new Date();
-            if (daysToAdd.length) {
-                day = getPreviousDay(new Date(daysToAdd.at(-1)));
-            } else {
-                day = getPreviousDay(new Date(allDays[0]));
-            }
-            daysToAdd.push(day);
+    // generateDatesToMonday();
+    while (isMonday(daysToAdd.at(-1)) !== true) {
+        let day = new Date();
+        if (daysToAdd.length) {
+            day = getPreviousDay(new Date(daysToAdd.at(-1)));
+        } else {
+            day = getPreviousDay(new Date(allDays[0]));
         }
-    };
+        daysToAdd.push(day);
+    }
 
-    const isMonday = (date = new Date()) => {
-        if (date.getUTCDay() === 0) return true;
-        return false;
-    };
+    allDays = [...daysToAdd.reverse(), ...allDays];
 
-    generateDatesToMonday();
+    // Complete calendar
+    while (allDays.length !== 42) {
+        let day = new Date();
+        day = getNextDay(new Date(allDays.at(-1)));
+        allDays.push(day);
+    }
 
-    return [...daysToAdd.reverse(), ...allDays];
+
+
+    return allDays;
 };
 
 export const getLastWeek = (tableOfUTCDays) => {
