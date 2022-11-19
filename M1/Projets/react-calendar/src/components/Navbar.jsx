@@ -14,9 +14,17 @@ const Navbar = () => (
 				</Link>
 			</Typography>
 
-			<Box sx={{ marginLeft: "auto" }}>
+			<Box sx={{ marginLeft: "auto", display: "flex", gap: 3 }}>
 				<Link to="/reservations" className="link-nav">
 					Mes réservations
+				</Link>
+
+				<Link to="/login" className="link-nav">
+					Connexion
+				</Link>
+
+				<Link to="/signup" className="link-nav">
+					Créer un compte
 				</Link>
 			</Box>
 		</Toolbar>
