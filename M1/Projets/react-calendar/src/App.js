@@ -8,6 +8,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Home from "./pages/Home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import Reservations from "./pages/Reservations";
 
 const theme = createTheme();
 
@@ -19,6 +20,7 @@ function App() {
 				<Navbar />
 				<Routes>
 					<Route path="/" element={<Home />} />
+					<Route path="/reservations" element={<Reservations />} />
 				</Routes>
 			</BrowserRouter>
 		</ThemeProvider>

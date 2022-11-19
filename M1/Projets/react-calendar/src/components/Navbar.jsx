@@ -1,17 +1,24 @@
 import React from "react";
 
-import AppBar from "@mui/material/AppBar";
+import { AppBar, Box, Toolbar, Typography } from "@mui/material";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
+import { Link } from "react-router-dom";
 
 const Navbar = () => (
 	<AppBar position="relative">
 		<Toolbar>
-			<CalendarMonthIcon sx={{ mr: 2 }} />
 			<Typography variant="h6" color="inherit" noWrap>
-				React Calendar
+				<Link to="/" className="link-nav">
+					<CalendarMonthIcon sx={{ mr: 2 }} />
+					<span>React Calendar</span>
+				</Link>
 			</Typography>
+
+			<Box sx={{ marginLeft: "auto" }}>
+				<Link to="/reservations" className="link-nav">
+					Mes réservations
+				</Link>
+			</Box>
 		</Toolbar>
 	</AppBar>
 );

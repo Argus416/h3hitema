@@ -1,3 +1,4 @@
+@import "fun";
 .day-celendar {
     transition: all .3s ease;
     &:hover {
@@ -12,4 +13,12 @@
     &:hover {
         cursor: not-allowed;
     }
+}
+
+.link-nav {
+    @include hoverEffect();
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
 }
