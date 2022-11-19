@@ -12,18 +12,6 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link } from "react-router-dom";
-function Copyright(props) {
-	return (
-		<Typography variant="body2" color="text.secondary" align="center" {...props}>
-			{"Copyright © "}
-			<Link color="inherit" href="https://mui.com/">
-				Your Website
-			</Link>{" "}
-			{new Date().getFullYear()}
-			{"."}
-		</Typography>
-	);
-}
 
 const theme = createTheme();
 
@@ -56,17 +44,8 @@ const Login = () => {
 						Connexion
 					</Typography>
 					<Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-						<TextField margin="normal" required fullWidth id="email" label="Email" name="email" autoComplete="email" autoFocus />
-						<TextField
-							margin="normal"
-							required
-							fullWidth
-							name="password"
-							label="Mots de passe"
-							type="password"
-							id="password"
-							autoComplete="current-password"
-						/>
+						<TextField margin="normal" required fullWidth id="email" label="Email" name="email" autoFocus />
+						<TextField margin="normal" required fullWidth name="password" label="Mots de passe" type="password" id="password" />
 						<Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
 							Connexion
 						</Button>
