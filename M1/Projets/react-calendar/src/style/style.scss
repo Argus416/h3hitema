@@ -1,0 +1,15 @@
+.day-celendar {
+    transition: all .3s ease;
+    &:hover {
+        opacity: .7;
+        background-color: #fff;
+        cursor: pointer;
+    }
+}
+
+.old-date {
+    color: rgb(209, 209, 209);
+    &:hover {
+        cursor: not-allowed;
+    }
+}

@@ -112,8 +112,12 @@ const Calendar = () => {
 						{currentMonth.map((week, weekIndex) => (
 							<tr key={weekIndex} style={{ marginInline: 5 }}>
 								{week.map((day, dayIndex) => (
-									<td key={dayIndex} style={{ textAlign: "center" }}>
-										{day.getDate()}
+									<td
+										className={day.isInCurrentMonth ? "day-celendar" : "day-celendar old-date"}
+										key={dayIndex}
+										style={{ textAlign: "center" }}
+									>
+										{day.day.getDate()}
 									</td>
 								))}
 							</tr>
@@ -123,6 +127,6 @@ const Calendar = () => {
 			</Box>
 		</Box>
 	);
-};;;;;;;;;;;;;
+};
 
 export default Calendar;
