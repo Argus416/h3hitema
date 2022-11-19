@@ -1,0 +1,7 @@
+@mixin hoverEffect {
+    transition: opacity .3s ease-in-out;
+    cursor: pointer;
+    &:hover {
+        opacity: 0.7;
+    }
+}
