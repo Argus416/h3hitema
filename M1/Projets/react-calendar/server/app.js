@@ -4,9 +4,13 @@ const path = require("path");
 const Fastify = require("fastify");
 const fastifyStatic = require("@fastify/static");
 
+const fastifyKnex = require("./plugin/fastifyKnex");
+
 const server = Fastify({
     logger: true,
 });
+
+server.register(fastifyKnex);
 
 server.register(fastifyStatic, {
     root: path.join(__dirname, "public"),
