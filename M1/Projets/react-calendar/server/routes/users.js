@@ -1,4 +1,13 @@
-module.exports = function(fastify, opts, done) {
-    fastify.get("/user", handler_v1);
+async function routes(fastify, opts, done) {
+    fastify.get("/", (req, res) => {
+        res.send("<h1>toto h1</h1>");
+    });
+
+    fastify.get("/two", (req, res) => {
+        res.send("<h1>toto h2</h1>");
+    });
+
     done();
-};
+}
+
+module.exports = routes;

@@ -13,14 +13,8 @@ server.register(fastifyStatic, {
     prefix: "/public",
 });
 
-server.register(
-    async(instance, opts, next) => {
-        instance.get("/", async(req, rep) => {
-            // rep.json()
-            return { hello: "world" };
-        });
-    }, { prefix: "users" }
-);
+const users = require("./routes/users");
+server.register(users, { prefix: "users" });
 
 /**
  * Run the server!
