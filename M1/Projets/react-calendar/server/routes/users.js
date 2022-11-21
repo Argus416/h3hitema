@@ -1,5 +1,6 @@
 const userSchema = require("../models/users");
 async function routes(fastify, opts, done) {
+    const { knex } = fastify;
     fastify.get("/", (req, res) => {
         res.send("<h1>toto h1</h1>");
     });
