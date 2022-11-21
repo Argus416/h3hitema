@@ -1,5 +1,6 @@
 require("dotenv").config();
 
+
 const path = require("path");
 const Fastify = require("fastify");
 const cors = require("@fastify/cors");
@@ -22,6 +23,8 @@ fastify.register(cors, {});
 
 const createTablesRoute = require("./models/index");
 const usersRoutes = require("./routes/users");
+
+
 
 fastify.register(createTablesRoute);
 fastify.register(usersRoutes, { prefix: "users" });
