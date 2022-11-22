@@ -1,8 +1,10 @@
-const pgTables = require("./env/pgTables");
+const pgTables = require("../env/pgTables");
+const fastifyKnex = require("../plugin/fastifyKnex");
 const { USER_TABLE } = pgTables;
-class User {
-    constructor(app) {
-        this.knex = app.kenx;
+
+module.exports = class User {
+    constructor(knex) {
+        this.knex = knex;
     }
 
     async createUser(data) {
@@ -54,4 +56,4 @@ class User {
             console.error("Unable to get users");
         }
     }
-}
+};

@@ -32,9 +32,6 @@ const Calendar = () => {
 
 	let currentMonth = getDaysInMonthUTC(month, year);
 	currentMonth = _.chunk(currentMonth, 7);
-	console.log("====================================");
-	console.log(currentMonth);
-	console.log("====================================");
 	// const renduCalendrier = () => {
 	// 	const calendrier = [];
 	// 	{

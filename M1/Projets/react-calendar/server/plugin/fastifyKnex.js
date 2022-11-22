@@ -7,6 +7,7 @@ require("dotenv").config();
 const knexConnector = async(server, options = {}) => {
     const db = knex({
         client: process.env.DB_SQL_CLIENT,
+        // debug: true,
         connection: {
             host: process.env.DB_SQL_HOST,
             user: process.env.DB_SQL_USER,

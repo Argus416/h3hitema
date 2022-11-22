@@ -7,19 +7,31 @@ const cors = require("@fastify/cors");
 
 const fastifyStatic = require("@fastify/static");
 const fastifyKnex = require("./plugin/fastifyKnex");
+const helmet = require("@fastify/helmet");
 
 const fastify = Fastify({
     logger: true,
 });
 
-fastify.register(fastifyStatic, {
-    root: path.join(__dirname, "public"),
-    prefix: "/public",
+fastify
+    .register(fastifyStatic, {
+        root: path.join(__dirname, "public"),
+        prefix: "/public",
+    })
+    .after((err) => {
+        if (err) throw err;
+    });
+
+fastify.register(helmet);
+
+fastify.register(fastifyKnex, {}).after((err) => {
+    if (err) throw err;
 });
 
-fastify.register(fastifyKnex, {});
+fastify.register(cors, {}).after((err) => {
+    if (err) throw err;
+});
 
-fastify.register(cors, {});
 
 const createTablesRoute = require("./models/index");
 const usersRoutes = require("./routes/users");

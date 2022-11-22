@@ -23,7 +23,6 @@ export const getDaysInMonth = (month, year) => {
 };
 
 const isMonday = (date = new Date()) => {
-    console.log(date, "date");
     if (typeof date === "object") {
         date = new Date(date.day);
     }
@@ -74,7 +73,6 @@ export const getDaysInMonthUTC = (month, year) => {
         allDays.push(obj);
     }
 
-    console.log(allDays, "allDays");
 
     return allDays;
 };

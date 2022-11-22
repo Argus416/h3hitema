@@ -1,4 +1,4 @@
 module.exports = {
-    USER_TABLE: "user",
-    TASK_TABLE: "task",
+    USER_TABLE: "users",
+    TASK_TABLE: "tasks",
 };
