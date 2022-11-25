@@ -5,6 +5,7 @@ module.exports = function userSchema(knex) {
                 t.increments("id").primary();
                 t.string("first_name", 100);
                 t.string("last_name", 100);
+                t.timestamps();
             });
         }
     });

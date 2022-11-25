@@ -26,6 +26,7 @@ exports.createUser = async(req, res) => {
         const data = {
             first_name: faker.name.firstName(),
             last_name: faker.name.lastName(),
+            created_at: new Date(),
         };
 
         const getAllUsers = await User.createUser(data);
@@ -45,6 +46,7 @@ exports.updateUser = async(req, res) => {
         const data = {
             first_name: faker.name.firstName(),
             last_name: faker.name.lastName(),
+            updated_at: new Date(),
         };
 
         const updateUser = await User.updateUser(userId, data);
