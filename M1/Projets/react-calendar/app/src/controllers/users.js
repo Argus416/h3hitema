@@ -22,6 +22,17 @@ class User {
         }
     }
 
+    async getUserLogin(data) {
+        try {
+            const user = await axios.post(`${apiUrl}/users/login`, data);
+            console.log("Get user", user);
+
+            return user;
+        } catch (err) {
+            console.error("Unable to get user", err);
+        }
+    }
+
     async createUser(data) {
         try {
             const newUser = await axios.post(`${apiUrl}/users/create`, data);

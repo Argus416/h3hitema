@@ -1,14 +1,7 @@
 import * as React from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Avatar, Button, CssBaseline, TextField, Grid, Box, Container, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Face6Icon from "@mui/icons-material/Face6";
 import User from "../../controllers/users";
 import { useRef } from "react";
@@ -17,13 +10,21 @@ const theme = createTheme();
 
 const Signup = () => {
 	const signupForm = useRef(null);
-	const handleSubmit = (event) => {
-		event.preventDefault();
-		const formData = new FormData(signupForm.current);
-		// const data = Object.fromEntries()
-		console.log(formData.values(), "data");
-		console.log(signupForm.current);
-		// const newUser = await User.createUser()
+	const handleSubmit = async (event) => {
+		try {
+			event.preventDefault();
+			const form = event.target;
+			const data = {
+				first_name: form.first_name?.value,
+				last_name: form.last_name?.value,
+				email: form.email?.value,
+				password: form.password?.value,
+			};
+			const newUser = await User.createUser(data);
+			console.log(newUser);
+		} catch (err) {
+			console.log("Unable to do ajax call");
+		}
 	};
 
 	return (
@@ -47,17 +48,17 @@ const Signup = () => {
 					</Typography>
 
 					<Box ref={signupForm} component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+						<Grid container spacing={1}>
+							<Grid item xs={6}>
+								<TextField margin="normal" required fullWidth id="first_name" label="Votre prénom" name="first_name" autoFocus />
+							</Grid>
+							<Grid item xs={6}>
+								<TextField margin="normal" required fullWidth name="last_name" label="Votre nom" id="last_name" />
+							</Grid>
+						</Grid>
 						<TextField margin="normal" required fullWidth id="email" label="Email" name="email" autoFocus />
 						<TextField margin="normal" required fullWidth name="password" label="Mots de passe" type="password" id="password" />
-						<TextField
-							margin="normal"
-							required
-							fullWidth
-							name="password_confirmation"
-							label="Je confirme mon mot de passe"
-							type="password"
-							id="password_confirmation"
-						/>
+
 						<Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
 							Créer un nouveau compte
 						</Button>

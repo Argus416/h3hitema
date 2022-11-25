@@ -16,6 +16,17 @@ class User {
         }
     }
 
+    async getUserLogin(data) {
+        try {
+            const { email, password } = data;
+            const knex = this.knex;
+            const user = await knex.from(USER_TABLE).select("*").where({ email, password });
+            return user;
+        } catch (err) {
+            console.error("Unable to get user");
+        }
+    }
+
     async getUser(userId) {
         try {
             const knex = this.knex;
@@ -29,7 +40,7 @@ class User {
     async createUser(data) {
         try {
             const knex = this.knex;
-            const newUser = await knex(USER_TABLE).insert(data);
+            const newUser = await knex(USER_TABLE).insert(data).orderBy("id", "desc");
             return newUser;
         } catch (err) {
             console.error("Unable to create new user", err);

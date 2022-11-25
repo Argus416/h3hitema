@@ -22,16 +22,26 @@ exports.getUser = async(req, res) => {
     }
 };
 
+
+exports.getUserLogin = async(req, res) => {
+    try {
+        const getUserLogin = await User.getUserLogin(req.body);
+        res.send(getUserLogin);
+    } catch (err) {
+        console.error(err);
+        res.send("Unable to get user from the User controller");
+    }
+};
+
 exports.createUser = async(req, res) => {
     try {
         const data = {
-            first_name: faker.name.firstName(),
-            last_name: faker.name.lastName(),
+            ...req.body,
             created_at: new Date(),
         };
 
-        const getAllUsers = await User.createUser(data);
-        console.log(getAllUsers, "getAllUsers");
+        const createUser = await User.createUser(data);
+        console.log(createUser, "createUser");
 
         res.send("postUser");
     } catch (err) {
