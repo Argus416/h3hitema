@@ -7,15 +7,15 @@ class Task {
         this.knex = pg;
     }
 
-    async getAppointments() {
+    async getAppointments(userId) {
         try {
             const knex = this.knex;
-            // const appointment = await knex.from(APPOINTMENT_TABLE).innerJoin("users", "appointment.userId", `users.id`).options({ nestTables: true });
-            const appointments = await knex("appointments")
-                .select(["appointments.*", knex.raw("to_json(users.*) as users")])
-                .innerJoin("users", {
-                    "appointments.userId": "users.id",
-                });
+            const appointments = await knex(APPOINTMENT_TABLE)
+                .join(`${USER_TABLE}`, `${USER_TABLE}.id`, `${APPOINTMENT_TABLE}.userId`)
+                .select([`${APPOINTMENT_TABLE}.*`, knex.raw(`to_json(${USER_TABLE}.*) as ${USER_TABLE}`)])
+                .where({ "users.id": userId })
+                .orderBy("id", "desc");
+
             return appointments;
         } catch (err) {
             console.error("Unable to get appointments", err);
@@ -25,10 +25,9 @@ class Task {
     async getAppointment(appointmentId) {
         try {
             const knex = this.knex;
-            // const task = await knex.from(APPOINTMENT_TABLE).select("*").where({ id: appointmentId });
             const appointment = await knex(APPOINTMENT_TABLE)
-                .join("users", "users.id", "appointments.userId")
-                .select("appointments.*", knex.raw("to_json(users.*) as users"))
+                .join(`${USER_TABLE}`, `${USER_TABLE}.id`, `${APPOINTMENT_TABLE}.userId`)
+                .select(`${APPOINTMENT_TABLE}.*`, knex.raw(`to_json(${USER_TABLE}.*) as ${USER_TABLE}`))
                 .where({ "appointments.id": appointmentId });
             return appointment;
         } catch (err) {

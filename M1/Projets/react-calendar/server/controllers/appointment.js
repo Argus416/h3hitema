@@ -3,7 +3,8 @@ const { faker } = require("@faker-js/faker");
 
 exports.getAppointments = async(req, res) => {
     try {
-        const getAllAppointment = await Appointment.getAppointments();
+        const { userId } = req.params;
+        const getAllAppointment = await Appointment.getAppointments(userId);
         res.send(getAllAppointment);
     } catch (err) {
         console.error(err);
@@ -27,7 +28,7 @@ exports.createAppointment = async(req, res) => {
         const data = {
             title: faker.lorem.sentence(5),
             description: faker.lorem.paragraph(3),
-            userId: 1,
+            userId: 2,
             created_at: new Date(),
         };
 
@@ -61,14 +62,14 @@ exports.updateAppointment = async(req, res) => {
     }
 };
 
-exports.deleteUser = async(req, res) => {
+exports.deleteAppointment = async(req, res) => {
     try {
-        const { userId } = req.params;
+        const { appointmentId } = req.params;
 
-        const deleteUser = await User.deleteUser(userId);
-        console.log(deleteUser, "deleteUser");
+        const deleteAppointment = await Appointment.deleteAppointment(appointmentId);
+        console.log(deleteAppointment, "deleteAppointment");
 
-        res.send("deleteUser");
+        res.send("deleteAppointment");
     } catch (err) {
         console.error(err);
         res.send("Unable to delete appointment from the Appointment controller");
