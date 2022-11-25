@@ -30,6 +30,7 @@ const Signup = () => {
 						alignItems: "center",
 					}}
 				>
+					{process.env.REACT_APP_API_URL}
 					<Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
 						<Face6Icon />
 					</Avatar>
