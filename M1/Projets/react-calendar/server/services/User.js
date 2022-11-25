@@ -1,39 +1,18 @@
 const pgTables = require("../env/pgTables");
-const fastifyKnex = require("../plugin/fastifyKnex");
 const { USER_TABLE } = pgTables;
-
-module.exports = class User {
-    constructor(knex) {
-        this.knex = knex;
+const pg = require("../db");
+class User {
+    constructor() {
+        this.knex = pg;
     }
 
-    async createUser(data) {
+    async getUsers() {
         try {
             const knex = this.knex;
-            const newUser = await knex(USER_TABLE).insert(data);
-            return newUser;
+            const user = await knex.from(USER_TABLE).select("*");
+            return user;
         } catch (err) {
-            console.error("Unable to create new user");
-        }
-    }
-
-    async deleteUser(userId) {
-        try {
-            const knex = this.knex;
-            const deleteUser = await knex(USER_TABLE).where({ id: userId }).del();
-            return deleteUser;
-        } catch (err) {
-            console.error("Unable to delete user");
-        }
-    }
-
-    async updateUser(userId) {
-        try {
-            const knex = this.knex;
-            const updateUser = await knex(USER_TABLE).where({ id: userId }).update(data);
-            return updateUser;
-        } catch (err) {
-            console.error("Unable to update user");
+            console.error("Unable to get users", err);
         }
     }
 
@@ -47,13 +26,37 @@ module.exports = class User {
         }
     }
 
-    async getUsers() {
+    async createUser(data) {
         try {
             const knex = this.knex;
-            const user = await knex.from(USER_TABLE).select("*");
-            return user;
+            const newUser = await knex(USER_TABLE).insert(data);
+            return newUser;
         } catch (err) {
-            console.error("Unable to get users");
+            console.error("Unable to create new user", err);
         }
     }
-};
+
+    async updateUser(userId, data) {
+        try {
+            const knex = this.knex;
+            const updateUser = await knex(USER_TABLE).where({ id: userId }).update(data);
+            return updateUser;
+        } catch (err) {
+            console.error("Unable to update user");
+        }
+    }
+
+    async deleteUser(userId) {
+        try {
+            const knex = this.knex;
+            const deleteUser = await knex(USER_TABLE).where({ id: userId }).del();
+            return deleteUser;
+        } catch (err) {
+            console.error("Unable to delete user", err);
+        }
+    }
+}
+
+const user = new User();
+
+module.exports = user;

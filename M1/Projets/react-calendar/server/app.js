@@ -1,12 +1,10 @@
 require("dotenv").config();
 
-
 const path = require("path");
 const Fastify = require("fastify");
 const cors = require("@fastify/cors");
 
 const fastifyStatic = require("@fastify/static");
-const fastifyKnex = require("./plugin/fastifyKnex");
 const helmet = require("@fastify/helmet");
 
 const fastify = Fastify({
@@ -24,19 +22,12 @@ fastify
 
 fastify.register(helmet);
 
-fastify.register(fastifyKnex, {}).after((err) => {
-    if (err) throw err;
-});
-
 fastify.register(cors, {}).after((err) => {
     if (err) throw err;
 });
 
-
 const createTablesRoute = require("./models/index");
 const usersRoutes = require("./routes/users");
-
-
 
 fastify.register(createTablesRoute);
 fastify.register(usersRoutes, { prefix: "users" });

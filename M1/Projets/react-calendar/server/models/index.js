@@ -1,8 +1,8 @@
+const pg = require("../db");
 const userSchema = require("./users");
 async function createTables(fastify, opts, done) {
-    const { knex } = fastify;
     try {
-        userSchema(knex);
+        userSchema(pg);
     } catch (err) {
         console.error("Unable to create Schema, please check in models/index.js");
     }
