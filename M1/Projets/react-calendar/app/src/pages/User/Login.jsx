@@ -13,12 +13,14 @@ import { Link } from "react-router-dom";
 import User from "../../controllers/users";
 import { useSelector, useDispatch } from "react-redux";
 import { login } from "../../features/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const theme = createTheme();
 
 const Login = () => {
 	const dispatch = useDispatch();
 	const currentUser = useSelector((state) => state.user);
+	const navigate = useNavigate();
 
 	const handleSubmit = async (event) => {
 		try {
@@ -35,7 +37,7 @@ const Login = () => {
 			if (Object.keys(loggedInUser.data).length) {
 				loggedInUser.data.isLoggedIn = true;
 				dispatch(login(loggedInUser.data));
-				console.log("logged in successfully", currentUser, loggedInUser.data);
+				navigate("/");
 			}
 		} catch (err) {
 			console.log("Unable to login from api");

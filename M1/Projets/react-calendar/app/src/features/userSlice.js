@@ -1,7 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-const isLoggedIn = JSON.parse(localStorage.getItem("login"));
-
 const initialState = {
     id: 0,
     first_name: "",
@@ -11,9 +8,12 @@ const initialState = {
     isLoggedIn: false,
 };
 
-if (isLoggedIn.length) {
-    const keys = Object.keys(isLoggedIn);
-    console.log(keys, "kye");
+const currentUser = JSON.parse(localStorage.getItem("login"));
+if (localStorage.getItem("login")) {
+    const keys = Object.keys(currentUser);
+    for (let key of keys) {
+        initialState[key] = currentUser[key];
+    }
 }
 
 export const userSlice = createSlice({
@@ -28,10 +28,15 @@ export const userSlice = createSlice({
             localStorage.setItem("login", JSON.stringify(state));
             return state;
         },
+        logout: (state) => {
+            state = {};
+            localStorage.removeItem("login");
+            return state;
+        },
     },
 });
 
 // Action creators are generated for each case reducer function
-export const { getUser, login } = userSlice.actions;
+export const { getUser, login, logout } = userSlice.actions;
 
 export default userSlice.reducer;

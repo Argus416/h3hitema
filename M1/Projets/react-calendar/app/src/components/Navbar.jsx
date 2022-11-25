@@ -1,11 +1,22 @@
 import React from "react";
 
-import { AppBar, Box, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../features/userSlice";
+import { useNavigate } from "react-router-dom";
+
 const Navbar = () => {
 	const currentUser = useSelector((state) => state.user);
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+
+	const logoutHanlder = () => {
+		dispatch(logout());
+		navigate("/login");
+	};
+
 	return (
 		<AppBar position="relative">
 			<Toolbar>
@@ -28,9 +39,14 @@ const Navbar = () => {
 							</Link>
 						</>
 					) : (
-						<Link to="/reservations" className="link-nav">
-							Mes réservations
-						</Link>
+						<>
+							<Link to="/reservations" className="link-nav">
+								Mes réservations
+							</Link>
+							<Button onClick={logoutHanlder} className="link-nav" variant="contained" color="error">
+								Déconnexion
+							</Button>
+						</>
 					)}
 				</Box>
 			</Toolbar>
