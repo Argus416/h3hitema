@@ -10,12 +10,20 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import Face6Icon from "@mui/icons-material/Face6";
+import User from "../../controllers/users";
+import { useRef } from "react";
+
 const theme = createTheme();
 
 const Signup = () => {
+	const signupForm = useRef(null);
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		const data = new FormData(event.currentTarget);
+		const formData = new FormData(signupForm.current);
+		// const data = Object.fromEntries()
+		console.log(formData.values(), "data");
+		console.log(signupForm.current);
+		// const newUser = await User.createUser()
 	};
 
 	return (
@@ -37,23 +45,27 @@ const Signup = () => {
 					<Typography component="h1" variant="h5">
 						Création
 					</Typography>
-					<Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+
+					<Box ref={signupForm} component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
 						<TextField margin="normal" required fullWidth id="email" label="Email" name="email" autoFocus />
 						<TextField margin="normal" required fullWidth name="password" label="Mots de passe" type="password" id="password" />
-						<TextField margin="normal" required fullWidth name="password" label="Je confirme mon mot de passe" type="password" id="password" />
+						<TextField
+							margin="normal"
+							required
+							fullWidth
+							name="password_confirmation"
+							label="Je confirme mon mot de passe"
+							type="password"
+							id="password_confirmation"
+						/>
 						<Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
 							Créer un nouveau compte
 						</Button>
 
 						<Grid container>
-							<Grid item xs>
-								<Link to="/forgot-password" variant="body2">
-									Mots de passe oublié
-								</Link>
-							</Grid>
 							<Grid item>
 								<Link to="/login" variant="body2">
-									Je me conntect
+									Je me connect
 								</Link>
 							</Grid>
 						</Grid>
