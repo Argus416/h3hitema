@@ -7,7 +7,7 @@ exports.getUsers = async(req, res) => {
         res.send(getAllUsers);
     } catch (err) {
         console.error(err);
-        res.send("Unalbe to get users from the User controller");
+        res.send("Unable to get users from the User controller");
     }
 };
 
@@ -18,7 +18,7 @@ exports.getUser = async(req, res) => {
         res.send(getUser);
     } catch (err) {
         console.error(err);
-        res.send("Unalbe to get user from the User controller");
+        res.send("Unable to get user from the User controller");
     }
 };
 
@@ -36,7 +36,7 @@ exports.createUser = async(req, res) => {
         res.send("postUser");
     } catch (err) {
         console.error(err);
-        res.send("Unalbe to get user from the User controller");
+        res.send("Unable to get user from the User controller");
     }
 };
 
@@ -56,7 +56,7 @@ exports.updateUser = async(req, res) => {
         res.send("updateUser");
     } catch (err) {
         console.error(err);
-        res.send("Unalbe to update user from the User controller");
+        res.send("Unable to update user from the User controller");
     }
 };
 
@@ -70,6 +70,6 @@ exports.deleteUser = async(req, res) => {
         res.send("deleteUser");
     } catch (err) {
         console.error(err);
-        res.send("Unalbe to delete user from the User controller");
+        res.send("Unable to delete user from the User controller");
     }
 };

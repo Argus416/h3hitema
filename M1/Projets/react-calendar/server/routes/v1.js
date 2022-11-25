@@ -1,6 +1,5 @@
 const { getUsers, getUser, createUser, updateUser, deleteUser } = require("../controllers/users");
-const { getTasks, getTask, createTask } = require("../controllers/tasks");
-const userSchema = require("../models/users");
+const { getAppointments, getAppointment, createAppointment, updateAppointment } = require("../controllers/appointment");
 
 async function routes(fastify, opts, done) {
     // users
@@ -11,13 +10,11 @@ async function routes(fastify, opts, done) {
     fastify.delete("/users/delete/:userId", deleteUser);
 
     // users
-    fastify.get("/tasks", getTasks);
-    fastify.get("/tasks/get/:taskId", getTask);
-    fastify.post("/tasks/create", createTask);
-    // fastify.get("/tasks/get/:userId", getUser);
-    // fastify.post("/tasks/create", createUser);
-    // fastify.patch("/tasks/update/:userId", updateUser);
-    // fastify.delete("/tasks/delete/:userId", deleteUser);
+    fastify.get("/appointments", getAppointments);
+    fastify.get("/appointments/get/:appointmentId", getAppointment);
+    fastify.post("/appointments/create", createAppointment);
+    fastify.patch("/appointments/update/:appointmentId", updateAppointment);
+    // fastify.delete("/appointments/delete/:userId", deleteUser);
 
     done();
 }
