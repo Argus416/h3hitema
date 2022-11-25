@@ -21,7 +21,7 @@ class User {
             const { email, password } = data;
             const knex = this.knex;
             const user = await knex.from(USER_TABLE).select("*").where({ email, password });
-            return user;
+            return user[0];
         } catch (err) {
             console.error("Unable to get user");
         }

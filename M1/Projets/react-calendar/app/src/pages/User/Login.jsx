@@ -3,8 +3,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -12,13 +10,36 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link } from "react-router-dom";
+import User from "../../controllers/users";
+import { useSelector, useDispatch } from "react-redux";
+import { login } from "../../features/userSlice";
 
 const theme = createTheme();
 
 const Login = () => {
-	const handleSubmit = (event) => {
-		event.preventDefault();
-		const data = new FormData(event.currentTarget);
+	const dispatch = useDispatch();
+	const currentUser = useSelector((state) => state.user);
+
+	const handleSubmit = async (event) => {
+		try {
+			event.preventDefault();
+			const form = event.target;
+
+			const data = {
+				email: form.email.value,
+				password: form.password.value,
+			};
+
+			const loggedInUser = await User.getUserLogin(data);
+
+			if (Object.keys(loggedInUser.data).length) {
+				loggedInUser.data.isLoggedIn = true;
+				dispatch(login(loggedInUser.data));
+				console.log("logged in successfully", currentUser, loggedInUser.data);
+			}
+		} catch (err) {
+			console.log("Unable to login from api");
+		}
 	};
 
 	return (
@@ -40,17 +61,12 @@ const Login = () => {
 						Connexion
 					</Typography>
 					<Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-						<TextField margin="normal" required fullWidth id="email" label="Email" name="email" autoFocus />
-						<TextField margin="normal" required fullWidth name="password" label="Mots de passe" type="password" id="password" />
+						<TextField margin="normal" required fullWidth id="email" label="Email" name="email" value="mohamad@localhost.com" autoFocus />
+						<TextField margin="normal" required fullWidth name="password" label="Mots de passe" value="123321" type="password" id="password" />
 						<Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
 							Connexion
 						</Button>
 						<Grid container>
-							<Grid item xs>
-								<Link to="/forgot-password" variant="body2">
-									Mots de passe oublié
-								</Link>
-							</Grid>
 							<Grid item>
 								<Link to="/signup" variant="body2">
 									Je crée un compte
