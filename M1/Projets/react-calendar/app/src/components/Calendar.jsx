@@ -6,7 +6,7 @@ import { getDaysInMonth, getDaysInMonthUTC, getLastWeek, rangeDate } from "../He
 import TextField from "@mui/material/TextField";
 import _ from "loadsh";
 
-const Calendar = () => {
+const Calendar = ({ selecteDate }) => {
 	const date = new Date();
 	const [year, setYear] = useState(date.getFullYear());
 	const [month, setMonth] = useState(date.getMonth() + 1);
@@ -32,29 +32,15 @@ const Calendar = () => {
 
 	let currentMonth = getDaysInMonthUTC(month, year);
 	currentMonth = _.chunk(currentMonth, 7);
-	// const renduCalendrier = () => {
-	// 	const calendrier = [];
-	// 	{
-	// 		currentMonth.map((day, index) => {
-	// 			day = day.getDate();
-	// 			if (index % 7 === 0 && index !== 0) {
-	// 				calendrier.push(
-	// 					<>
-	// 						<br /> {day} -
-	// 					</>
-	// 				);
-	// 			} else {
-	// 				calendrier.push(<> {day} - </>);
-	// 			}
-	// 		});
-	// 	}
-	// 	return calendrier;
-	// };
-	// renduCalendrier();
 
+	const selecteDateHandler = (day) => {
+		const date = new Date(`${year}/${month}/${day.getDate()}`);
+		selecteDate(date);
+		// return date;
+	};
 	return (
 		<Box sx={{ height: "100vh" }}>
-			<Box sx={{ marginTop: 5, display: "flex", alignItems: "center", gap: 2 }}>
+			<Box sx={{ marginTop: 5, display: "flex", justifyContent: "center", alignItems: "center", gap: 2 }}>
 				<Button variant="contained" onClick={() => setYear(year - 1)}>
 					<ArrowBackIcon />
 				</Button>
@@ -73,7 +59,7 @@ const Calendar = () => {
 					<ArrowForwardIcon />
 				</Button>
 			</Box>
-			<Box sx={{ marginTop: 5, display: "flex", alignItems: "center", gap: 2 }}>
+			<Box sx={{ marginTop: 5, display: "flex", justifyContent: "center", alignItems: "center", gap: 2 }}>
 				<Button variant="contained" onClick={monthDes}>
 					<ArrowBackIcon />
 				</Button>
@@ -114,7 +100,11 @@ const Calendar = () => {
 										key={dayIndex}
 										style={{ textAlign: "center" }}
 									>
-										{day.day.getDate()}
+										{day.isInCurrentMonth ? (
+											<Button onClick={() => selecteDateHandler(day.day)}>{day.day.getDate()}</Button>
+										) : (
+											<span>{day.day.getDate()}</span>
+										)}
 									</td>
 								))}
 							</tr>
