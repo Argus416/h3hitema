@@ -9,7 +9,7 @@ async function routes(fastify, opts, done) {
     fastify.patch("/users/update/:userId", updateUser);
     fastify.delete("/users/delete/:userId", deleteUser);
 
-    // users
+    // appointments
     fastify.get("/appointments/:userId", getAppointments);
     fastify.get("/appointments/get/:appointmentId", getAppointment);
     fastify.post("/appointments/create", createAppointment);
