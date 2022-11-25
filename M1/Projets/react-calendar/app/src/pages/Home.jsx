@@ -3,20 +3,30 @@ import Calendar from "../components/Calendar";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import BasicModal from "../components/BasicModal";
+
 const Home = () => {
 	const [selectedDate, setSelectedDate] = useState();
+	const [openModal, setOpenModal] = useState(false);
+
 	const currentUser = useSelector((state) => state.user);
 	const navigate = useNavigate();
 
 	const selecteDate = (date) => {
 		setSelectedDate(date);
+		setOpenModal(true);
 		console.log(date);
+	};
+
+	const closeModal = () => {
+		setOpenModal(false);
 	};
 
 	return (
 		<Container sx={{ marginTop: 3 }}>
 			{currentUser.isLoggedIn ? (
 				<Box>
+					<BasicModal openModal={openModal} closeModal={closeModal} date={selectedDate} />
 					<Calendar selecteDate={selecteDate} />
 				</Box>
 			) : (
