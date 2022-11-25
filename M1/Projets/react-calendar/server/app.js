@@ -27,10 +27,10 @@ fastify.register(cors, {}).after((err) => {
 });
 
 const createTablesRoute = require("./models/index");
-const usersRoutes = require("./routes/users");
+const v1_routes = require("./routes/v1");
 
 fastify.register(createTablesRoute);
-fastify.register(usersRoutes, { prefix: "users" });
+fastify.register(v1_routes, { prefix: "v1" });
 
 /**
  * Run the fastify!

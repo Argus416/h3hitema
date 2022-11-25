@@ -10,8 +10,13 @@ class Task {
     async getTasks() {
         try {
             const knex = this.knex;
-            const user = await knex.from(TASK_TABLE).innerJoin("users", "tasks.userId", "users.id");
-            return user;
+            // const tasks = await knex.from(TASK_TABLE).innerJoin("users", "tasks.userId", `users.id`).options({ nestTables: true });
+            const tasks = knex("tasks")
+                .select(["tasks.*", knex.raw("to_json(users.*) as users")])
+                .innerJoin("users", {
+                    "tasks.userId": "users.id",
+                });
+            return tasks;
         } catch (err) {
             console.error("Unable to get users", err);
         }
@@ -20,8 +25,12 @@ class Task {
     async getTask(taskId) {
         try {
             const knex = this.knex;
-            const user = await knex.from(TASK_TABLE).select("*").where({ id: taskId });
-            return user;
+            // const task = await knex.from(TASK_TABLE).select("*").where({ id: taskId });
+            const task = knex("tasks")
+                .join("users", "users.id", "tasks.userId")
+                .select("tasks.*", knex.raw("to_json(users.*) as users"))
+                .where({ "tasks.id": taskId });
+            return task;
         } catch (err) {
             console.error("Unable to get user");
         }
