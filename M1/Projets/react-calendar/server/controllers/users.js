@@ -10,6 +10,7 @@ exports.getUsers = async(req, res) => {
         res.send("Unalbe to get users from the User controller");
     }
 };
+
 exports.getUser = async(req, res) => {
     try {
         const { userId } = req.params;
@@ -55,6 +56,20 @@ exports.updateUser = async(req, res) => {
         res.send("updateUser");
     } catch (err) {
         console.error(err);
-        res.send("Unalbe to get user from the User controller");
+        res.send("Unalbe to update user from the User controller");
+    }
+};
+
+exports.deleteUser = async(req, res) => {
+    try {
+        const { userId } = req.params;
+
+        const deleteUser = await User.deleteUser(userId);
+        console.log(deleteUser, "deleteUser");
+
+        res.send("deleteUser");
+    } catch (err) {
+        console.error(err);
+        res.send("Unalbe to delete user from the User controller");
     }
 };
