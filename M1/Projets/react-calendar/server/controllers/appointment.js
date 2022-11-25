@@ -26,9 +26,7 @@ exports.getAppointment = async(req, res) => {
 exports.createAppointment = async(req, res) => {
     try {
         const data = {
-            title: faker.lorem.sentence(5),
-            description: faker.lorem.paragraph(3),
-            userId: 2,
+            ...req.body,
             created_at: new Date(),
         };
 
