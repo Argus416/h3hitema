@@ -18,7 +18,7 @@ const style = {
 	p: 4,
 };
 
-const BasicModal = ({ openModal, closeModal, date }) => {
+const CreateAppointmentModal = ({ openModal, closeModal, date }) => {
 	return (
 		<div>
 			<Modal open={openModal} onClose={closeModal} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
@@ -42,4 +42,4 @@ const BasicModal = ({ openModal, closeModal, date }) => {
 	);
 };
 
-export default BasicModal;
+export default CreateAppointmentModal;
