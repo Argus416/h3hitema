@@ -1,9 +1,9 @@
 import axios from "axios";
 import apiUrl from "./config";
 class Appointment {
-    async getAppointments() {
+    async getAppointments(userId) {
         try {
-            const appointments = await axios.get(`${apiUrl}/appointments`);
+            const appointments = await axios.get(`${apiUrl}/appointments/${userId}`);
             return appointments;
         } catch (err) {
             console.error("Unable to get appointments", err);

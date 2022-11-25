@@ -30,6 +30,7 @@ const CreateAppointmentModal = ({ openModal, closeModal, date }) => {
 				title: form.title.value,
 				description: form.description.value,
 				userId: user.id,
+				rdv: date,
 			};
 
 			const createAppointement = await Appointements.createAppointment(data);
