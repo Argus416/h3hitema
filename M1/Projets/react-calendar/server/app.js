@@ -11,24 +11,16 @@ const fastify = Fastify({
     logger: true,
 });
 
-fastify
-    .register(fastifyStatic, {
-        root: path.join(__dirname, "public"),
-        prefix: "/public",
-    })
-    .after((err) => {
-        if (err) throw err;
-    });
+fastify.register(fastifyStatic, {
+    root: path.join(__dirname, "public"),
+    prefix: "/public",
+});
 
 fastify.register(helmet);
 
-fastify
-    .register(cors, {
-        origin: true,
-    })
-    .after((err) => {
-        if (err) throw err;
-    });
+fastify.register(cors, {
+    origin: "*",
+});
 
 const createTablesRoute = require("./models/index");
 const v1_routes = require("./routes/v1");
@@ -41,7 +33,7 @@ fastify.register(v1_routes, { prefix: "v1" });
  */
 const start = async() => {
     try {
-        await fastify.listen({ port: process.env.PORT });
+        await fastify.listen(process.env.PORT || 3000, "0.0.0.0");
     } catch (err) {
         fastify.log.error(err);
         process.exit(1);
