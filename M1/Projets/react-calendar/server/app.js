@@ -22,9 +22,13 @@ fastify
 
 fastify.register(helmet);
 
-fastify.register(cors, {}).after((err) => {
-    if (err) throw err;
-});
+fastify
+    .register(cors, {
+        origin: true,
+    })
+    .after((err) => {
+        if (err) throw err;
+    });
 
 const createTablesRoute = require("./models/index");
 const v1_routes = require("./routes/v1");
