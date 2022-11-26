@@ -30,7 +30,7 @@ services:
         networks:
             - postgres
         volumes:
-          - ./app:/app
+          - ./server:/app
         deploy:
             restart_policy:
                 condition: on-failure # condition: none, on-failure, or any (default)
