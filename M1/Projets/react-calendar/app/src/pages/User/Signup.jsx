@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Avatar, Button, CssBaseline, TextField, Grid, Box, Container, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Face6Icon from "@mui/icons-material/Face6";
 import User from "../../controllers/users";
@@ -8,6 +8,7 @@ import User from "../../controllers/users";
 const theme = createTheme();
 
 const Signup = () => {
+	const navigate = useNavigate();
 	const handleSubmit = async (event) => {
 		try {
 			event.preventDefault();
@@ -19,7 +20,7 @@ const Signup = () => {
 				password: form.password?.value,
 			};
 			const newUser = await User.createUser(data);
-			console.log(newUser);
+			navigate("/login");
 		} catch (err) {
 			console.log("Unable to do ajax call");
 		}
@@ -47,23 +48,14 @@ const Signup = () => {
 					<Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
 						<Grid container spacing={1}>
 							<Grid item xs={6}>
-								<TextField
-									margin="normal"
-									value="Mohamad"
-									required
-									fullWidth
-									id="first_name"
-									label="Votre prénom"
-									name="first_name"
-									autoFocus
-								/>
+								<TextField margin="normal" fullWidth id="first_name" label="Votre prénom" name="first_name" autoFocus />
 							</Grid>
 							<Grid item xs={6}>
-								<TextField margin="normal" value="Al Khatib" required fullWidth name="last_name" label="Votre nom" id="last_name" />
+								<TextField margin="normal" fullWidth name="last_name" label="Votre nom" id="last_name" />
 							</Grid>
 						</Grid>
-						<TextField margin="normal" required value="mohamad@localhost.com" fullWidth id="email" label="Email" name="email" autoFocus />
-						<TextField margin="normal" required value="123321" fullWidth name="password" label="Mots de passe" type="password" id="password" />
+						<TextField margin="normal" required fullWidth id="email" label="Email" name="email" autoFocus />
+						<TextField margin="normal" required fullWidth name="password" label="Mots de passe" type="password" id="password" />
 
 						<Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
 							Créer un nouveau compte

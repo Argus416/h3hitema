@@ -63,8 +63,8 @@ const Login = () => {
 						Connexion
 					</Typography>
 					<Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-						<TextField margin="normal" required fullWidth id="email" label="Email" name="email" value="mohamad@localhost.com" autoFocus />
-						<TextField margin="normal" required fullWidth name="password" label="Mots de passe" value="123321" type="password" id="password" />
+						<TextField margin="normal" required fullWidth id="email" label="Email" name="email" autoFocus />
+						<TextField margin="normal" required fullWidth name="password" label="Mots de passe" type="password" id="password" />
 						<Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
 							Connexion
 						</Button>

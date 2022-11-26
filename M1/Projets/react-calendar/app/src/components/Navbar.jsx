@@ -40,8 +40,8 @@ const Navbar = () => {
 						</>
 					) : (
 						<>
-							<Link to="/reservations" className="link-nav">
-								Mes réservations
+							<Link to="/calendar" className="link-nav">
+								Réserver un rendez-vous
 							</Link>
 							<Button onClick={logoutHanlder} className="link-nav" variant="contained" color="error">
 								Déconnexion

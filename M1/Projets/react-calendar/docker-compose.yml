@@ -57,6 +57,9 @@ services:
             - 3000:3000
         networks:
             - postgres
+        volumes:
+          - ./app:/app
+
         deploy:
             restart_policy:
                 condition: on-failure # condition: none, on-failure, or any (default)
@@ -65,7 +68,7 @@ services:
                 window: 120s # Duration for determining if a restart is successful
         depends_on: 
         - backend
-
+        
 
 networks:
     postgres:

@@ -34,7 +34,7 @@ const CreateAppointmentModal = ({ openModal, closeModal, date }) => {
 			};
 
 			const createAppointement = await Appointements.createAppointment(data);
-			navigate("/reservations");
+			navigate("/");
 		} catch (err) {
 			console.error("Unable to create appointment from api", err);
 		}

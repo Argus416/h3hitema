@@ -5,10 +5,10 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import CssBaseline from "@mui/material/CssBaseline";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Home from "./pages/Home";
+import CalendarPage from "./pages/CalendarPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Reservations from "./pages/Reservations";
+import Home from "./pages/Home";
 import Login from "./pages/User/Login";
 import Signup from "./pages/User/Signup";
 import Error404 from "./pages/errors/Error404";
@@ -23,14 +23,12 @@ function App() {
 				<Navbar />
 				<Routes>
 					<Route path="/" element={<Home />} />
-					<Route path="/reservations" element={<Reservations />} />
-
+					<Route path="/calendar" element={<CalendarPage />} />
 					<Route path="/login" element={<Login />} />
 					<Route path="/Signup" element={<Signup />} />
-
 					<Route path="*" element={<Error404 />} />
-				</Routes>
-			</BrowserRouter>
+				</Routes>{" "}
+			</BrowserRouter>{" "}
 		</ThemeProvider>
 	);
 }
