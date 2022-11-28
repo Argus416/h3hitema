@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decouvete VueJS</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="search" name="search" id="search"  v-model="search">
+            <h1>{{posts.title}}</h1>
+            <p>{{posts.body}}</p>
+    </div>
+
+
+    <script type="importmap">
+        { "imports": { "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js" } }
+    </script>
+    <script type="module">
+
+        import {
+            createApp
+        } from 'vue'
+
+        createApp({
+            data() {
+                return {
+                    search: "1",
+                    posts: []
+                }
+            },
+            methods:{
+                getPosts : function(){
+                    const url = `https://jsonplaceholder.typicode.com/posts/${this.search}`
+                    console.log({url})
+                    const data = fetch(url)
+                            .then(response => response.json())
+                            .then((data) => this.posts = data)
+                            .catch(err => console.log(err))
+                    return data
+                }
+            },
+
+            mounted(){
+                this.getPosts()
+            },
+
+            watch : {
+                search(newSearch, oldSearch){
+                    if(newSearch.length)
+                        this.getPosts()
+                }
+            }
+           
+            
+        }).mount('#app')
+    </script>
+</body>
+
+</html>

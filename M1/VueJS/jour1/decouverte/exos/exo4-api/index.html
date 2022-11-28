@@ -10,7 +10,7 @@
 
 <body>
     <div id="app">
-        <input type="search" name="search" id="search" placeholder="rechecher un film" v-model="search" @input="getDrinks(search)">
+        <input type="search" name="search" id="search" placeholder="rechecher un film" v-model.trim="search" @input="getDrinks(search)">
         <div class="articles" v-for="drink in drinks" :key="drink.idDrink">
             <h1>{{drink.strDrink}}</h1>
             <p>{{drink.strInstructions}}</p>
@@ -31,7 +31,7 @@
         createApp({
             data() {
                 return {
-                    search : "margarita",
+                    search : "",
                     drinks : [],
                 }
             },
