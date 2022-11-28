@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decouvete VueJS</title>
+</head>
+
+<body>
+    <div id="app">
+        <div class="articles" v-for="article in articles" :key="article.id">
+            <p>{{article.message}}</p>
+        </div>
+    </div>
+
+
+    <script type="importmap">
+        { "imports": { "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js" } }
+    </script>
+    <script type="module">
+
+        import {
+            createApp
+        } from 'vue'
+
+        createApp({
+            data() {
+                return {
+                    articles : [
+                        {id: 1,message: "article 1"},
+                        {id: 2,message: "article 2"},
+                    ]
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+
+</html>

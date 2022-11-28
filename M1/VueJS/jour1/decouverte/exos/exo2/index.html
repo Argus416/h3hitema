@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Decouvete VueJS</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <button @click="toggleOngle($event, 0)">Un</button>
+            <button @click="toggleOngle($event, 1)">Deux</button>
+            <button @click="toggleOngle($event, 2)">Trois</button>
+
+            <p style="display: none;" >1, Lorem ipsum dolor sit, amet consectetur adipisicing elit. Placeat, corrupti?</p>
+            <p style="display: none;" >2, Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi earum dignissimos eveniet ducimus aperiam perspiciatis.</p>
+            <p style="display: none;" >3, Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fuga error, suscipit repellendus accusamus possimus nisi modi debitis quae ipsam minima!</p>
+        </div>
+    </div>
+</body>
+
+
+<script type="importmap">
+{ "imports": { "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js" } }
+</script>
+
+<script type="module">
+import {
+    createApp
+} from 'vue'
+
+createApp({
+    methods:{
+        toggleOngle : function($event, number){
+            const paragfs = document.querySelectorAll('p')
+
+            Array.from(paragfs).forEach((p, index) => {
+                if(index === number){
+                    p.style.display = "block"
+                }else{
+                    p.style.display = "none"
+                }
+            })
+        } 
+    },
+    data() {
+        return {
+            user : {
+                id : 1,
+                nom : "Alain",
+                competence : ["js", "node", "angular"],
+                age : 18
+            }
+        }
+    }
+}).mount('#app')
+</script>
+
+</html>

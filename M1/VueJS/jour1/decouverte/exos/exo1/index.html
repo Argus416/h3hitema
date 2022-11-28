@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Decouvete VueJS</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <h2>{{user.nom}}</h2>
+                <ul>
+                    <li v-for="skill of user.competence">
+                        {{skill}}
+                    </li>
+                </ul>
+            </ul>
+
+            <p v-if="user.age < 18">il est mineur</p>
+            <p v-else="user.age >= 18">il est majeur</p>
+            
+
+        </div>
+    </div>
+</body>
+
+
+<script type="importmap">
+{ "imports": { "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js" } }
+</script>
+
+<script type="module">
+import {
+    createApp
+} from 'vue'
+
+createApp({
+    data() {
+        return {
+            user : {
+                id : 1,
+                nom : "Alain",
+                competence : ["js", "node", "angular"],
+                age : 18
+            }
+        }
+    }
+}).mount('#app')
+</script>
+</body>
+
+</html>
