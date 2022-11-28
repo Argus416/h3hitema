@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Decouvete VueJS</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <label for="check">Checkbox</label>
+            <input type="checkbox" name="check" id="check" v-model="displayPara"/>
+        </div>
+
+        <div>
+            <label for="text">text</label>
+            <input type="text" name="text" id="text" v-model="text">
+        </div>
+
+        <p class="para" v-show="displayPara">text : {{text}}</p>
+    </div>
+</body>
+
+
+<script type="importmap">
+{ "imports": { "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js" } }
+</script>
+
+<script type="module">
+import {
+    createApp
+} from 'vue'
+
+createApp({
+    data() {
+        return {
+            text: "",
+            displayPara : false
+        }
+    },
+   
+}).mount('#app')
+</script>
+</body>
+
+</html>
