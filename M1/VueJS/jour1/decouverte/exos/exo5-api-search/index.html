@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decouvete VueJS</title>
+</head>
+
+<body>
+    <div id="app">
+        <div class="articles" v-for="drink in drinks" :key="drink.idDrink">
+            <h1>{{drink.strDrink}}</h1>
+            <p>{{drink.strInstructions}}</p>
+            <img :src="drink.strDrinkThumb" alt="drink.strInstructions" width="100"/>
+        </div>
+    </div>
+
+
+    <script type="importmap">
+        { "imports": { "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js" } }
+    </script>
+    <script type="module">
+
+        import {
+            createApp
+        } from 'vue'
+
+        createApp({
+            data() {
+                return {
+                    drinks : []
+                }
+            },
+            mounted(){
+                const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita'
+                fetch(url).then(response => response.json()).then(data => {
+                    this.drinks = data.drinks;
+                })
+            }
+        }).mount('#app')
+    </script>
+</body>
+
+</html>
