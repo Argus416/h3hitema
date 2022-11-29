@@ -6,7 +6,7 @@ import DeleteAppointmentModal from "../components/Calendar/DeleteAppointmentModa
 import Appointments from "../controllers/appointments";
 import { readableDate } from "../Helpers/Date";
 
-const CardContainer = ({ appointment }) => {
+const CardContainer = ({ appointment, updateUserEffectHandler }) => {
 	const [openModal, setOpenModal] = useState(false);
 
 	const openModalHandlar = () => {
@@ -15,6 +15,7 @@ const CardContainer = ({ appointment }) => {
 	const closeModal = () => {
 		setOpenModal(false);
 	};
+
 	return (
 		<Box>
 			<Box sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -35,7 +36,12 @@ const CardContainer = ({ appointment }) => {
 					<Button variant="outlined" color="error" onClick={openModalHandlar}>
 						Supprimer
 					</Button>
-					<DeleteAppointmentModal openModal={openModal} closeModal={closeModal} idModal={appointment.id} />
+					<DeleteAppointmentModal
+						openModal={openModal}
+						closeModal={closeModal}
+						idModal={appointment.id}
+						updateUserEffectHandler={updateUserEffectHandler}
+					/>
 				</Box>
 			</Box>
 		</Box>
@@ -46,6 +52,11 @@ const Reservations = () => {
 	const navigate = useNavigate();
 	const currentUser = useSelector((state) => state.user);
 	const [appointments, setAppointments] = useState([]);
+	const [updateUserEffect, setUpdateUserEffect] = useState(false);
+
+	const updateUserEffectHandler = () => {
+		setUpdateUserEffect(!updateUserEffect);
+	};
 	useEffect(() => {
 		try {
 			Appointments.getAppointments(currentUser.id).then((data) => setAppointments(data.data));
@@ -53,7 +64,7 @@ const Reservations = () => {
 		} catch (err) {
 			console.error("Unable to get appointments from api", err);
 		}
-	}, [appointments.length]);
+	}, [appointments.length, updateUserEffect]);
 
 	return (
 		<Container sx={{ marginTop: 3 }}>
@@ -77,7 +88,7 @@ const Reservations = () => {
 								paddingInline: 3,
 							}}
 						>
-							<CardContainer appointment={appointment} />
+							<CardContainer appointment={appointment} updateUserEffectHandler={updateUserEffectHandler} />
 						</Grid>
 					))
 				) : (

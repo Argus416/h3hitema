@@ -20,15 +20,16 @@ const style = {
 	p: 4,
 };
 
-const DeleteAppointmentModal = ({ openModal, closeModal, idModal }) => {
+const DeleteAppointmentModal = ({ openModal, closeModal, idModal, updateUserEffectHandler }) => {
 	const user = useSelector((state) => state.user);
 	const navigate = useNavigate();
 	const deleteAppointmentHandler = async (event) => {
 		event.preventDefault();
 		try {
 			const deleteAppointement = await Appointements.deleteAppointment(idModal);
-			console.log(deleteAppointement);
+			updateUserEffectHandler();
 			navigate("/");
+			closeModal();
 		} catch (err) {
 			console.error("Unable to create appointment from api", err);
 		}
@@ -38,10 +39,11 @@ const DeleteAppointmentModal = ({ openModal, closeModal, idModal }) => {
 		<div>
 			<Modal open={openModal} onClose={closeModal} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
 				<Box component="form" sx={style} onSubmit={deleteAppointmentHandler}>
-					<Typography variant="4" color="initial">
-						Je supprimer le rendez-vous
+					<Typography variant="h6" color="initial">
+						Êtes-vous sûr de vouloir supprimer le rendez-vous ?
 					</Typography>
-					<Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+
+					<Button type="submit" fullWidth variant="contained" color="error" sx={{ mt: 3, mb: 2 }}>
 						Je supprime le rendez-vous
 					</Button>
 				</Box>

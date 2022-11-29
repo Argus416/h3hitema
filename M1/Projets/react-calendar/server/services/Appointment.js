@@ -11,10 +11,10 @@ class Task {
         try {
             const knex = this.knex;
             const appointments = await knex(APPOINTMENT_TABLE)
-                .join(`${USER_TABLE}`, `${USER_TABLE}.id`, `${APPOINTMENT_TABLE}.userId`)
-                .select([`${APPOINTMENT_TABLE}.*`, knex.raw(`to_json(${USER_TABLE}.*) as ${USER_TABLE}`)])
-                .where({ "users.id": userId })
-                .orderBy("id", "desc");
+				.join(`${USER_TABLE}`, `${USER_TABLE}.id`, `${APPOINTMENT_TABLE}.userId`)
+				.select([`${APPOINTMENT_TABLE}.*`, knex.raw(`to_json(${USER_TABLE}.*) as ${USER_TABLE}`)])
+				.where({ "users.id": userId })
+				.orderBy("rdv", "asc");
 
             return appointments;
         } catch (err) {
