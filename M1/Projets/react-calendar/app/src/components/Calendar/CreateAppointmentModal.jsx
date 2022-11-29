@@ -33,7 +33,6 @@ const CreateAppointmentModal = ({ openModal, closeModal, date }) => {
 				rdv: new Date(date),
 			};
 
-			console.log(data);
 			const createAppointement = await Appointements.createAppointment(data);
 			navigate("/");
 		} catch (err) {

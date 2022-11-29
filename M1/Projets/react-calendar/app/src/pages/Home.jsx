@@ -3,19 +3,27 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import DeleteAppointmentModal from "../components/Calendar/DeleteAppointmentModal";
+import UpdateAppointmentModal from "../components/Calendar/UpdateAppointmentModal";
 import Appointments from "../controllers/appointments";
 import { readableDate } from "../Helpers/Date";
 
 const CardContainer = ({ appointment, updateUserEffectHandler }) => {
-	const [openModal, setOpenModal] = useState(false);
+	const [openDeleteModal, setOpenDeleteModal] = useState(false);
+	const [openUpdateModal, setOpenUpdateModal] = useState(false);
 
-	const openModalHandlar = () => {
-		setOpenModal(true);
+	const openDeleteModalHandlar = () => {
+		setOpenDeleteModal(true);
 	};
-	const closeModal = () => {
-		setOpenModal(false);
+	const closeDeleteModal = () => {
+		setOpenDeleteModal(false);
 	};
 
+	const openUpdateModalHandlar = () => {
+		setOpenUpdateModal(true);
+	};
+	const closeUpdateModal = () => {
+		setOpenUpdateModal(false);
+	};
 	return (
 		<Box>
 			<Box sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -33,13 +41,27 @@ const CardContainer = ({ appointment, updateUserEffectHandler }) => {
 				</Typography>
 
 				<Box>
-					<Button variant="outlined" color="error" onClick={openModalHandlar}>
-						Supprimer
-					</Button>
+					<Box sx={{ display: "flex", gap: 1 }}>
+						<Button variant="outlined" color="error" onClick={openDeleteModalHandlar}>
+							Supprimer
+						</Button>
+
+						<Button variant="outlined" onClick={openUpdateModalHandlar}>
+							Modifier
+						</Button>
+					</Box>
+
 					<DeleteAppointmentModal
-						openModal={openModal}
-						closeModal={closeModal}
+						openModal={openDeleteModal}
+						closeModal={closeDeleteModal}
 						idModal={appointment.id}
+						updateUserEffectHandler={updateUserEffectHandler}
+					/>
+
+					<UpdateAppointmentModal
+						openModal={openUpdateModal}
+						closeModal={closeUpdateModal}
+						appointment={appointment}
 						updateUserEffectHandler={updateUserEffectHandler}
 					/>
 				</Box>

@@ -50,10 +50,9 @@ exports.updateAppointment = async(req, res) => {
         const { appointmentId } = req.params;
 
         const data = {
-            title: faker.lorem.sentence(5),
-            description: faker.lorem.paragraph(3),
-            updated_at: new Date(),
-        };
+			...req.body,
+			updated_at: new Date(),
+		};
 
         const updateAppointment = await Appointment.updateAppointment(appointmentId, data);
         console.log(updateAppointment, "updateAppointment");
