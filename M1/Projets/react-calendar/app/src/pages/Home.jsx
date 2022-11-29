@@ -3,6 +3,34 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Appointments from "../controllers/appointments";
+import { readableDate } from "../Helpers/Date";
+
+const CaroContainer = ({ appointment }) => {
+	return (
+		<Box>
+			<Box sx={{ display: "flex", justifyContent: "space-between" }}>
+				<Typography variant="h5" color="initial">
+					{appointment.title}
+				</Typography>
+
+				<Typography variant="h5" color="initial">
+					{readableDate(appointment.rdv)}
+				</Typography>
+			</Box>
+			<Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 3 }}>
+				<Typography variant="h5" color="initial">
+					{appointment.description}
+				</Typography>
+
+				<Box>
+					<Button variant="outlined" color="error">
+						Supprimer
+					</Button>
+				</Box>
+			</Box>
+		</Box>
+	);
+};
 
 const Reservations = () => {
 	const navigate = useNavigate();
@@ -16,15 +44,6 @@ const Reservations = () => {
 			console.error("Unable to get appointments from api", err);
 		}
 	}, [appointments.length]);
-
-	const readableDate = (date) => {
-		date = new Date(date);
-		return (
-			<>
-				{date.getFullYear()}/{date.getMonth() + 1}/{date.getDate()}
-			</>
-		);
-	};
 
 	return (
 		<Container sx={{ marginTop: 3 }}>
@@ -48,23 +67,12 @@ const Reservations = () => {
 								paddingInline: 3,
 							}}
 						>
-							<Box sx={{ display: "flex", justifyContent: "space-between" }}>
-								<Typography variant="h5" color="initial">
-									{appointment.title}
-								</Typography>
-
-								<Typography variant="h5" color="initial">
-									{readableDate(appointment.rdv)}
-								</Typography>
-							</Box>
-							<Typography variant="h5" color="initial">
-								{appointment.description}
-							</Typography>
+							<CaroContainer appointment={appointment} />
 						</Grid>
 					))
 				) : (
 					<Button
-						variant="container"
+						variant="contained"
 						onClick={() => {
 							navigate("/calendar");
 						}}

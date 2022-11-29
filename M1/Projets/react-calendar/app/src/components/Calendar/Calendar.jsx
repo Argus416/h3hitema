@@ -1,8 +1,8 @@
 import { Box, Button } from "@mui/material";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { getDaysInMonth, getDaysInMonthUTC, getLastWeek, rangeDate } from "../Helpers/Date";
+import { getDaysInMonthUTC } from "../../Helpers/Date";
 import TextField from "@mui/material/TextField";
 import _ from "loadsh";
 
@@ -10,7 +10,6 @@ const Calendar = ({ selecteDate }) => {
 	const date = new Date();
 	const [year, setYear] = useState(date.getFullYear());
 	const [month, setMonth] = useState(date.getMonth() + 1);
-	const [days, setDays] = useState([]);
 
 	const monthInc = () => {
 		if (month === 12) {
@@ -38,6 +37,7 @@ const Calendar = ({ selecteDate }) => {
 		selecteDate(date);
 		// return date;
 	};
+
 	return (
 		<Box sx={{ height: "100vh" }}>
 			<Box sx={{ marginTop: 5, display: "flex", justifyContent: "center", alignItems: "center", gap: 2 }}>

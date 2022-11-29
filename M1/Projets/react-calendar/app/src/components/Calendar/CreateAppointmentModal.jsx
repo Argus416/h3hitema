@@ -6,7 +6,7 @@ import Modal from "@mui/material/Modal";
 import { Grid, TextField } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Appointements from "../controllers/appointments";
+import Appointements from "../../controllers/appointments";
 const style = {
 	position: "absolute",
 	top: "50%",

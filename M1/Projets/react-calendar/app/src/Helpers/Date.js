@@ -106,3 +106,14 @@ export const rangeDate = (datesInUTC) => {
     allDaysGroupedOrder[0] = allDaysGrouped["Sat"];
     return allDaysGroupedOrder;
 };
+
+
+
+export const readableDate = (date) => {
+	date = new Date(date);
+	return (
+		<>
+			{date.getFullYear()}/{date.getMonth() + 1}/{date.getDate()}
+		</>
+	);
+};

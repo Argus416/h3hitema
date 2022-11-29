@@ -1,9 +1,9 @@
 import { Box, Button, Container, Typography } from "@mui/material";
-import Calendar from "../components/Calendar";
+import Calendar from "../components/Calendar/Calendar";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import CreateAppointmentModal from "../components/CreateAppointmentModal";
+import CreateAppointmentModal from "../components/Calendar/CreateAppointmentModal";
 
 const Home = () => {
 	const [selectedDate, setSelectedDate] = useState();
