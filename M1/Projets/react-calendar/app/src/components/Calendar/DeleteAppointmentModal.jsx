@@ -43,9 +43,15 @@ const DeleteAppointmentModal = ({ openModal, closeModal, idModal, updateUserEffe
 						Êtes-vous sûr de vouloir supprimer le rendez-vous ?
 					</Typography>
 
-					<Button type="submit" fullWidth variant="contained" color="error" sx={{ mt: 3, mb: 2 }}>
-						Je supprime le rendez-vous
-					</Button>
+					<Box sx={{ display: "flex", justifyContent: "space-between", gap: 2, mt: 3, mb: 2 }}>
+						<Button fullWidth variant="contained" color="warning" onClick={() => closeModal()}>
+							Annuler
+						</Button>
+
+						<Button type="submit" fullWidth variant="contained" color="error">
+							Je supprime le rendez-vous
+						</Button>
+					</Box>
 				</Box>
 			</Modal>
 		</div>

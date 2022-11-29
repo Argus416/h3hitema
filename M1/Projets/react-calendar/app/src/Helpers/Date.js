@@ -86,34 +86,14 @@ export const getLastWeek = (tableOfUTCDays) => {
     return week;
 };
 
-export const rangeDate = (datesInUTC) => {
-    const allDaysGrouped = {};
-    datesInUTC.forEach((day) => {
-        if (allDaysGrouped[day.split(" ")[0]]) {
-            allDaysGrouped[day.split(" ")[0]] = [...allDaysGrouped[day.split(" ")[0]], day.split(" ")[2]];
-        } else {
-            allDaysGrouped[day.split(" ")[0]] = [day.split(" ")[2]];
-        }
-    });
-
-    const allDaysGroupedOrder = [];
-    allDaysGroupedOrder[2] = allDaysGrouped["Mon"];
-    allDaysGroupedOrder[3] = allDaysGrouped["Tue"];
-    allDaysGroupedOrder[4] = allDaysGrouped["Wed"];
-    allDaysGroupedOrder[5] = allDaysGrouped["Thu"];
-    allDaysGroupedOrder[6] = allDaysGrouped["Fri"];
-    allDaysGroupedOrder[1] = allDaysGrouped["Sun"];
-    allDaysGroupedOrder[0] = allDaysGrouped["Sat"];
-    return allDaysGroupedOrder;
-};
-
 
 
 export const readableDate = (date) => {
 	date = new Date(date);
+	const day = parseInt(date.getDate()) < 10 ? `0${date.getDate()}` : date.getDate();
 	return (
 		<>
-			{date.getFullYear()}/{date.getMonth() + 1}/{date.getDate()}
+			{date.getFullYear()}/{date.getMonth() + 1}/{day}
 		</>
 	);
 };

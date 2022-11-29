@@ -3,8 +3,8 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { Grid, TextField } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { TextField } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Appointements from "../../controllers/appointments";
 const style = {
@@ -30,9 +30,10 @@ const CreateAppointmentModal = ({ openModal, closeModal, date }) => {
 				title: form.title.value,
 				description: form.description.value,
 				userId: user.id,
-				rdv: date,
+				rdv: new Date(date),
 			};
 
+			console.log(data);
 			const createAppointement = await Appointements.createAppointment(data);
 			navigate("/");
 		} catch (err) {

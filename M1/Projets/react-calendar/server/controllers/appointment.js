@@ -25,10 +25,15 @@ exports.getAppointment = async(req, res) => {
 
 exports.createAppointment = async(req, res) => {
     try {
+        console.log(req.body, "reqBody");
+		let { rdv } = req.body;
+		delete req.body.rdv;
+		rdv = new Date(rdv);
         const data = {
-            ...req.body,
-            created_at: new Date(),
-        };
+			...req.body,
+			rdv,
+			created_at: new Date(),
+		};
 
         const createAppointment = await Appointment.createAppointment(data);
         console.log("createAppointment");
