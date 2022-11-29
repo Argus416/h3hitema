@@ -22,9 +22,6 @@ const style = {
 };
 
 const UpdateAppointmentModal = ({ openModal, closeModal, appointment, updateUserEffectHandler }) => {
-	const user = useSelector((state) => state.user);
-	const [appointmentState, setAppointmentState] = useState(appointment);
-
 	const navigate = useNavigate();
 	const updateAppointmentHandler = async (event) => {
 		event.preventDefault();
@@ -59,24 +56,14 @@ const UpdateAppointmentModal = ({ openModal, closeModal, appointment, updateUser
 						autoFocus
 						required
 						fullWidth
-						value={appointmentState.title}
+						defaultValue={appointment.title}
 						margin="normal"
 						id="title"
 						label="title"
 						name="title"
 						placeholder="title"
-						onInput={(e) => setAppointmentState({ ...appointmentState, title: e.target.value })}
 					/>
-					<TextField
-						fullWidth
-						multiline
-						id="description"
-						value={appointmentState.description}
-						name="description"
-						label="Description"
-						rows={3}
-						onInput={(e) => setAppointmentState({ ...appointmentState, description: e.target.value })}
-					/>
+					<TextField fullWidth multiline id="description" defaultValue={appointment.description} name="description" label="Description" rows={3} />
 
 					<Box sx={{ display: "flex", justifyContent: "space-between", gap: 2, mt: 3, mb: 2 }}>
 						<Button fullWidth variant="contained" color="warning" onClick={() => closeModal()}>
