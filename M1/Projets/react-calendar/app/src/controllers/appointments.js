@@ -39,7 +39,7 @@ class Appointment {
 
     async deleteAppointment(appointmentId) {
         try {
-            const updateAppointment = await axios.patch(`${apiUrl}/appointments/delete/${appointmentId}`);
+            const updateAppointment = await axios.delete(`${apiUrl}/appointments/delete/${appointmentId}`);
             return updateAppointment;
         } catch (err) {
             console.error("Unable to delete appointment", err);

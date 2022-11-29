@@ -20,21 +20,13 @@ const style = {
 	p: 4,
 };
 
-const DeleteAppointmentModal = ({ openModal, closeModal, date }) => {
+const DeleteAppointmentModal = ({ openModal, closeModal, idModal }) => {
 	const user = useSelector((state) => state.user);
 	const navigate = useNavigate();
-	const createAppointmentHandler = async (event) => {
+	const deleteAppointmentHandler = async (event) => {
 		event.preventDefault();
 		try {
-			const form = event.target;
-			const data = {
-				title: form.title.value,
-				description: form.description.value,
-				userId: user.id,
-				rdv: date,
-			};
-
-			const deleteAppointement = await Appointements.deleteAppointment(data);
+			const deleteAppointement = await Appointements.deleteAppointment(idModal);
 			console.log(deleteAppointement);
 			navigate("/");
 		} catch (err) {
@@ -45,12 +37,12 @@ const DeleteAppointmentModal = ({ openModal, closeModal, date }) => {
 	return (
 		<div>
 			<Modal open={openModal} onClose={closeModal} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
-				<Box>
+				<Box component="form" sx={style} onSubmit={deleteAppointmentHandler}>
 					<Typography variant="4" color="initial">
 						Je supprimer le rendez-vous
 					</Typography>
 					<Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-						Creéer un rendez-vous
+						Je supprime le rendez-vous
 					</Button>
 				</Box>
 			</Modal>

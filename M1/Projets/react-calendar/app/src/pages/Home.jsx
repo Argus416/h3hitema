@@ -1,11 +1,20 @@
 import { Container, Typography, Button, Box, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import DeleteAppointmentModal from "../components/Calendar/DeleteAppointmentModal";
 import Appointments from "../controllers/appointments";
 import { readableDate } from "../Helpers/Date";
 
-const CaroContainer = ({ appointment }) => {
+const CardContainer = ({ appointment }) => {
+	const [openModal, setOpenModal] = useState(false);
+
+	const openModalHandlar = () => {
+		setOpenModal(true);
+	};
+	const closeModal = () => {
+		setOpenModal(false);
+	};
 	return (
 		<Box>
 			<Box sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -23,9 +32,10 @@ const CaroContainer = ({ appointment }) => {
 				</Typography>
 
 				<Box>
-					<Button variant="outlined" color="error">
+					<Button variant="outlined" color="error" onClick={openModalHandlar}>
 						Supprimer
 					</Button>
+					<DeleteAppointmentModal openModal={openModal} closeModal={closeModal} idModal={appointment.id} />
 				</Box>
 			</Box>
 		</Box>
@@ -67,7 +77,7 @@ const Reservations = () => {
 								paddingInline: 3,
 							}}
 						>
-							<CaroContainer appointment={appointment} />
+							<CardContainer appointment={appointment} />
 						</Grid>
 					))
 				) : (
