@@ -1,14 +1,14 @@
 <script setup>
     import { onMounted, ref } from 'vue';
     import Posts from '../class/Posts';
+    import {useRouter} from "vue-router";
 
     const posts = ref({})
-
-
 
     onMounted(async () =>{
         posts.value = await Posts.getPosts();
     })
+
 
 </script>
 
