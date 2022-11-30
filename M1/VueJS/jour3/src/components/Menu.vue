@@ -17,6 +17,14 @@
                     <li class="nav-item">
                         <router-link class="nav-link"  :to="{name:'blog'}">Blog</router-link>
                     </li>
+
+                    <li class="nav-item">
+                        <router-link class="nav-link"  :to="{name:'login'}">Login</router-link>
+                    </li>
+
+                    <li class="nav-item">
+                        <router-link class="nav-link"  :to="{name:'signup'}">Créer un compte</router-link>
+                    </li>
                 </ul>
             </div>
         </div>

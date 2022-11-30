@@ -1,6 +1,6 @@
 <script setup>
     import {useTodoStore} from "../stores/todoStore.js"
-    import {ref} from "vue";
+    import { ref } from "vue";
 
     const form = ref(null)
     const tacheStore = useTodoStore();
