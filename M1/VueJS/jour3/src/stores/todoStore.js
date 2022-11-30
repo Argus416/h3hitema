@@ -24,6 +24,10 @@ export const useTodoStore = defineStore("todoStore", {
             const newTask = await Taches.addTache(data)
             this.taches = [...this.taches, {...newTask}]
         },
+        update : async function(id,data){
+            const updateData = await Taches.updateTache(id,data)
+            this.taches = await Taches.getTaches()
+        },
         delete : async function (id) {
             const deleteItem = await Taches.deleteTache(id)
             this.taches = deleteItem

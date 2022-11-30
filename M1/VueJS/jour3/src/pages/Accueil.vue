@@ -3,15 +3,18 @@
     import {reactive, ref, watch} from "vue";
 
     const form = ref(null)
+    const formUpdate = ref(null)
+
     const state = reactive({
         taches : [],
     })
     const tacheStore = useTodoStore();
     const triggerWatcher = ref(true);
 
-    watch(triggerWatcher, async ()=>{
+    watch(triggerWatcher, async () => {
         console.log("triggerWatcher")
         state.taches = await tacheStore.tachesInit()
+
         },
         {
             deep : true,
@@ -29,8 +32,14 @@
         tacheStore.add({nom : newTaskTitleInput.value})
         form.value.taskTitle.value = ""
         triggerWatcher.value = !triggerWatcher.value
-
     }
+
+    const updateHandler = (idTache) =>{
+        const form = formUpdate.value[idTache - 1]
+        tacheStore.update(idTache,{nom : form.taskTitle.value})
+        triggerWatcher.value = !triggerWatcher.value
+    }
+
 </script>
 
 <template>
@@ -53,8 +62,16 @@
                 :key="tache.id"
             >
                 <div class="wrapper d-flex align-items-center justify-content-between">
-                    <div class="left">
-                        {{tache.nom}}
+                    <div class="left d-flex gap-2 align-items-center">
+                        <form @submit.prevent="updateHandler(tache.id)" ref="formUpdate">
+                            <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Ajouter une nouvelle tache"
+                                name="taskTitle"
+                                :value="tache.nom"
+                            />
+                        </form>
                     </div>
 
                     <div class="right">
