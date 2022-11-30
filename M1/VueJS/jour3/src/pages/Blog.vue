@@ -20,9 +20,10 @@
         <section
             v-for="article in state.posts"
             class="article mb-4"
+            :key="article.id"
         >
-            <h2 class="h4">{{article.title}}</h2>   
-            <p>{{article.body}}</p>  
+            <h2 class="h4" v-more='article.title'></h2>   
+            <p v-more.body='article.title'></p>  
             <router-link :to="{ name:'article' , params:{ articleId: article.id } }">voir l'article</router-link> 
         </section>
     </main>
