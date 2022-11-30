@@ -1,16 +1,13 @@
 <script setup>
-    import { reactive } from '@vue/reactivity';
-    import { onMounted, watch } from 'vue';
+    import { onMounted, ref } from 'vue';
     import Posts from '../class/Posts';
 
-    const state = reactive({
-        posts : []
-    })
+    const posts = ref({})
 
 
 
     onMounted(async () =>{
-        state.posts = await Posts.getPosts();
+        posts.value = await Posts.getPosts();
     })
 
 </script>
@@ -18,7 +15,7 @@
 <template>
     <main class="articles container">
         <section
-            v-for="article in state.posts"
+            v-for="article in posts"
             class="article mb-4"
             :key="article.id"
         >

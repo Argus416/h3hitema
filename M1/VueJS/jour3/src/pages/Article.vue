@@ -1,27 +1,22 @@
 <script setup>
-    import { reactive } from '@vue/reactivity';
-    import { onMounted, watch } from 'vue';
+    import { onMounted, ref } from 'vue';
     import Posts from '../class/Posts';
     import { useRouter, useRoute } from 'vue-router'
 
-    const router = useRouter();
     const route = useRoute();
 
     const { articleId } = route.params
 
-    const state = reactive({
-        post : []
-    })
+    const post = ref({})
 
     
 
 
     onMounted(async () =>{
-        state.post = await Posts.getPost(articleId);
+        post.value = await Posts.getPost(articleId);
     })
 
 
-    console.log(state.post)
 
 </script>
 
@@ -29,8 +24,8 @@
     <main
         class="article container mb-4"
     >
-        <h2 class="h4">{{state.post?.title}}</h2>   
-        <p>{{state.post?.body}}</p>  
+        <h2 class="h4">{{post.title}}</h2>   
+        <p>{{post.body}}</p>  
     </main>
 </template>
 
