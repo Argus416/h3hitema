@@ -1,14 +1,15 @@
 <script setup>
     import { useUserStore } from "../stores/userStore.js";
-    import {ref} from "vue";
+    import { useRouter } from "vue-router";
+    import { ref } from "vue";
+
+    const router = useRouter()
     const userStore = useUserStore()
     const form = ref(null)
 
     const submitHandler = () =>{
-        console.log(userStore.users)
-        let {email, password} = form?.value
+        let { email, password } = form?.value
         const data =   {email: email?.value, password:password?.value}
-    console.log(data)
         const isLoggedIn = userStore.login(
           data
         )
@@ -17,6 +18,7 @@
             form.value.email.value = ""
             form.value.password.value = ""
             alert('connected')
+            router.push({ name : "accueil" })
         }else{
             alert('Error email or password')
         }

@@ -1,8 +1,10 @@
 <script setup>
     import { useUserStore } from "../stores/userStore.js";
+    import { useRouter } from "vue-router";
     import {ref} from "vue"
 
     const userStore = useUserStore()
+    const router = useRouter()
     const form = ref(null)
 
     const submitHandler = () =>{
@@ -10,6 +12,9 @@
         userStore.add(
             {email: email.value, password:password.value}
         )
+
+        router.push({name:"login"})
+
 
         form.value.email.value = ""
         form.value.password.value = ""

@@ -1,3 +1,15 @@
+<script setup>
+    import { useUserStore } from "../stores/userStore.js";
+    import { useRouter } from "vue-router";
+
+    const useUser = useUserStore()
+    const { currentUser } = useUser
+    console.log(currentUser)
+    const logoutHandler = () =>{
+
+    }
+</script>
+
 <template>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
         <div class="container">
@@ -10,19 +22,17 @@
                     <li class="nav-item">
                         <router-link router-link class="nav-link "  :to="{name:'accueil'}">Accueil</router-link>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="currentUser?.isLoggedIn">
                         <router-link class="nav-link"  :to="{name:'contact'}">Contact</router-link>
                     </li>
 
-                    <li class="nav-item">
+                    <li v-if="currentUser?.isLoggedIn" class="nav-item">
                         <router-link class="nav-link"  :to="{name:'blog'}">Blog</router-link>
                     </li>
-
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="!currentUser?.isLoggedIn">
                         <router-link class="nav-link"  :to="{name:'login'}">Login</router-link>
                     </li>
-
-                    <li class="nav-item">
+                    <li class="nav-item" v-if=!currentUser?.isLoggedIn>
                         <router-link class="nav-link"  :to="{name:'signup'}">Créer un compte</router-link>
                     </li>
                 </ul>
@@ -31,8 +41,3 @@
     </nav>
 </template>
 
-<script>
-    export default {
-        
-    }
-</script>

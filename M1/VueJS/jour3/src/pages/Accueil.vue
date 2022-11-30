@@ -1,9 +1,20 @@
 <script setup>
-    import {useTodoStore} from "../stores/todoStore.js"
-    import { ref } from "vue";
+    import { useTodoStore } from "../stores/todoStore.js"
+    import { ref, watch } from "vue";
 
     const form = ref(null)
+    const taches = ref([])
     const tacheStore = useTodoStore();
+
+    watch(taches, async ()=>{
+            taches.value = await tacheStore.taches
+            console.log(taches.value)
+        },
+        {
+            deep : true,
+            immediate: true
+        }
+    )
 
     const deleteTask = (id) =>{
         tacheStore.delete(id)
@@ -32,7 +43,7 @@
         <ul class="list-group">
             <li
                 class="list-group-item"
-                v-for="tache in tacheStore.encours"
+                v-for="tache in taches"
                 :key="tache.id"
             >
                 <div class="wrapper d-flex align-items-center justify-content-between">
