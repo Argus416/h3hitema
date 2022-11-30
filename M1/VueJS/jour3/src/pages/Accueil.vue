@@ -1,14 +1,17 @@
 <script setup>
     import { useTodoStore } from "../stores/todoStore.js"
-    import { ref, watch } from "vue";
+    import {reactive, ref, watch} from "vue";
 
     const form = ref(null)
-    const taches = ref([])
+    const state = reactive({
+        taches : [],
+    })
     const tacheStore = useTodoStore();
+    const triggerWatcher = ref(true);
 
-    watch(taches, async ()=>{
-            taches.value = await tacheStore.taches
-            console.log(taches.value)
+    watch(triggerWatcher, async ()=>{
+        console.log("triggerWatcher")
+        state.taches = await tacheStore.tachesInit()
         },
         {
             deep : true,
@@ -18,12 +21,15 @@
 
     const deleteTask = (id) =>{
         tacheStore.delete(id)
+        triggerWatcher.value = !triggerWatcher.value
     }
 
     const submitHandler = () =>{
         const newTaskTitleInput = form.value.taskTitle
         tacheStore.add({nom : newTaskTitleInput.value})
         form.value.taskTitle.value = ""
+        triggerWatcher.value = !triggerWatcher.value
+
     }
 </script>
 
@@ -43,7 +49,7 @@
         <ul class="list-group">
             <li
                 class="list-group-item"
-                v-for="tache in taches"
+                v-for="tache in state.taches"
                 :key="tache.id"
             >
                 <div class="wrapper d-flex align-items-center justify-content-between">
