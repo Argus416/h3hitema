@@ -12,7 +12,7 @@ const routes = [
 	{ path: "/blog", component: Blog, name: "blog" },
     { path: "/article/:articleId", component: Article, name: "article" },
     { path: "/:pathMatch(.*)*", component: Err404, name: "err404" },
-    ];
+];
 
 const router = createRouter({
 	// 4. Provide the history implementation to use. We are using the hash history for simplicity here.
