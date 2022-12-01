@@ -3,11 +3,13 @@
 import {watch, ref} from "vue";
 import {CatalogueInterface} from "../interfaces/Catalogue";
 import Catalogue from "../class/Catalogue";
+import useCatalogueStore from "../stores/Catalogue";
 
 const catalogues: CatalogueInterface = ref([])
+const catalogueStore = useCatalogueStore()
 
 watch(() => catalogues, async (newVal, oldVal) => {
-    catalogues.value = await Catalogue.getCatalogues()
+    catalogues.value = await catalogueStore.initCatalogue()
 }, {
     deep: true,
     immediate: true
@@ -25,7 +27,9 @@ watch(() => catalogues, async (newVal, oldVal) => {
                 <div class="card-body">
                     <h5 class="card-title">{{ catalogue.nom }}</h5>
                     <p class="card-text">{{ catalogue.descritpion }}</p>
-                    <router-link to="#" class="btn btn-primary">Go somewhere</router-link>
+                    <router-link :to="{name:'product', params:{productId: catalogue.id}}" class="btn btn-primary">Go
+                        somewhere
+                    </router-link>
                 </div>
             </div>
         </div>

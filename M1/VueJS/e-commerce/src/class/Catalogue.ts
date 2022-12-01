@@ -3,7 +3,7 @@ import { CatalogueInterface } from "../interfaces/Catalogue"
 const url = "http://localhost:3000/catalogues";
 
 class Catalogue {
-    public async getCatalogues(){
+    public async getCatalogues(): Promise<CatalogueInterface[] | undefined> {
         try {
             const { data } = await axios.get<Array<CatalogueInterface>>(url);
             return data
@@ -12,7 +12,7 @@ class Catalogue {
         }
     }
 
-    public async getCatalogue(id:String){
+    public async getCatalogue(id:String | Number){
         try {
             const { data } = await axios.get<CatalogueInterface>(`${url}/${id}`);
             return data
