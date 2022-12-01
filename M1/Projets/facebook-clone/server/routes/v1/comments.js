@@ -1,9 +1,11 @@
+const {getComments, getComment, createComment, updateComment, deleteComment} = require("../../controllers/comments");
+
 async function commentsRoute(fastify, opts, done) {
-    fastify.get('/', () => console.log('comments'))
-    fastify.get('/get/:commentId', () => console.log('getComments'))
-    fastify.post('/add', () => console.log('addComments'))
-    fastify.patch('/update/:commentId', () => console.log('updateComment'))
-    fastify.delete('/delete/:commentId', () => console.log('deleteComment'))
+    fastify.get('/all/:userId', getComments)
+    fastify.get('/get/:userId/:commentId', getComment)
+    fastify.post('/add', createComment)
+    fastify.patch('/update/:commentId', updateComment)
+    fastify.delete('/delete/:commentId', deleteComment)
 
     done()
 }

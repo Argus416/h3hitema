@@ -50,8 +50,8 @@ class Post {
     async updatePost(postId, data) {
         try {
             const knex = this.knex;
-            const updateUpdate = await knex(POSTS_TABLE).where({ id: postId }).update(data);
-            return updateUpdate;
+            const updatePost = await knex(POSTS_TABLE).where({ id: postId }).update(data);
+            return updatePost;
         } catch (err) {
             console.error("Unable to update task");
         }
@@ -60,8 +60,8 @@ class Post {
     async deletePost(postId) {
         try {
             const knex = this.knex;
-            const deleteUpdate = await knex(POSTS_TABLE).where({ id: postId }).del();
-            return deleteUpdate;
+            const deletePost = await knex(POSTS_TABLE).where({ id: postId }).del();
+            return deletePost;
         } catch (err) {
             console.error("Unable to delete task", err);
         }
