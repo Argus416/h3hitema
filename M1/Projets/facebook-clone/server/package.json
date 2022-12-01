@@ -1,0 +1,23 @@
+{
+	"scripts": {
+		"start": "node app.js",
+		"dev": "nodemon app.js"
+	},
+	"dependencies": {
+		"@fastify/cors": "^8.2.0",
+		"@fastify/helmet": "^10.0.2",
+		"@fastify/postgres": "^5.1.0",
+		"@fastify/static": "^6.5.0",
+		"dotenv": "^16.0.3",
+		"fastify": "^4.10.0",
+		"fastify-plugin": "^4.3.0",
+		"knex": "^2.3.0",
+		"mysql": "^2.18.1",
+		"mysql2": "^2.3.3",
+		"pg": "^8.8.0"
+	},
+	"license": "MLT",
+	"devDependencies": {
+		"@faker-js/faker": "^7.6.0"
+	}
+}
