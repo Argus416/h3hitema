@@ -55,8 +55,7 @@ exports.updateUser = async(req, res) => {
         const { userId } = req.params;
 
         const data = {
-            first_name: faker.name.firstName(),
-            last_name: faker.name.lastName(),
+            ...req.body,
             updated_at: new Date(),
         };
 
