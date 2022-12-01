@@ -3,7 +3,8 @@ const { faker } = require("@faker-js/faker");
 
 exports.getPosts = async(req, res) => {
     try {
-        const getAllPosts = await Post.getPosts();
+        const {userId} = req.params
+        const getAllPosts = await Post.getPosts(userId);
         res.send(getAllPosts);
     } catch (err) {
         console.error(err);
@@ -45,13 +46,12 @@ exports.updatePost = async(req, res) => {
         const { postId } = req.params;
 
         const data = {
-            first_name: faker.name.firstName(),
-            last_name: faker.name.lastName(),
+            ...req.body,
             updated_at: new Date(),
         };
 
         const updatePost = await Post.updatePost(postId, data);
-        console.log(updatePost, "updatePost");
+        console.log("updatePost");
 
         res.send("updatePost");
     } catch (err) {

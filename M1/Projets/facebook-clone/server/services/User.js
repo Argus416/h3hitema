@@ -40,7 +40,7 @@ class User {
     async createUser(data) {
         try {
             const knex = this.knex;
-            const newUser = await knex(USER_TABLE).insert(data).orderBy("id", "desc");
+            const newUser = await knex(USER_TABLE).insert(data)
             return newUser;
         } catch (err) {
             console.error("Unable to create new user", err);

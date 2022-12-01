@@ -1,11 +1,11 @@
 const {getPosts, getPost, createPost, updatePost, deletePost} = require("../../controllers/posts");
 
 async function postsRoute(fastify, opts, done) {
-    fastify.get('/', () => console.log('posts'))
-    fastify.get('/get/:postId', () => console.log('getPosts'))
-    fastify.post('/add', () => console.log('addPosts'))
-    fastify.patch('/update/:postId', () => console.log('updatePost'))
-    fastify.delete('/delete/:postId', () => console.log('deletePost'))
+    fastify.get('/all/:userId', getPosts)
+    fastify.get('/get/:postId', getPost)
+    fastify.post('/add', createPost)
+    fastify.patch('/update/:postId', updatePost)
+    fastify.delete('/delete/:postId', deletePost)
 
     done()
 }

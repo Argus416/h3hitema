@@ -12,9 +12,9 @@ class Post {
             const knex = this.knex;
             const posts = await knex(POSTS_TABLE)
 				.join(`${USER_TABLE}`, `${USER_TABLE}.id`, `${POSTS_TABLE}.userId`)
-				.select([`${POSTS_TABLE}.*`, knex.raw(`to_json(${USER_TABLE}.*) as ${USER_TABLE}`)])
+				.select([`${POSTS_TABLE}.*`, knex.raw(`to_json(${USER_TABLE}.*) as user`)])
 				.where({ "users.id": userId })
-				.orderBy("rdv", "asc");
+				.orderBy("created_at", "asc");
 
             return posts;
         } catch (err) {
@@ -28,7 +28,7 @@ class Post {
             const post = await knex(POSTS_TABLE)
                 .join(`${USER_TABLE}`, `${USER_TABLE}.id`, `${POSTS_TABLE}.userId`)
                 .select(`${POSTS_TABLE}.*`, knex.raw(`to_json(${USER_TABLE}.*) as ${USER_TABLE}`))
-                .where({ "posts.id": postId });
+                .where({ "posts.id": postId })
             return post;
         } catch (err) {
             console.error("Unable to get post");
@@ -37,8 +37,10 @@ class Post {
 
     async createPost(data) {
         try {
+            console.log(data)
             const knex = this.knex;
             const newPost = await knex(POSTS_TABLE).insert(data);
+            console.log('new post')
             return newPost;
         } catch (err) {
             console.error("Unable to create new post", err);
