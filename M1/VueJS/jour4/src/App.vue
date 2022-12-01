@@ -1,6 +1,11 @@
 <script setup lang="ts">
+    import { Suspense, ref } from "vue";
     import Menu from './components/Menu.vue'
     import MyModal from './components/MyModal.vue'
+    import Cocktails from "./pages/Cocktails.vue";
+    import CocktailsSuspence from "./components/CocktailsSuspence.vue";
+
+    const searchCocktail = ref('')
 
     const allPays = [
         {id: 0, nom : "Pays"},
@@ -8,6 +13,7 @@
         {id: 2, nom : "Belgique"},
         {id: 3, nom : "Allemagne"},
     ]
+
 </script>
 
 <template>
@@ -30,6 +36,17 @@
                 <a href="https://google.com" target="_blank">google.com</a>
             </template>
         </MyModal>
+
+        <div class="mt-3">
+            <input class="form-control my-2" v-model='searchCocktail' placeholder="Rechercher un cocktail"/>
+
+            <Suspense>
+                <CocktailsSuspence :search-cocktail='searchCocktail'/>
+                <template #fallback>
+                    Loading...
+                </template>
+            </Suspense>
+        </div>
     </div>
 </template>
 
