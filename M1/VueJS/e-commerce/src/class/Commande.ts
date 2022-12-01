@@ -1,6 +1,6 @@
 import axios from "axios"
 import { CommandeInterface } from "../interfaces/Commande"
-const url = "http://localhost:3000/users";
+const url = "http://localhost:3000/commandes";
 
 class Commande {
     public async getCommandes(){

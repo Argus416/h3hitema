@@ -1,35 +1,35 @@
 {
-  "catalogues": [
-    {
-      "id": 1,
-      "nom": "tech",
-      "descritpion": "lorem ipsum",
-      "image": "1.png",
-      "status": true
-    }
-  ],
-  "users": [
-    {
-      "id": 1,
-      "email": "admin@localhost.com",
-      "password": "123",
-      "role": "admin"
-    },
-    {
-      "id": 2,
-      "email": "user@localhost.com",
-      "password": "123",
-      "role": "client"
-    }
-  ],
-  "commandes": [
-    {
-      "id": 1,
-      "client": {
-        "id": 2
-      },
-      "panier": [],
-      "status": "à traiter/ à livrer / finalié "
-    }
-  ]
+    "catalogues": [
+        {
+            "id": 1,
+            "nom": "tech",
+            "descritpion": "lorem ipsum",
+            "image": "https://placekitten.com/640/360",
+            "status": true
+        }
+    ],
+    "users": [
+        {
+            "id": 1,
+            "email": "admin@localhost.com",
+            "password": "123",
+            "role": "admin"
+        },
+        {
+            "id": 2,
+            "email": "user@localhost.com",
+            "password": "123",
+            "role": "client"
+        }
+    ],
+    "commandes": [
+        {
+            "id": 1,
+            "client": {
+                "id": 2
+            },
+            "panier": [],
+            "status": "à traiter/ à livrer / finalié "
+        }
+    ]
 }

@@ -1,6 +1,6 @@
 import axios from "axios"
 import { CatalogueInterface } from "../interfaces/Catalogue"
-const url = "http://localhost:3000/users";
+const url = "http://localhost:3000/catalogues";
 
 class Catalogue {
     public async getCatalogues(){
