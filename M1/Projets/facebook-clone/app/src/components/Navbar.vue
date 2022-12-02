@@ -1,33 +1,33 @@
 <script setup>
-import { ref } from 'vue';
+import {ref} from 'vue';
 
-    const searchResult = ref('')
+const searchResult = ref('')
 </script>
 
 <template>
     <header class="header">
         <el-row class="wrapper">
-            <el-col :span="8">    
+            <el-col :span="8">
                 <div class="searchWrapper">
-                    <el-avatar :size="38" src-set='https://logo.clearbit.com/facebook.com' />
+                    <el-avatar :size="38" src-set='https://logo.clearbit.com/facebook.com'/>
                     <div>
-                        <el-input 
-                            type="search" 
-                            placeholder="Rechercher un post"
-                            prefix-icon="Search" 
-                            v-model="searchResult"
+                        <el-input
+                                type="search"
+                                placeholder="Rechercher un post"
+                                prefix-icon="Search"
+                                v-model="searchResult"
                         />
                     </div>
 
-                </div>            
+                </div>
             </el-col>
             <el-col :span="8">
                 <el-icon :size="30">
-                    <HomeFilled color="#1877F2" />
+                    <HomeFilled color="#1877F2"/>
                 </el-icon>
             </el-col>
             <el-col :span="8">
-                <el-avatar :size="30" src-set='https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png' />
+                <el-avatar :size="30" src-set='https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'/>
             </el-col>
         </el-row>
     </header>
@@ -36,43 +36,46 @@ import { ref } from 'vue';
 
 <style lang="scss">
 @mixin centerElements($col:'row', $gap:0) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: $col;
-    gap: $gap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: $col;
+  gap: $gap;
 }
 
-.header{
-    height: auto;
-    
-    .wrapper{
-        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-        padding-block: .7em;
-        padding-inline: 1.5em;
-        @include centerElements();
+.header {
+  height: auto;
 
-        & > :nth-child(2){
-            @include centerElements();
-        }
-        & > :last-child{
-           @include centerElements();
+  .wrapper {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    padding-block: .7em;
+    padding-inline: 1.5em;
+    @include centerElements();
 
-            justify-content: end;
-        }
+    & > :nth-child(2) {
+      @include centerElements();
     }
 
-    .searchWrapper{
-        display: flex;
-        align-items: center;
-        div{
-            margin-left: 5px;
-            .el-input__wrapper{
-                border-radius: 50px !important;
-                height: 36px;
-            }
-        }
+    & > :last-child {
+      @include centerElements();
+
+      justify-content: end;
     }
+  }
+
+  .searchWrapper {
+    display: flex;
+    align-items: center;
+
+    div {
+      margin-left: 5px;
+
+      .el-input__wrapper {
+        border-radius: 50px !important;
+        height: 36px;
+      }
+    }
+  }
 }
 
 </style>

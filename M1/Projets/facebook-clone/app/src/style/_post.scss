@@ -1,0 +1,23 @@
+.post {
+  margin-top: 1em;
+  background-color: $my-color-secondary;
+  min-width: 550px;
+  max-width: 40%;
+  height: 600px;
+  border-radius: 8px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+  header {
+    padding: .8em 1em;
+    display: flex;
+
+    .left {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      .post-avatar{
+          margin-right: 10px;
+      }
+    }
+  }
+}

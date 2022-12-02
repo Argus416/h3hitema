@@ -1,16 +1,30 @@
-body{
-    margin: 0;
-    padding : 0;
-    box-sizing: border-box;
+@import "./_colors.scss";
+@import "./_utils.scss";
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+  'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+}
+
+#body {
+  background-color: $my-color-primary;
+  height: 100vh;
+
+  display: flex;
+  justify-content: space-between;
 }
 
 
 @mixin centerElements($col:'row', $gap:0) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: $col;
-    gap: $gap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: $col;
+  gap: $gap;
 }
 
-@import url("./_navbar.scss");
+@import "./_navbar.scss";
+@import "./_post.scss";
