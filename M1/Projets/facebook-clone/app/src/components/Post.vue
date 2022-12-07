@@ -12,8 +12,26 @@
                     <span class="small">11 h</span>
                 </div>
             </div>
-
         </header>
+
+        <img src="https://unsplash.it/1920/1080"  alt="img">
+
+        <footer>
+            <div class="info">
+                <div class="reactions">
+                    <span class="medium">
+                        15
+                    </span>
+                </div>
+                <div class="stats">
+                    <span class="medium">19 commentaires</span>
+                </div>
+            </div>
+            <div class="btns">
+                <el-button plain>J'aime</el-button>
+                <el-button plain>Commenter </el-button>
+            </div>
+        </footer>
     </section>
 </template>
 
