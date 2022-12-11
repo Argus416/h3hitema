@@ -1,7 +1,12 @@
 <script setup>
+import { ref } from 'vue';
 import  Comment  from './comment/Comment.vue';
 
+const displayComment = ref(false)
 
+const clickComment = () =>{
+    displayComment.value =  !displayComment.value
+}
 </script>
 
 <template>
@@ -17,7 +22,10 @@ import  Comment  from './comment/Comment.vue';
                 </div>
             </header>
 
-            <img src="https://unsplash.it/1920/1080"  alt="img">
+            <div class="post-content">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta hic nulla facere saepe itaque facilis odit. Quis cupiditate dignissimos consectetur!</p>
+            </div>
+            <img src="https://unsplash.it/1920/1080" class="img-post"  alt="img">
 
             <footer>
                 <div class="info">
@@ -32,12 +40,12 @@ import  Comment  from './comment/Comment.vue';
                 </div>
                 <div class="btns">
                     <el-button plain>J'aime</el-button>
-                    <el-button plain>Commenter </el-button>
+                    <el-button plain @click="clickComment()">Commenter </el-button>
                 </div>
             </footer>
         </main>
 
-       <Comment />
+       <Comment :display-comment="displayComment" />
     </section>
 </template>
 

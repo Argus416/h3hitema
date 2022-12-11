@@ -10,8 +10,8 @@
     main {
      
         header {
-            padding: .8em 1em;
             display: flex;
+            padding-block: .8em;
 
             .left {
                 display: flex;
@@ -22,6 +22,14 @@
                     margin-right: 10px;
                 }
             }
+        }
+
+        header, .post-content{
+            padding-inline: .8em 1em;
+        }
+
+        .img-post{
+            padding-top: .8em;
         }
 
         footer {

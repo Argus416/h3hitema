@@ -1,16 +1,32 @@
 
 <script setup>
-    import CommentBody from './CommentBody.vue';
+    import { ref } from 'vue';
+import CommentBody from './CommentBody.vue';
+    const props = defineProps({
+        displayComment: {
+            type: Boolean,
+            default : false,
+            required: true
+        }
+    })
+
+    const newComment = ref('')
+
+    const submitNewComment = () =>{
+        newComment.value = ""
+    }
 </script>
 
 <template>
      <section class="comment-warapper">
             <div class="comment-form">
                 <el-avatar class="post-avatar" :size="35" src-set='https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'/>
-                <el-input  placeholder="Ecrivez un commentaire..." />
+                <form @submit.prevent="submitNewComment()" class="w-full">
+                    <el-input v-model="newComment"  placeholder="Ecrivez un commentaire..." class="w-full" />
+                </form>
             </div>
 
-            <CommentBody />
+            <CommentBody v-if="props.displayComment" />
         </section>
 </template>
 

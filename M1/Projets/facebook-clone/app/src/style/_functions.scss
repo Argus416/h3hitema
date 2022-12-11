@@ -1,7 +1,14 @@
-@mixin centerElements($gap:0, $col:'row') {
+@mixin centerElements($gap:0, $col:row) {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: $col;
     gap: $gap;
+}
+
+@mixin spaceBetween($col: row) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: $col;
 }
