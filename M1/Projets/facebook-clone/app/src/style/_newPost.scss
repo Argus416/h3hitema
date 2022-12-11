@@ -1,0 +1,16 @@
+.new-post-warapper {
+    @include borderRadius($boder-two);
+    background-color: $bg-post;
+    padding: 0.8em 1em;
+    margin-top: 10px;
+
+    .new-post-form {
+        @include spaceBetween(10px);
+
+        .el-input__wrapper {
+            border-radius: 50px;
+            padding-block: 3px;
+        }
+    }
+
+}

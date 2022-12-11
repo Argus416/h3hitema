@@ -6,9 +6,15 @@
     gap: $gap;
 }
 
-@mixin spaceBetween($col: row) {
+@mixin spaceBetween($gap:0px, $col: row) {
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-direction: $col;
+    gap: $gap;
+}
+
+@mixin borderRadius($border-radius : 0px, $overflow:hidden){
+    border-radius: $border-radius;
+    overflow: hidden;
 }

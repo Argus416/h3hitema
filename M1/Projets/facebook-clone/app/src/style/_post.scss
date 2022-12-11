@@ -1,14 +1,14 @@
 .post {
+    @include borderRadius($boder-two);
     min-width: 550px;
     max-width: 40%;
-    background-color: $my-color-secondary;
+    background-color: $bg-post;
     height: fit-content;
     margin-top: 1em;
-    border-radius: 8px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
     main {
-     
+
         header {
             display: flex;
             padding-block: .8em;
@@ -24,11 +24,12 @@
             }
         }
 
-        header, .post-content{
+        header,
+        .post-content {
             padding-inline: .8em 1em;
         }
 
-        .img-post{
+        .img-post {
             padding-top: .8em;
         }
 

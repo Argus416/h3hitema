@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import  Comment  from './comment/Comment.vue';
+import  Comment  from '../comment/Comment.vue';
 
 const displayComment = ref(false)
 

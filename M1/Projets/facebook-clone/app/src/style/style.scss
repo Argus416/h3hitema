@@ -1,5 +1,6 @@
-@import "./_colors.scss";
+@import "./_var.scss";
 @import "./_utils.scss";
+@import "./_functions.scss";
 
 body {
     margin: 0;
@@ -7,6 +8,7 @@ body {
     box-sizing: border-box;
     font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
         'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+    background-color: $my-color-primary;
 }
 
 img {
@@ -19,14 +21,14 @@ p{
 }
 
 #body {
-    background-color: $my-color-primary;
     height: 100vh;
-
+    width: 550px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    margin: 0 auto;
 }
 
-@import "./_functions.scss";
 @import "./_navbar.scss";
 @import "./_post.scss";
+@import "./_newPost.scss";
 @import "./_comment.scss";
