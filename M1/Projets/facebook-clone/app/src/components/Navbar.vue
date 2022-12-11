@@ -59,7 +59,7 @@ const searchResult = ref('')
     & > :last-child {
       @include centerElements();
 
-      justify-content: end;
+      justify-content: flex-end;
     }
   }
 

@@ -6,7 +6,8 @@
 
     .new-post-form {
         @include spaceBetween(10px);
-
+        align-items: flex-start;
+        
         .el-input__wrapper {
             border-radius: 50px;
             padding-block: 3px;

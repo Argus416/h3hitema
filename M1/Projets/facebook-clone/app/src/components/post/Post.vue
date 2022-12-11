@@ -39,8 +39,8 @@ const clickComment = () =>{
                     </div>
                 </div>
                 <div class="btns">
-                    <el-button plain>J'aime</el-button>
-                    <el-button plain @click="clickComment()">Commenter </el-button>
+                    <el-button class="my-btn-no-border" plain>J'aime</el-button>
+                    <el-button class="my-btn-no-border" plain @click="clickComment()">Commenter </el-button>
                 </div>
             </footer>
         </main>
