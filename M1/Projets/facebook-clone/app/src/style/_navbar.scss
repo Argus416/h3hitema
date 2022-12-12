@@ -18,8 +18,9 @@ header {
             border-radius: $boder-one;
             top: 33px;
             background-color: $bg-post;
-
-            li {
+            @include spaceBetween(0, column);
+            li,a{
+                width: 100%;
                 padding: 3px 8px;
                 cursor: pointer;
                 transition: .2s all ease-in-out;
