@@ -15,7 +15,7 @@ const clickOptions = () =>{
             <el-col :span="8">
                 <div class="searchWrapper">
                     <router-link :to="{name: 'home'}">
-                      <el-avatar  :size="38" src-set='https://logo.clearbit.com/facebook.com'/>
+                        <el-avatar  :size="38" src-set='https://logo.clearbit.com/facebook.com'/>
                     </router-link>
                     <div>
                         <el-input
@@ -25,25 +25,24 @@ const clickOptions = () =>{
                           v-model="searchResult"
                         />
                     </div>
-
                 </div>
             </el-col>
             <el-col :span="8">
                 <el-icon :size="30">
-                  <router-link :to="{name: 'home'}">
-                    <HomeFilled color="#1877F2"/>
-                  </router-link>
+                    <router-link :to="{name: 'home'}">
+                        <HomeFilled color="#1877F2"/>
+                    </router-link>
                 </el-icon>
             </el-col>
 
             <el-col :span="8" class="right-side">
                 <el-avatar @click="clickOptions()" class="icon" :size="30" src-set='https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'/>
                 <div v-if="displayOptionsMenu">
-                  <ul class="menu">
-                    <router-link :to="{ name:'signup' }" @click="clickOptions()">Créer un compte</router-link>
-                    <router-link :to="{ name:'login' }" @click="clickOptions()">Me connecter</router-link>
-                    <li  class="danger">Déconnexion</li>
-                  </ul>
+                    <ul class="menu">
+                        <router-link :to="{ name:'signup' }" @click="clickOptions()">Créer un compte</router-link>
+                        <router-link :to="{ name:'login' }" @click="clickOptions()">Me connecter</router-link>
+                        <li  class="danger">Déconnexion</li>
+                    </ul>
                 </div>
             </el-col>
         </el-row>
