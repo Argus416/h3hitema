@@ -35,6 +35,17 @@ class User {
 		}
 	}
 
+	async Login(data) {
+		try {
+			const request = await axios.post(`${API_URL}/v1/users/login`, data);
+			const newUser = request.data;
+
+			return newUser;
+		} catch (err) {
+			console.error("Error finding user in User controller", err);
+		}
+	}
+
 	async updateUser(id, data) {
 		try {
 			const request = await axios.patch(`${API_URL}/v1/users/update/${id}`, data);

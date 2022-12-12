@@ -69,7 +69,7 @@
             </div>
 
             <el-form-item class="w-full " prop="email">
-                <el-input class="mb-2" type="email" v-model.trim="newUserReactive.email" placeholder="Email" />
+                <el-input  type="email" v-model.trim="newUserReactive.email" placeholder="Email" />
             </el-form-item>
            
             <el-form-item class="w-full " prop="password">

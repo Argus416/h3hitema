@@ -1,29 +1,71 @@
 <script setup>
-    import { reactive } from "vue-demi";
+    import { reactive, ref } from "vue";
+    import {useRouter} from "vue-router"
+    import UserContller from "../controllers/User"
 
-    const state = reactive({
+    const router = useRouter()
+    const form = ref()
+
+    const loginFormReactive = reactive({
         email : "",   
         password : "",   
     })
+    
+    const rules = reactive({
+        email : [
+            { required: true, message: "Veuillez remplir le champ", trigger: 'blur' },
+            { min: 3, max: 255, message: 'Taillez minimum entre 3 et 255', trigger: 'blur' },
+        ],   
+        password : [
+            { required: true, message: "Veuillez remplir le champ", trigger: 'blur' },
+            { min: 3, max: 255, message: 'Taillez minimum entre 3 et 255', trigger: 'blur' },
+        ],   
+       
+    })
 
-    const Login = () =>{
-        console.log(state)
+    const Login = async (formEl) =>{
+        try{
+
+            if (!formEl) return
+
+            await formEl.validate( async (valid, fields) => {
+                if (valid) {
+                    const login = await UserContller.Login({...loginFormReactive})
+                    console.log('Connected')
+                    router.push({name : "home"})
+                } else {
+                    console.log('error submit!', fields)
+                }
+            })
+        }catch(err){
+            console.error("Error in Login function", err)
+        }
     }
 </script>
 
 <template>
     <div class="w-6/12 mx-auto mt-10 ">
-        <h1 class="mb-3 text-xl">Vous-connectez</h1>
-        <el-form >
-            <el-input class="mb-2" type="email" v-model="state.email" placeholder="Email" />
-            <el-input type="password" v-model="state.password" placeholder="Password" />
-            <div class="text-center mt-3">
-                <el-button type="success" @click="Login">Créer un compte</el-button>
-            </div>
+        <h1 class="mb-3 text-xl">Créer un compte</h1>
+
+        <el-form ref="form" :model="loginFormReactive" :rules="rules" status-icon>
+            <el-form-item class="w-full " prop="email">
+                <el-input type="email" v-model.trim="loginFormReactive.email" placeholder="Email" />
+            </el-form-item>
+           
+            <el-form-item class="w-full " prop="password">
+                <el-input type="password" v-model.trim="loginFormReactive.password" placeholder="Mots de passe" />
+            </el-form-item>
+
+            <el-form-item class="   mt-3">
+                <el-button class="items-center" type="success" @click="Login(form)">Connexion</el-button>
+            </el-form-item>
+
         </el-form>
     </div>
 </template>
 
-<style lang="scss" scoped>
-
+<style lang="scss">
+    .el-form-item__content{
+        justify-content: center;
+    }
 </style>
