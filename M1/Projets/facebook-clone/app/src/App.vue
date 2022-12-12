@@ -5,13 +5,15 @@ import Post from "./components/post/Post.vue";
 </script>
 
 <template>
-    <Navbar/>
-    <main id="body">
-        <div class="content">
-            <NewPost/>
-            <Post/>
-        </div>
-    </main>
+    <div>
+        <Navbar/>
+        <main id="body">
+            <div class="content">
+                <NewPost/>
+                <Post/>
+            </div>
+        </main>
+    </div>
 
 </template>
 

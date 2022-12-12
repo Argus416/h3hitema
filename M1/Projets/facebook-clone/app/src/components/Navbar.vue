@@ -2,6 +2,14 @@
 import {ref} from 'vue';
 
 const searchResult = ref('')
+const displayOptionsMenu = ref(false)
+
+const clickOptions = () =>{
+  displayOptionsMenu.value = !displayOptionsMenu.value
+  console.log('====================================');
+  console.log(displayOptionsMenu.value);
+  console.log('====================================');
+}
 </script>
 
 <template>
@@ -12,10 +20,10 @@ const searchResult = ref('')
                     <el-avatar :size="38" src-set='https://logo.clearbit.com/facebook.com'/>
                     <div>
                         <el-input
-                                type="search"
-                                placeholder="Rechercher un post"
-                                prefix-icon="Search"
-                                v-model="searchResult"
+                          type="search"
+                          placeholder="Rechercher un post"
+                          prefix-icon="Search"
+                          v-model="searchResult"
                         />
                     </div>
 
@@ -26,8 +34,16 @@ const searchResult = ref('')
                     <HomeFilled color="#1877F2"/>
                 </el-icon>
             </el-col>
-            <el-col :span="8">
-                <el-avatar :size="30" src-set='https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'/>
+
+            <el-col :span="8" class="right-side">
+                <el-avatar @click="clickOptions()" class="icon" :size="30" src-set='https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'/>
+                <div v-if="displayOptionsMenu">
+                  <ul class="menu">
+                    <li>Créer un compte</li>
+                    <li>Me connecter</li>
+                    <li class="danger">Déconnexion</li>
+                  </ul>
+                </div>
             </el-col>
         </el-row>
     </header>
