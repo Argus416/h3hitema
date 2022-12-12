@@ -2,9 +2,11 @@
     import { reactive, ref } from "vue";
     import {useRouter} from "vue-router"
     import UserContller from "../controllers/User"
+    import {useUserStore} from "../stores/user"
 
     const router = useRouter()
     const form = ref()
+    const userStore = useUserStore()
 
     const loginFormReactive = reactive({
         email : "",   
@@ -31,7 +33,9 @@
             await formEl.validate( async (valid, fields) => {
                 if (valid) {
                     const login = await UserContller.Login({...loginFormReactive})
+                    console.log(login)
                     console.log('Connected')
+                    userStore.login(login)
                     router.push({name : "home"})
                 } else {
                     console.log('error submit!', fields)

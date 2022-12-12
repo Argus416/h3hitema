@@ -1,12 +1,14 @@
 <script setup>
-import {ref} from 'vue';
+    import {ref} from 'vue';
+    import { useUserStore } from '../stores/user';
 
-const searchResult = ref('')
-const displayOptionsMenu = ref(false)
+    const searchResult = ref('')
+    const displayOptionsMenu = ref(false)
+    const userStore = useUserStore();
 
-const clickOptions = () =>{
-  displayOptionsMenu.value = !displayOptionsMenu.value
-}
+    const clickOptions = () =>{
+        displayOptionsMenu.value = !displayOptionsMenu.value
+    }
 </script>
 
 <template>
@@ -39,9 +41,9 @@ const clickOptions = () =>{
                 <el-avatar @click="clickOptions()" class="icon" :size="30" src-set='https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'/>
                 <div v-if="displayOptionsMenu">
                     <ul class="menu">
-                        <router-link :to="{ name:'signup' }" @click="clickOptions()">Créer un compte</router-link>
-                        <router-link :to="{ name:'login' }" @click="clickOptions()">Me connecter</router-link>
-                        <li  class="danger">Déconnexion</li>
+                        <router-link v-if="!userStore.user.isLoggedIn" :to="{ name:'signup' }" @click="clickOptions()">Créer un compte</router-link>
+                        <router-link v-if="!userStore.user.isLoggedIn" :to="{ name:'login' }" @click="clickOptions()">Me connecter</router-link>
+                        <li v-if="userStore.user.isLoggedIn" class="danger" @click="userStore.logout()">Déconnexion</li>
                     </ul>
                 </div>
             </el-col>

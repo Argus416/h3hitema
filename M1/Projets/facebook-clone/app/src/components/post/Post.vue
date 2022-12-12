@@ -1,12 +1,26 @@
 <script setup>
-import { ref } from 'vue';
-import Comment from '../comment/Comment.vue';
+    import { ref, watch } from 'vue';
+    import Comment from '../comment/Comment.vue';
+    import { useUserStore } from '../../stores/user';
+        
+    const userStore = useUserStore();
+    const displayComment = ref(false)
+    const commentBtnText = ref('Voir les commentaires')
 
-const displayComment = ref(false)
+    watch(() => userStore.isLoggedIn() , (newVal) =>{
+        console.log(userStore?.user)
+        if(userStore.isLoggedIn()){
+            commentBtnText.value = "Commenter"
+        }else{
+            commentBtnText.value = "Voir les commentaires"
+        }
+    },{
+        immediate: true
+    })
 
-const clickComment = () =>{
-    displayComment.value =  !displayComment.value
-}
+    const clickComment = () =>{
+        displayComment.value =  !displayComment.value
+    }
 </script>
 
 <template>
@@ -39,8 +53,8 @@ const clickComment = () =>{
                     </div>
                 </div>
                 <div class="btns">
-                    <el-button class="my-btn-no-border" plain>J'aime</el-button>
-                    <el-button class="my-btn-no-border" plain @click="clickComment()">Commenter </el-button>
+                    <el-button v-if="userStore.isLoggedIn()" class="my-btn-no-border"  plain>J'aime</el-button>
+                    <el-button class="my-btn-no-border" plain @click="clickComment()">{{commentBtnText}} </el-button>
                 </div>
             </footer>
         </main>
