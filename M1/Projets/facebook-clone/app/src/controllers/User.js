@@ -1,9 +1,7 @@
 import { API_URL } from "../config/api_config";
-
+import axios from "axios";
 class User {
-	constructor() {
-		this.apiUrl = API_URL;
-	}
+	constructor() {}
 
 	async getUsers() {
 		try {
@@ -25,9 +23,21 @@ class User {
 			console.error("Error fetching user in User controller", err);
 		}
 	}
-	async updateUser(id, body) {
+
+	async createUser(data) {
 		try {
-			const request = await axios.patch(`${API_URL}/v1/users/update/${id}`);
+			const request = await axios.post(`${API_URL}/v1/users/create`, data);
+			const newUser = request.data;
+
+			return newUser;
+		} catch (err) {
+			console.error("Error creating user in User controller", err);
+		}
+	}
+
+	async updateUser(id, data) {
+		try {
+			const request = await axios.patch(`${API_URL}/v1/users/update/${id}`, data);
 			const user = request.data;
 
 			return user;
@@ -43,7 +53,7 @@ class User {
 
 			return user;
 		} catch (err) {
-			console.error("Error updating user in User controller", err);
+			console.error("Error deleting user in User controller", err);
 		}
 	}
 }
