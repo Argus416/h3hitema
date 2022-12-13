@@ -3,19 +3,38 @@
     import { computed, ref, watch } from 'vue';
     import Comment from '../comment/Comment.vue';
     import { useUserStore } from '../../stores/user';
+    import { usePostStore } from '../../stores/post';
     import {formatDay} from "../../helpers/date"
     import CommentBody from "../comment/CommentBody.vue";
     import {fullNameFormater} from "../../helpers/formater" 
+
+    const emits =  defineEmits(["refrechPost"])
+
     const props = defineProps({
         post : {
             required : true,
             default : {}
         },
+        postIndex: {
+            required : true,
+            default : ""
+        },
     })
 
     const userStore = useUserStore();
-    const displayComment = ref(false)
+    const postStore = usePostStore();
+
+    const displayComment = ref(true)
     const commentBtnText = ref('Voir les commentaires')
+    const postRef = ref([])
+
+    watch(() => props.post, (newVal) =>{
+        postRef.value = newVal
+        console.log(newVal)
+    }, {
+        deep : true,
+        immediate: true
+    })
 
     watch(
         () => userStore.isLoggedIn() , (newVal) =>{
@@ -25,12 +44,13 @@
             commentBtnText.value = "Voir les commentaires"
         }
     },{
+        deep :true,
         immediate: true
     })
+    
 
     const clickComment = () =>{
         displayComment.value =  !displayComment.value
-        console.log(displayComment.value, "displayComment.value")
     }
 
     const fullName = computed(()=>{
@@ -40,6 +60,11 @@
         }
         return ""
     })
+    
+    const refrechPost = (val)=>{
+        displayComment.value =  true
+        emits('refrechPost', val);
+    }
     // https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png
 </script>
 
@@ -72,7 +97,7 @@
                         </span>
                     </div>
                     <div class="stats">
-                        <span class="medium">19 commentaires</span>
+                        <span class="medium">{{postStore.countComments(props.postIndex)}} commentaires</span>
                     </div>
                 </div>
                 <div class="btns">
@@ -82,9 +107,9 @@
             </footer>
         </main>
 
-        <Comment :display-comment="displayComment"/>
-        <div v-for="comment in post.comments" :key="comment.id" class="comment-warapper">
-            <CommentBody v-show="displayComment" :comment="comment"  />
+        <Comment :display-comment="displayComment" :post-id="postRef.id" @refrechPost="refrechPost" />
+        <div  v-for="comment in postRef.comments" :key="comment.id" class="comment-warapper">
+            <CommentBody :comment="postRef.comments[0]"  />
         </div>
     </section>
 </template>

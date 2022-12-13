@@ -1,6 +1,7 @@
 
 <script setup>
     import {fullNameFormater} from "../../helpers/formater" 
+    import {formatDay} from "../../helpers/date"
 
     const props = defineProps({
         comment:{
@@ -8,7 +9,8 @@
         }
     })
 
-    console.log(props.comment)
+    console.log(props.comment, "err")
+
 </script>
 
 <template>
@@ -17,7 +19,7 @@
         <div class="content">
             <div class="content-header">
                 <h5>{{fullNameFormater(props.comment.user.first_name, props.comment.user.last_name)}}</h5>
-                <span class="small">10/12/2022 à 13h05</span>
+                <span class="small">{{formatDay(props.comment.created_at)}}</span>
             </div>
             <p>{{props.comment.content}}</p>
         </div>

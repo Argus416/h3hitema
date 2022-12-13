@@ -12,7 +12,7 @@ export const timeFromToday = (date) => {
 export const formatDay = (date) => {
 	date = new Date(date);
 	date = moment(date, "YYYY.MM.DD HH:mm");
-	const formated = moment(date).format("DD:MM:Y à HH:mm");
+	const formated = moment(date).format("DD/MM/Y à HH:mm");
 
 	return formated;
 };

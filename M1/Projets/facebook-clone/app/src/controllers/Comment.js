@@ -13,6 +13,17 @@ class Comment {
 		}
 	}
 
+	async addComment(data) {
+		try {
+			const request = await axios.post(`${API_URL}/comments/add`, data);
+			const comments = request.data;
+
+			return comments;
+		} catch (err) {
+			console.error("Error adding Comment in Comment controller", err);
+		}
+	}
+
 	async deleteComment(commentId) {
 		try {
 			const request = await axios.delete(`${API_URL}/comments/delete${commentId}`);

@@ -9,25 +9,26 @@
     const postStore = usePostStore();
 
     const state = reactive({
-        posts : []
+        posts : [],
+        refrechWatcher : false
     })
 
-    watch(state.posts, async () =>{
+    watch(()=> state.refrechWatcher , async () =>{
         await postStore.LoadPosts()
         state.posts = postStore.posts
     },{
-        deep: true,
         immediate : true,
     })
 
+  
 </script>
 
 <template>
      <main id="body">
         <div class="content">
             <NewPost v-if="userStore?.isLoggedIn()" />
-            <div v-for="post in state.posts" :key="post?.id">
-                <Post :post="post" />
+            <div v-for="(post, postIndex) in state.posts" :key="post?.id">
+                <Post :post="post" :post-index="postIndex" @refrech-post="state.refrechWatcher = !state.refrechWatcher" />
             </div>
         </div>
     </main>

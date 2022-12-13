@@ -32,6 +32,14 @@ p{
     margin: 0 auto;
 }
 
+.formkit-wrapper{
+    max-width: none !important;
+
+    .formkit-input{
+        padding: 7px 12px;
+        font-size: 14px;
+    }
+}
 @import "./_navbar.scss";
 @import "./_post.scss";
 @import "./_newPost.scss";

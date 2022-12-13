@@ -13,9 +13,10 @@
         .new-post-input-wrapper{
             @include spaceBetween(10px);
         }
-        .el-input__wrapper {
+        .el-input__wrapper , .formkit-input {
             border-radius: 50px;
-            padding-block: 3px;
+            padding: 1px 11px;
+            padding-block: 3px !important;
         }
     }
 

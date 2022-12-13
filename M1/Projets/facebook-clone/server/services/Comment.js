@@ -14,7 +14,7 @@ class Comment {
 				.join(`${USER_TABLE}`, `${USER_TABLE}.id`, `${COMMENTS_TABLE}.userId`)
 				.select([`${COMMENTS_TABLE}.*`, knex.raw(`to_json(${USER_TABLE}.*) as user`)])
 				.where({ postId: postId })
-				.orderBy("created_at", "asc");
+				.orderBy("created_at", "desc");
 
 			return comments;
 		} catch (err) {
@@ -40,8 +40,8 @@ class Comment {
 			console.log(data);
 			const knex = this.knex;
 			const newPost = await knex(COMMENTS_TABLE).insert(data);
-			console.log("new comment");
-			return newPost;
+
+			return data;
 		} catch (err) {
 			console.error("Unable to create new comment", err);
 		}

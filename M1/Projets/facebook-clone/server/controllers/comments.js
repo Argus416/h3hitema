@@ -31,9 +31,8 @@ exports.createComment = async (req, res) => {
 		};
 
 		const createComment = await Comment.createComment(data);
-		console.log(createComment, "createComment");
 
-		res.send("OK");
+		res.send(createComment);
 	} catch (err) {
 		console.error(err);
 		res.send("Unable to add comment from the Comment controller");

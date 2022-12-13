@@ -8,6 +8,7 @@ export const usePostStore = defineStore("post", {
 			posts: {},
 		};
 	},
+
 	actions: {
 		async LoadPosts() {
 			const posts = await Post.getPosts();
@@ -17,6 +18,10 @@ export const usePostStore = defineStore("post", {
 			});
 
 			this.posts = posts;
+		},
+
+		countComments(index) {
+			return [...this.posts][index]?.comments?.length;
 		},
 	},
 });

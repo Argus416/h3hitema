@@ -3,21 +3,42 @@
     import { ref } from 'vue';
     import CommentBody from './CommentBody.vue';
     import { useUserStore } from '../../stores/user';
+    import { usePostStore } from '../../stores/post';
+    import Comment from "../../controllers/Comment"
+
+    const emits =  defineEmits(["refrechPost"])
 
     const userStore = useUserStore();
+    const postStore = usePostStore();
+
+    const currentUser = userStore.user
 
     const props = defineProps({
-        displayComment: {
-            type: Boolean,
+        postId:{
+            type: String,
             default : false,
             required: true
-        }
+        },
     })
 
     const newComment = ref('')
 
-    const submitNewComment = () =>{
-        newComment.value = ""
+    const submitNewComment = async () =>{
+        try{
+            if(newComment.value){
+                const newCommentBody = {
+                    "content": newComment.value,
+                    "postId": props.postId,
+                    "userId": currentUser.id
+                }
+                const addComment = await Comment.addComment(newCommentBody)
+                newComment.value = ""
+
+                emits('refrechPost', true)
+            }
+        }catch(err){
+            console.error(err)
+        }
     }
 </script>
 
