@@ -6,8 +6,8 @@ module.exports = function commentSchema(knex) {
                 t.text("content");
                 t.integer("userId").unsigned();
                 t.integer("postId").unsigned();
-                t.foreign("userId").references("users.id");
-                t.foreign("postId").references("posts.id");
+                t.foreign("userId").references("id").inTable("users");
+				t.foreign("postId").references("id").inTable("posts");
                 t.timestamps();
             });
         }

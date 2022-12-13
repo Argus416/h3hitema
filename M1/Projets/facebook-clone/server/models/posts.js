@@ -6,7 +6,7 @@ module.exports = function postSchema(knex) {
                 t.text("body");
                 t.string("image", 255).nullable();
                 t.integer("userId").unsigned();
-                t.foreign("userId").references("users.id");
+                t.foreign("userId").references("id").inTable("users");
                 t.timestamps();
             });
         }

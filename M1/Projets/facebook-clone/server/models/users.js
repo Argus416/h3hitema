@@ -8,7 +8,7 @@ module.exports = function userSchema(knex) {
                 t.string("last_name", 100);
                 t.string("email", 100).unique();
                 t.string("password", 255);
-                t.string("prfile_photo", 255);
+                t.string("profile_photo", 255);
                 t.timestamps();
             });
         }

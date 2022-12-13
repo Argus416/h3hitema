@@ -1,6 +1,5 @@
-const pgTables = require("../env/pgTables");
-const { USER_TABLE, POSTS_TABLE } = pgTables;
 const pg = require("../db");
+const { LIKES_TABLE, COMMENTS_TABLE, USER_TABLE, POSTS_TABLE } = require("../env/pgTables");
 
 class Post {
 	constructor() {
@@ -10,12 +9,6 @@ class Post {
 	async getPosts() {
 		try {
 			const knex = this.knex;
-			// const posts = await knex(POSTS_TABLE)
-			// 	.join(`${USER_TABLE}`, `${USER_TABLE}.id`, `${POSTS_TABLE}.userId`)
-			// 	.select([`${POSTS_TABLE}.*`, knex.raw(`to_json(${USER_TABLE}.*) as user`)])
-			// 	.where({ "users.id": userId })
-			// 	.orderBy("created_at", "asc");
-
 			const posts = await knex(POSTS_TABLE)
 				.join(`${USER_TABLE}`, `${USER_TABLE}.id`, `${POSTS_TABLE}.userId`)
 				.select([`${POSTS_TABLE}.*`, knex.raw(`to_json(${USER_TABLE}.*) as user`)])

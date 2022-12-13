@@ -6,13 +6,11 @@ import ElementPlus from "element-plus";
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 import router from "./router";
 import { createPinia } from "pinia";
-import { CarbonIconsVue } from "@carbon/icons-vue";
 
 const app = createApp(App);
 const pinia = createPinia();
 
 app.use(ElementPlus);
-app.use(CarbonIconsVue);
 app.use(router);
 app.use(pinia);
 
