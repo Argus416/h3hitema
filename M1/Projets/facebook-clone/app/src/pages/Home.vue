@@ -14,6 +14,7 @@
     })
 
     watch(()=> state.refrechWatcher , async () =>{
+        console.log('reload')
         await postStore.LoadPosts()
         state.posts = postStore.posts
     },{
@@ -26,7 +27,7 @@
 <template>
      <main id="body">
         <div class="content">
-            <NewPost v-if="userStore?.isLoggedIn()" />
+            <NewPost v-if="userStore?.isLoggedIn()"  @refrech-post="state.refrechWatcher = !state.refrechWatcher" />
             <div v-for="(post, postIndex) in state.posts" :key="post?.id">
                 <Post :post="post" :post-index="postIndex" @refrech-post="state.refrechWatcher = !state.refrechWatcher" />
             </div>

@@ -12,6 +12,16 @@ class Post {
 			console.error("Error fetching Posts in Post controller", err);
 		}
 	}
+	async addPost(data) {
+		try {
+			const request = await axios.post(`${API_URL}/posts/add`, data);
+			const post = request.data;
+
+			return post;
+		} catch (err) {
+			console.error("Error adding Post in Post controller", err);
+		}
+	}
 
 	async deletePost(postId) {
 		try {

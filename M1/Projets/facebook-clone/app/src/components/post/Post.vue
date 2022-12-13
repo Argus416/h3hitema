@@ -84,7 +84,7 @@
             <div class="post-content">
                 <p>{{props.post.body}}</p>
             </div>
-            <img crossorigin="anonymous" :src="API_PUBLIC_URL+'/'+props.post.image" class="img-post"  alt="img">
+            <img crossorigin="anonymous" :src="props.post.image" class="img-post"  alt="img">
             <!--
                 <img src="https://unsplash.it/1920/1080" class="img-post"  alt="img">
             -->

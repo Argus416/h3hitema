@@ -1,15 +1,41 @@
 
 <script setup>
 import Modal from '../UI/Modal.vue';
-import { ref } from 'vue';
+import { reactive, ref } from 'vue';
 import { genFileId } from 'element-plus'
+import { useUserStore } from '../../stores/user';
+import Post from "../../controllers/Post"
 
-const newPost = ref('')
+const emits =  defineEmits(["refrechPost"])
+
+const newPost = reactive({
+    content : "",
+    imgUrl : ""
+})
+
 const upload = ref("")
 const toggleModal = ref(false);
 
-const submitNewPost = () =>{
-    newPost.value = ""
+const userStore = useUserStore();
+const currentUser = userStore.user
+
+const addNewPost =async () =>{
+    try{
+        if(newPost.content){
+            const newCommentBody = {
+                body: newPost.content,
+                image: newPost.imgUrl,
+                userId: currentUser.id
+            }
+            const addPost = await Post.addPost(newCommentBody)
+            newPost.content = ""
+            newPost.imgUrl = ""
+            console.log("addPost")
+            emits('refrechPost', true)
+        }
+    }catch(err){
+        console.error(err)
+    }
 }
 
 
@@ -20,27 +46,12 @@ const submitNewPost = () =>{
         <div class="new-post-form">
             <div class="new-post-input-wrapper">
                 <el-avatar class="post-avatar" :size="35" src-set='https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'/>
-                <form @submit.prevent="submitNewPost()" class="w-full">
-                    <el-input v-model="newPost"  placeholder="Publier un nouveau post..." class="w-full" />
-                </form>
+                <el-form class="w-full">
+                    <el-input type="textarea" v-model="newPost.content"  placeholder="Publier un nouveau post..." class="w-full" />
+                    <el-input v-model="newPost.imgUrl"  placeholder="Url d'une image" class="w-full mt-3" />
+                    <el-button @click="addNewPost" class="mt-3" type="success">Ajouter</el-button>
+                </el-form>
             </div>
-            <el-upload
-                ref="upload"
-                class="upload-demo"
-                action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
-                :limit="1"
-                :on-exceed="handleExceed"
-                :auto-upload="false"
-            >
-                <template #trigger>
-                <el-button type="primary">select file</el-button>
-                </template>
-                
-                <el-button class="ml-3" type="success" @click="submitUpload">
-                upload to server
-                </el-button>
-                        
-            </el-upload>
         </div>
 
         

@@ -12,7 +12,7 @@ class Post {
 			const posts = await knex(POSTS_TABLE)
 				.join(`${USER_TABLE}`, `${USER_TABLE}.id`, `${POSTS_TABLE}.userId`)
 				.select([`${POSTS_TABLE}.*`, knex.raw(`to_json(${USER_TABLE}.*) as user`)])
-				.orderBy("created_at", "asc");
+				.orderBy("created_at", "desc");
 
 			return posts;
 		} catch (err) {

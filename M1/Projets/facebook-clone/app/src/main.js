@@ -15,6 +15,7 @@ const pinia = createPinia();
 app.use(ElementPlus);
 app.use(router);
 app.use(pinia);
+
 app.use(
 	plugin,
 	defaultConfig({
