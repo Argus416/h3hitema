@@ -16,7 +16,6 @@ export const usePostStore = defineStore("post", {
 				post.comments = comments;
 			});
 
-			console.log(posts);
 			this.posts = posts;
 		},
 	},

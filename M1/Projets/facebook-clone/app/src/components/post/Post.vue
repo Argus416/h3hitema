@@ -4,19 +4,21 @@
     import Comment from '../comment/Comment.vue';
     import { useUserStore } from '../../stores/user';
     import {formatDay} from "../../helpers/date"
-
+    import CommentBody from "../comment/CommentBody.vue";
+    import {fullNameFormater} from "../../helpers/formater" 
     const props = defineProps({
         post : {
             required : true,
             default : {}
         },
-        
     })
+
     const userStore = useUserStore();
     const displayComment = ref(false)
     const commentBtnText = ref('Voir les commentaires')
 
-    watch(() => userStore.isLoggedIn() , (newVal) =>{
+    watch(
+        () => userStore.isLoggedIn() , (newVal) =>{
         if(userStore.isLoggedIn()){
             commentBtnText.value = "Commenter"
         }else{
@@ -28,12 +30,13 @@
 
     const clickComment = () =>{
         displayComment.value =  !displayComment.value
+        console.log(displayComment.value, "displayComment.value")
     }
 
     const fullName = computed(()=>{
         const user = props?.post?.user
         if(user != undefined){
-            return user.first_name + " " + user.last_name
+            return fullNameFormater(user.first_name, user.last_name)
         }
         return ""
     })
@@ -79,7 +82,10 @@
             </footer>
         </main>
 
-       <Comment :display-comment="displayComment" />
+        <Comment :display-comment="displayComment"/>
+        <div v-for="comment in post.comments" :key="comment.id" class="comment-warapper">
+            <CommentBody v-show="displayComment" :comment="comment"  />
+        </div>
     </section>
 </template>
 

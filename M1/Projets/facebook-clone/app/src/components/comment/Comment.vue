@@ -29,8 +29,6 @@
                     <el-input v-model="newComment"  placeholder="Ecrivez un commentaire..." class="w-full" />
                 </form>
             </div>
-
-            <CommentBody v-if="props.displayComment" />
         </section>
 </template>
 
