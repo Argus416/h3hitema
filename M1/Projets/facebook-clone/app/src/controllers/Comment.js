@@ -2,9 +2,9 @@ import { API_URL } from "../config/api_config";
 import axios from "axios";
 
 class Comment {
-	async getComments() {
+	async getComments(postId) {
 		try {
-			const request = await axios.get(`${API_URL}/comments`);
+			const request = await axios.get(`${API_URL}/comments/all/${postId}`);
 			const comments = request.data;
 
 			return comments;

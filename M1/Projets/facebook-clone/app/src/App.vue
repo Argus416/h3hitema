@@ -2,18 +2,19 @@
     import Navbar from "./components/Navbar.vue"
     import NewPost from "./components/Post/NewPost.vue";
     import { useUserStore } from "./stores/user";
+    import { usePostStore } from "./stores/post";
     
     const userStore = useUserStore()
+    const postStore = usePostStore()
 
     const toto = () =>{
-        console.log(userStore.user)
+        console.log(postStore.post)
     }
 </script>
 
 <template>
     <div>
         <Navbar/>
-        <el-button @click="toto()">test</el-button>
         <RouterView/>       
     </div>
 

@@ -17,15 +17,11 @@
     const commentBtnText = ref('Voir les commentaires')
 
     watch(() => userStore.isLoggedIn() , (newVal) =>{
-        console.log(userStore?.user)
         if(userStore.isLoggedIn()){
             commentBtnText.value = "Commenter"
         }else{
             commentBtnText.value = "Voir les commentaires"
         }
-
-        console.log(props.post)
-
     },{
         immediate: true
     })
@@ -36,7 +32,10 @@
 
     const fullName = computed(()=>{
         const user = props?.post?.user
-        return user.first_name + " " + user.last_name
+        if(user != undefined){
+            return user.first_name + " " + user.last_name
+        }
+        return ""
     })
     // https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png
 </script>
