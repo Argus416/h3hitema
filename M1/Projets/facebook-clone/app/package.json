@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@carbon/icons-vue": "^10.49.1",
     "@element-plus/icons-vue": "^2.0.10",
     "@formkit/vue": "^1.0.0-beta.12",
     "axios": "^1.2.1",
