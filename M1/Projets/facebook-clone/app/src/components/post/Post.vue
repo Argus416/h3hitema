@@ -1,8 +1,17 @@
 <script setup>
-    import { ref, watch } from 'vue';
+    import { API_PUBLIC_URL } from "../../config/api_config";
+    import { computed, ref, watch } from 'vue';
     import Comment from '../comment/Comment.vue';
     import { useUserStore } from '../../stores/user';
+    import {formatDay} from "../../helpers/date"
+
+    const props = defineProps({
+        post : {
+            required : true,
+            default : {}
+        },
         
+    })
     const userStore = useUserStore();
     const displayComment = ref(false)
     const commentBtnText = ref('Voir les commentaires')
@@ -14,6 +23,9 @@
         }else{
             commentBtnText.value = "Voir les commentaires"
         }
+
+        console.log(props.post)
+
     },{
         immediate: true
     })
@@ -21,6 +33,12 @@
     const clickComment = () =>{
         displayComment.value =  !displayComment.value
     }
+
+    const fullName = computed(()=>{
+        const user = props?.post?.user
+        return user.first_name + " " + user.last_name
+    })
+    // https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png
 </script>
 
 <template>
@@ -28,18 +46,21 @@
         <main>
             <header>
                 <div class="left">
-                    <el-avatar class="post-avatar" :size="35" src-set='https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'/>
+                    <el-avatar class="post-avatar" :size="35" :src-set="props?.post?.img_url || 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'"/>
                     <div>
-                        <h5 class="text item">Mohamad</h5>
-                        <span class="small">11 h</span>
+                        <h5 class="text item">{{fullName}}</h5>
+                        <span class="small">{{formatDay(props?.post?.created_at)}}</span>
                     </div>
                 </div>
             </header>
 
             <div class="post-content">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta hic nulla facere saepe itaque facilis odit. Quis cupiditate dignissimos consectetur!</p>
+                <p>{{props.post.body}}</p>
             </div>
-            <img src="https://unsplash.it/1920/1080" class="img-post"  alt="img">
+            <img crossorigin="anonymous" :src="API_PUBLIC_URL+'/'+props.post.image" class="img-post"  alt="img">
+            <!--
+                <img src="https://unsplash.it/1920/1080" class="img-post"  alt="img">
+            -->
 
             <footer>
                 <div class="info">

@@ -3,10 +3,10 @@ const { faker } = require("@faker-js/faker");
 
 exports.getPosts = async(req, res) => {
     try {
-        const {userId} = req.params
-        const getAllPosts = await Post.getPosts(userId);
-        res.send(getAllPosts);
-    } catch (err) {
+		// const {userId} = req.params
+		const getAllPosts = await Post.getPosts();
+		res.send(getAllPosts);
+	} catch (err) {
         console.error(err);
         res.send("Unable to get users from the Post controller");
     }

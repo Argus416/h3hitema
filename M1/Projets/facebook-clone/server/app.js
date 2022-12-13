@@ -9,19 +9,20 @@ const fastifyStatic = require("@fastify/static");
 const helmet = require("@fastify/helmet");
 const mapRoutes = require('@fastify/routes');
 
+
 const fastify = Fastify({
-    logger: true,
+	logger: true,
 });
 
 fastify.register(fastifyStatic, {
-    root: path.join(__dirname, "public"),
-    prefix: "/public",
+	root: path.join(__dirname, "public"),
+	prefix: "/public",
 });
 
 fastify.register(helmet);
 fastify.register(mapRoutes);
 fastify.register(cors, {
-    origin: "*",
+	origin: "*",
 });
 
 const createTablesRoute = require("./models/index");

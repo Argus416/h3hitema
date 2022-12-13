@@ -39,6 +39,89 @@
   dependencies:
     "@floating-ui/core" "^1.0.2"
 
+"@formkit/core@1.0.0-beta.12":
+  version "1.0.0-beta.12"
+  resolved "https://registry.yarnpkg.com/@formkit/core/-/core-1.0.0-beta.12.tgz#bf3ad011ea6b219b572526ed04362711dc070566"
+  integrity sha512-/Pod7k4N58eDOG+0LE0ccV7BOYD5sEA4RqaRNJn9m6Jg9nF/JATmSNL46kVCH3mV6sSoV045L3Zir8//rya0Lw==
+  dependencies:
+    "@formkit/utils" "1.0.0-beta.12"
+
+"@formkit/dev@1.0.0-beta.12":
+  version "1.0.0-beta.12"
+  resolved "https://registry.yarnpkg.com/@formkit/dev/-/dev-1.0.0-beta.12.tgz#dc612e86b72315215859bf4e979a84b11940a438"
+  integrity sha512-0d0RMZBp93zkUutH65u1ba8eD8A5zqboqdfK5/BGvMGsDLfN5IJCC/kdCY3hxyQhhHquwYS2rPv1o5XFJJ7Pkg==
+  dependencies:
+    "@formkit/core" "1.0.0-beta.12"
+    "@formkit/utils" "1.0.0-beta.12"
+
+"@formkit/i18n@1.0.0-beta.12":
+  version "1.0.0-beta.12"
+  resolved "https://registry.yarnpkg.com/@formkit/i18n/-/i18n-1.0.0-beta.12.tgz#e113f5d8fa66cc952ab94552a0ad170beff59f34"
+  integrity sha512-ul9nE/ORtpIxHgT3B6uCoxmKJnr6MhAdGnXPpX64q1Tx8ePh73Nm6Cm4KxE5GYkFVNpI/KfxUs5D/icHMO73tg==
+  dependencies:
+    "@formkit/core" "1.0.0-beta.12"
+    "@formkit/utils" "1.0.0-beta.12"
+    "@formkit/validation" "1.0.0-beta.12"
+
+"@formkit/inputs@1.0.0-beta.12":
+  version "1.0.0-beta.12"
+  resolved "https://registry.yarnpkg.com/@formkit/inputs/-/inputs-1.0.0-beta.12.tgz#2dd64ecee4149ca635071adc504aca9f30f3cfb5"
+  integrity sha512-aUejQw5amEG/Q3sORxlp4kHvAQdoxk4RyNKbU3etziAB9Ytz2E3WaU7TDcGVqjNlvcvrweL1Ou4V0WPmIDn+zQ==
+  dependencies:
+    "@formkit/core" "1.0.0-beta.12"
+
+"@formkit/observer@1.0.0-beta.12":
+  version "1.0.0-beta.12"
+  resolved "https://registry.yarnpkg.com/@formkit/observer/-/observer-1.0.0-beta.12.tgz#2be425d28dffc9a6313d028cea91d3832a54158f"
+  integrity sha512-kXVWUkjbNsymwv50QuI5thjlCknGy8azPlzepTDj3fsuZANuHG8qaj3W5h9mY6cCgvil4d4WeBz5f54iJsaEXA==
+  dependencies:
+    "@formkit/core" "1.0.0-beta.12"
+    "@formkit/utils" "1.0.0-beta.12"
+
+"@formkit/rules@1.0.0-beta.12":
+  version "1.0.0-beta.12"
+  resolved "https://registry.yarnpkg.com/@formkit/rules/-/rules-1.0.0-beta.12.tgz#30c31fde7f260c077203a068119a736f3bd59523"
+  integrity sha512-i0puOJwnQVBEbYrrjvnKa3Y61AKa67BI5xkILoj7lxe7GLuodakK0J8Fd4svxa0wKMDj+GPzaDroFYT6L2TN1w==
+  dependencies:
+    "@formkit/core" "1.0.0-beta.12"
+    "@formkit/utils" "1.0.0-beta.12"
+    "@formkit/validation" "1.0.0-beta.12"
+
+"@formkit/themes@1.0.0-beta.12":
+  version "1.0.0-beta.12"
+  resolved "https://registry.yarnpkg.com/@formkit/themes/-/themes-1.0.0-beta.12.tgz#4d7425dfac49e00731366b2abb538a4fa159d539"
+  integrity sha512-r/nJ/R9VKijOZ0awmb/IBiPNvgZl/Vb1iXifij+LaZJ78djK8ou2mfzQ8hNYDliMsE7fzIFVhIkDhcEXywwbRA==
+  dependencies:
+    "@formkit/core" "1.0.0-beta.12"
+
+"@formkit/utils@1.0.0-beta.12":
+  version "1.0.0-beta.12"
+  resolved "https://registry.yarnpkg.com/@formkit/utils/-/utils-1.0.0-beta.12.tgz#84f26ab60728f3ec3f5e82d57d081c3497a77fef"
+  integrity sha512-L2P221teC+58Y1A4TZpJsLt/Y+WErLxbBt4hH6XhokssVX7mYR56YWienY9StN5jmiGVWtcK1+riXCb0n1aMOA==
+
+"@formkit/validation@1.0.0-beta.12":
+  version "1.0.0-beta.12"
+  resolved "https://registry.yarnpkg.com/@formkit/validation/-/validation-1.0.0-beta.12.tgz#310a5f6e946a3372f6042de280d5ca8b3d21fa03"
+  integrity sha512-ZSD5llsfSqXfIYMtSeeDwx7h421JCKobi00RxpGJkuHgpnAi3oxTJB7J6u+3pMrO9BqcidGtk5G/rk9F4fCNEw==
+  dependencies:
+    "@formkit/core" "1.0.0-beta.12"
+    "@formkit/observer" "1.0.0-beta.12"
+
+"@formkit/vue@^1.0.0-beta.12":
+  version "1.0.0-beta.12"
+  resolved "https://registry.yarnpkg.com/@formkit/vue/-/vue-1.0.0-beta.12.tgz#d22cc35615ffae8722f8f59a43b42e636a4d1524"
+  integrity sha512-v5x3me7W5HYVCzJuj730Wo4CaNdMytRrSd9huixTN6e9ujwboefWQzT7aMfVbI3tSg2M+5+MXmgke35wxzcYtA==
+  dependencies:
+    "@formkit/core" "1.0.0-beta.12"
+    "@formkit/dev" "1.0.0-beta.12"
+    "@formkit/i18n" "1.0.0-beta.12"
+    "@formkit/inputs" "1.0.0-beta.12"
+    "@formkit/observer" "1.0.0-beta.12"
+    "@formkit/rules" "1.0.0-beta.12"
+    "@formkit/themes" "1.0.0-beta.12"
+    "@formkit/utils" "1.0.0-beta.12"
+    "@formkit/validation" "1.0.0-beta.12"
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz#7619c2eb21b25483f6d167548b4cfd5a7488c3d5"
@@ -711,6 +794,11 @@ minimist@^1.2.6:
   version "1.2.7"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.7.tgz#daa1c4d91f507390437c6a8bc01078e7000c4d18"
   integrity sha512-bzfL1YUZsP41gmu/qjrEk0Q6i2ix/cVeAhbCbqH9u3zYutS1cLg00qhrD0M2MVdCcx4Sc0UpP2eBWo9rotpq6g==
+
+moment@^2.29.4:
+  version "2.29.4"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.4.tgz#3dbe052889fe7c1b2ed966fcb3a77328964ef108"
+  integrity sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==
 
 nanoid@^3.3.4:
   version "3.3.4"

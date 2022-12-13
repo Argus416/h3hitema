@@ -5,7 +5,7 @@ class User {
 
 	async getUsers() {
 		try {
-			const request = await axios.get(`${API_URL}/v1/users`);
+			const request = await axios.get(`${API_URL}/users`);
 			const users = request.data;
 
 			return users;
@@ -15,7 +15,7 @@ class User {
 	}
 	async getUser(id) {
 		try {
-			const request = await axios.get(`${API_URL}/v1/users/get/${id}`);
+			const request = await axios.get(`${API_URL}/users/get/${id}`);
 			const user = request.data;
 
 			return user;
@@ -26,7 +26,7 @@ class User {
 
 	async createUser(data) {
 		try {
-			const request = await axios.post(`${API_URL}/v1/users/create`, data);
+			const request = await axios.post(`${API_URL}/users/create`, data);
 			const newUser = request.data;
 
 			return newUser;
@@ -37,7 +37,7 @@ class User {
 
 	async Login(data) {
 		try {
-			const request = await axios.post(`${API_URL}/v1/users/login`, data);
+			const request = await axios.post(`${API_URL}/users/login`, data);
 			const newUser = request.data;
 
 			return newUser;
@@ -48,7 +48,7 @@ class User {
 
 	async updateUser(id, data) {
 		try {
-			const request = await axios.patch(`${API_URL}/v1/users/update/${id}`, data);
+			const request = await axios.patch(`${API_URL}/users/update/${id}`, data);
 			const user = request.data;
 
 			return user;
@@ -59,7 +59,7 @@ class User {
 
 	async deleteUser(id) {
 		try {
-			const request = await axios.delete(`${API_URL}/v1/users/delete/${id}`);
+			const request = await axios.delete(`${API_URL}/users/delete/${id}`);
 			const user = request.data;
 
 			return user;
