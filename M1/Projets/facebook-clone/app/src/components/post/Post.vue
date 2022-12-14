@@ -30,7 +30,6 @@
 
     watch(() => props.post, (newVal) =>{
         postRef.value = newVal
-        console.log(newVal)
     }, {
         deep : true,
         immediate: true
@@ -62,7 +61,9 @@
     })
     
     const refrechPost = (val)=>{
-        displayComment.value =  true
+        if(displayComment.value === true){
+            displayComment.value =  true
+        }
         emits('refrechPost', val);
     }
     // https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png
@@ -109,7 +110,7 @@
 
         <Comment :display-comment="displayComment" :post-id="postRef.id" @refrechPost="refrechPost" />
         <div v-show="displayComment"  v-for="comment in postRef.comments" :key="comment.id" class="comment-warapper">
-            <CommentBody :comment="postRef.comments[0]"  />
+            <CommentBody :comment="comment"  />
         </div>
     </section>
 </template>
