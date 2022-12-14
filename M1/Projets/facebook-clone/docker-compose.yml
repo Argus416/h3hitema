@@ -30,7 +30,9 @@ services:
         networks:
             - postgres
         volumes:
-          - ./server:/app
+            - ./server:/app
+            - /app/node_modules
+
         deploy:
             restart_policy:
                 condition: on-failure # condition: none, on-failure, or any (default)
@@ -53,8 +55,8 @@ services:
         networks:
             - postgres
         volumes:
-          - ./app:/app
-
+            - ./app:/app
+            - /app/node_modules
         deploy:
             restart_policy:
                 condition: on-failure # condition: none, on-failure, or any (default)

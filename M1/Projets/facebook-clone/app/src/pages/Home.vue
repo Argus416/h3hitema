@@ -3,7 +3,7 @@
     import Post from "../components/post/Post.vue"
     import { useUserStore } from '../stores/user';
     import { usePostStore } from '../stores/post';
-    import { watch, reactive } from 'vue-demi';
+    import { watch, reactive } from 'vue';
     
     const userStore = useUserStore();
     const postStore = usePostStore();
