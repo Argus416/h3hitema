@@ -130,7 +130,7 @@
             <footer>
                 <div class="info">
                     <div class="reactions">
-                        <span class="medium">
+                        <span class="medium" v-if="postStore.countLikes(props.postIndex)">
                             {{postStore.countLikes(props.postIndex)}} aimes
                         </span>
                     </div>

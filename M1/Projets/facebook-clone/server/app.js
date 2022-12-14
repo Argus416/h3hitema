@@ -36,9 +36,9 @@ fastify.register(v1_routes, {prefix: "v1"});
  */
 const start = async () => {
     try {
-        await fastify.listen({port: process.env.PORT, host: process.env.API_HOST});
-        console.log(fastify.routes)
-    } catch (err) {
+		await fastify.listen({ port: process.env.PORT, host: process.env.API_HOST });
+		// console.log(fastify.routes)
+	} catch (err) {
         fastify.log.error(err);
         process.exit(1);
     }
