@@ -9,7 +9,6 @@
         }
     })
 
-    console.log(props.comment, "err")
 
 </script>
 

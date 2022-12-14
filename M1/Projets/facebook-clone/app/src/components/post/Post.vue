@@ -7,7 +7,7 @@
     import {formatDay} from "../../helpers/date"
     import CommentBody from "../comment/CommentBody.vue";
     import {fullNameFormater} from "../../helpers/formater" 
-
+    import Like from "../../controllers/Like"
     const emits =  defineEmits(["refrechPost"])
 
     const props = defineProps({
@@ -22,6 +22,7 @@
     })
 
     const userStore = useUserStore();
+    const currentUser = userStore.user
     const postStore = usePostStore();
 
     const displayComment = ref(false)
@@ -66,6 +67,42 @@
         }
         emits('refrechPost', val);
     }
+    const postIsLikedByCurrentUser = () =>{
+        const result = props.post.likes.find(like =>{
+            if(like.userId === currentUser.id) return true
+        })
+        if(result){
+            return result.id
+        }else{
+            return false
+        }
+    }
+    const islikedStyle = () =>{
+        if(postIsLikedByCurrentUser()){
+            return "!bg-blue-400 !text-white"
+        }
+    }
+
+    const likeHandler = async () =>{
+        
+        if(postIsLikedByCurrentUser()){
+            const likeId = postIsLikedByCurrentUser()
+            const removeLike = await Like.deleteLike(likeId)
+            console.log(removeLike)
+        }else{
+            const data = {
+                "postId": props.post.id,
+                "userId": currentUser.id
+            }
+            const addLike = await Like.addLike(data)
+
+            console.log(addLike)
+        }
+
+        emits('refrechPost', true);
+    }
+
+    
     // https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png
 </script>
 
@@ -94,7 +131,7 @@
                 <div class="info">
                     <div class="reactions">
                         <span class="medium">
-                            15
+                            {{postStore.countLikes(props.postIndex)}} aimes
                         </span>
                     </div>
                     <div class="stats">
@@ -102,7 +139,15 @@
                     </div>
                 </div>
                 <div class="btns">
-                    <el-button v-if="userStore.isLoggedIn()" class="my-btn-no-border"  plain>J'aime</el-button>
+                    <el-button 
+                        v-if="userStore.isLoggedIn()" 
+                        class="my-btn-no-border" 
+                        :class="islikedStyle()" 
+                        @click="likeHandler()" 
+                        plain
+                    >
+                        J'aime
+                    </el-button>
                     <el-button class="my-btn-no-border" plain @click="clickComment()">{{commentBtnText}} </el-button>
                 </div>
             </footer>
@@ -112,6 +157,7 @@
         <div v-show="displayComment"  v-for="comment in postRef.comments" :key="comment.id" class="comment-warapper">
             <CommentBody :comment="comment"  />
         </div>
+        
     </section>
 </template>
 

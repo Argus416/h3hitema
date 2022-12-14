@@ -26,7 +26,7 @@ class Comment {
 
 	async deleteComment(commentId) {
 		try {
-			const request = await axios.delete(`${API_URL}/comments/delete${commentId}`);
+			const request = await axios.delete(`${API_URL}/comments/delete/${commentId}`);
 			const comments = request.data;
 
 			return comments;

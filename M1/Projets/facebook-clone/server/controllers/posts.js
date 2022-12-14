@@ -1,5 +1,6 @@
 const Post = require("../services/Post");
 const Comment = require("../services/Comment");
+const Like = require("../services/Like");
 const { faker } = require("@faker-js/faker");
 
 exports.getPosts = async (req, res) => {
@@ -7,12 +8,13 @@ exports.getPosts = async (req, res) => {
 		let getAllPosts = await Post.getPosts();
 		getAllPosts = await Promise.all(
 			getAllPosts.map(async (post) => {
-				const data = await Comment.getComments(post.id);
-				post.comments = data;
+				const comments = await Comment.getComments(post.id);
+				const likes = await Like.getLikes(post.id);
+				post.comments = comments;
+				post.likes = likes;
 				return post;
 			})
 		);
-		console.log(await getAllPosts);
 
 		res.send(await getAllPosts);
 	} catch (err) {

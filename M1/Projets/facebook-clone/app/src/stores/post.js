@@ -19,5 +19,9 @@ export const usePostStore = defineStore("post", {
 		countComments(index) {
 			return [...this.posts][index]?.comments?.length;
 		},
+
+		countLikes(index) {
+			return [...this.posts][index]?.likes?.length;
+		},
 	},
 });

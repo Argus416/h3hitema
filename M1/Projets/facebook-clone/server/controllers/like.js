@@ -2,8 +2,8 @@ const Like = require("../services/Like");
 
 exports.getLikes = async (req, res) => {
 	try {
-		const { likeId } = req.params;
-		const getAllLikes = await Like.getLikes(likeId);
+		const { postId } = req.params;
+		const getAllLikes = await Like.getLikes(postId);
 		res.send(getAllLikes);
 	} catch (err) {
 		console.error(err);
