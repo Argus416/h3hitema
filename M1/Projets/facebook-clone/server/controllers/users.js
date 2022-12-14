@@ -22,6 +22,17 @@ exports.getUser = async(req, res) => {
     }
 };
 
+exports.getUserByEmail = async (req, res) => {
+	try {
+		const { email } = req.params;
+		const getUser = await User.getUserByEmail(email);
+		res.send(getUser);
+	} catch (err) {
+		console.error(err);
+		res.send("Unable to get user from the User controller");
+	}
+};
+
 
 exports.getUserLogin = async(req, res) => {
     try {

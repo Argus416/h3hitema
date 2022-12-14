@@ -49,7 +49,7 @@
 
 <template>
     <div class="w-6/12 mx-auto mt-10 ">
-        <h1 class="mb-3 text-xl">Créer un compte</h1>
+        <h1 class="mb-3 text-xl">Connéxion</h1>
 
         <el-form ref="form" :model="loginFormReactive" :rules="rules" status-icon>
             <el-form-item class="w-full " prop="email">

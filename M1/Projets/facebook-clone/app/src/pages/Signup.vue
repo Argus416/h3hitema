@@ -5,6 +5,7 @@
 
     const router = useRouter()
     const form = ref()
+    const emailIsUsed = ref(false)
 
     const newUserReactive = reactive({
         email : "",   
@@ -20,7 +21,7 @@
         ],   
         password : [
             { required: true, message: "Veuillez remplir le champ", trigger: 'blur' },
-            { min: 3, max: 255, message: 'Taillez minimum entre 3 et 255', trigger: 'blur' },
+            { min: 6, max: 255, message: 'Taillez minimum entre 3 et 255', trigger: 'blur' },
         ],   
         first_name:[
             { required: true, message: "Veuillez remplir le champ", trigger: 'blur' },
@@ -36,17 +37,27 @@
         try{
 
             if (!formEl) return
-            console.log(formEl)
-            await formEl.validate( async (valid, fields) => {
-                if (valid) {
-                    const newUser = await UserContller.createUser({...newUserReactive})
-                    console.log('New user has been added')
-                    router.push({name : "login"})
+            
+            const emailExistAlready = await UserContller.getUserByEmail(newUserReactive.email)
+            console.log(emailExistAlready)
+            if(emailExistAlready.length){
+                emailIsUsed.value = true
+                return
+            }else{
+                emailIsUsed.value = false
 
-                } else {
-                    console.log('error submit!', fields)
-                }
-            })
+                await formEl.validate( async (valid, fields) => {
+                    if (valid) {
+                        const newUser = await UserContller.createUser({...newUserReactive})
+                        console.log('New user has been added')
+                        router.push({name : "login"})
+
+                    } else {
+                        console.log('error submit!', fields)
+                    }
+                })
+            }
+
         }catch(err){
             console.error("Error in createAccount function", err)
         }
@@ -56,7 +67,6 @@
 <template>
     <div class="w-6/12 mx-auto mt-10 ">
         <h1 class="mb-3 text-xl">Créer un compte</h1>
-
         <el-form ref="form" :model="newUserReactive" :rules="rules" status-icon>
             <div class="mb-2 flex justify-between gap-3">
                 <el-form-item class="w-full " prop="first_name">
@@ -68,8 +78,11 @@
                 </el-form-item>
             </div>
 
-            <el-form-item class="w-full " prop="email">
-                <el-input  type="email" v-model.trim="newUserReactive.email" placeholder="Email" />
+            <el-form-item class="w-full relative" prop="email">
+                <el-input  type="email" v-model.trim="newUserReactive.email" placeholder="Email" :class="`${emailIsUsed ? 'mb-2' : ''}`" />
+                <span v-if="emailIsUsed" class="text-left text-red-500 absolute left-0 top-9 text-xs">
+                    L'email est utilisé par un autre utilisateur
+                </span>
             </el-form-item>
            
             <el-form-item class="w-full " prop="password">
@@ -88,4 +101,6 @@
     .el-form-item__content{
         justify-content: center;
     }
+
+    
 </style>

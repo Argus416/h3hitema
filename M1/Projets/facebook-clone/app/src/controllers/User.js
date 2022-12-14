@@ -24,6 +24,17 @@ class User {
 		}
 	}
 
+	async getUserByEmail(email) {
+		try {
+			const request = await axios.get(`${API_URL}/users/getbyemail/${email}`);
+			const user = request.data;
+
+			return user;
+		} catch (err) {
+			console.error("Error finding user by email in User controller", err);
+		}
+	}
+
 	async createUser(data) {
 		try {
 			const request = await axios.post(`${API_URL}/users/create`, data);
