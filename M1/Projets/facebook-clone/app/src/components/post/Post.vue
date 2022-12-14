@@ -24,7 +24,7 @@
     const userStore = useUserStore();
     const postStore = usePostStore();
 
-    const displayComment = ref(true)
+    const displayComment = ref(false)
     const commentBtnText = ref('Voir les commentaires')
     const postRef = ref([])
 
@@ -108,7 +108,7 @@
         </main>
 
         <Comment :display-comment="displayComment" :post-id="postRef.id" @refrechPost="refrechPost" />
-        <div  v-for="comment in postRef.comments" :key="comment.id" class="comment-warapper">
+        <div v-show="displayComment"  v-for="comment in postRef.comments" :key="comment.id" class="comment-warapper">
             <CommentBody :comment="postRef.comments[0]"  />
         </div>
     </section>

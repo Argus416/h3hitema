@@ -1,15 +1,24 @@
 const Post = require("../services/Post");
+const Comment = require("../services/Comment");
 const { faker } = require("@faker-js/faker");
 
-exports.getPosts = async(req, res) => {
-    try {
-		// const {userId} = req.params
-		const getAllPosts = await Post.getPosts();
-		res.send(getAllPosts);
+exports.getPosts = async (req, res) => {
+	try {
+		let getAllPosts = await Post.getPosts();
+		getAllPosts = await Promise.all(
+			getAllPosts.map(async (post) => {
+				const data = await Comment.getComments(post.id);
+				post.comments = data;
+				return post;
+			})
+		);
+		console.log(await getAllPosts);
+
+		res.send(await getAllPosts);
 	} catch (err) {
-        console.error(err);
-        res.send("Unable to get users from the Post controller");
-    }
+		console.error(err);
+		res.send("Unable to get users from the Post controller");
+	}
 };
 
 exports.getPost = async(req, res) => {

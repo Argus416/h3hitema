@@ -12,10 +12,6 @@ export const usePostStore = defineStore("post", {
 	actions: {
 		async LoadPosts() {
 			const posts = await Post.getPosts();
-			posts.forEach(async (post) => {
-				const comments = await Comment.getComments(post.id);
-				post.comments = comments;
-			});
 
 			this.posts = posts;
 		},
