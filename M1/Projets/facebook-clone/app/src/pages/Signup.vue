@@ -41,7 +41,7 @@
                 if (valid) {
                     const newUser = await UserContller.createUser({...newUserReactive})
                     console.log('New user has been added')
-                    router.push({name : "home"})
+                    router.push({name : "login"})
 
                 } else {
                     console.log('error submit!', fields)

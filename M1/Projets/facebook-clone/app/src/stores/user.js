@@ -15,6 +15,7 @@ export const useUserStore = defineStore("user", {
 	actions: {
 		login(data) {
 			const result = { ...data, isLoggedIn: true };
+			console.log(data);
 			this.user = result;
 			localStorage.setItem("user", JSON.stringify(result));
 		},

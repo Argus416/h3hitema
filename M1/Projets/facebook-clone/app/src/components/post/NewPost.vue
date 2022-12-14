@@ -46,11 +46,11 @@ const addNewPost =async () =>{
         <div class="new-post-form">
             <div class="new-post-input-wrapper">
                 <el-avatar class="post-avatar" :size="35" src-set='https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'/>
-                <el-form class="w-full">
+                <div class="w-full" >
                     <el-input type="textarea" v-model="newPost.content"  placeholder="Publier un nouveau post..." class="w-full" />
                     <el-input v-model="newPost.imgUrl"  placeholder="Url d'une image" class="w-full mt-3" />
                     <el-button @click="addNewPost" class="mt-3" type="success">Ajouter</el-button>
-                </el-form>
+                </div>
             </div>
         </div>
 
