@@ -19,14 +19,6 @@
                     <router-link :to="{name: 'home'}">
                         <el-avatar  :size="38" src-set='https://logo.clearbit.com/facebook.com'/>
                     </router-link>
-                    <div>
-                        <el-input
-                          type="search"
-                          placeholder="Rechercher un post"
-                          prefix-icon="Search"
-                          v-model="searchResult"
-                        />
-                    </div>
                 </div>
             </el-col>
             <el-col :span="8">
