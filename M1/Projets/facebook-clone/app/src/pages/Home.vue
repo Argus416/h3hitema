@@ -28,8 +28,13 @@
      <main id="body">
         <div class="content">
             <NewPost v-if="userStore?.isLoggedIn()"  @refrech-post="state.refrechWatcher = !state.refrechWatcher" />
-            <div v-for="(post, postIndex) in state.posts" :key="post?.id">
-                <Post :post="post" :post-index="postIndex" @refrech-post="state.refrechWatcher = !state.refrechWatcher" />
+            <div v-if="state.posts.length">
+                <div v-for="(post, postIndex) in state.posts" :key="post?.id">
+                    <Post :post="post" :post-index="postIndex" @refrech-post="state.refrechWatcher = !state.refrechWatcher" />
+                </div>
+            </div>
+            <div v-else class="text-center text-red-500 font-bold mt-4">
+                <h1 class="text-2xl">Aucun post n'est publié</h1>
             </div>
         </div>
     </main>
