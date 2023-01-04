@@ -1,0 +1,98 @@
+@import './_var.scss';
+html {
+  font-family: -apple-system, BlinkMacSystemFont,
+  "Segoe UI", "Roboto", "Oxygen",
+  "Ubuntu", "Cantarell", "Fira Sans",
+  "Droid Sans", "Helvetica Neue", sans-serif !important;
+
+  box-sizing: border-box;
+  overflow-y: scroll;
+}
+
+svg{
+  fill : $black;
+}
+
+h1.home-title{
+  font-size: 5.625rem;
+  font-weight: 900;
+  margin-top: 1em;
+}
+
+.my-secondary-titie {
+  color : $grey;
+  font-size: 16px;
+}
+
+.charechters-container{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);  
+  grid-gap: 20px;
+  background-color: $black;
+  padding: 2rem 5rem;
+  .my-card{
+    display: flex;
+    background-color: $black-2;
+    color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 600px;
+    height: 220px;
+    gap: 15px;
+    box-shadow: rgb(0 0 0 / 10%) 0px 4px 6px -1px, rgb(0 0 0 / 6%) 0px 2px 4px -1px;
+
+    .left{
+      img{
+        object-fit: contain;
+        width: 230px;
+        
+      }
+    }
+
+    .right{
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding-block: 10px ;
+      a{
+        text-decoration:  none;
+        color: #fff;
+        transition: .1s all ease-in-out;
+        &:hover{
+          color: $orange;
+        }
+      }
+      .my-card-title{
+        font-size: 1.5rem;
+        font-weight: 800;
+      }
+      .status{
+        display: flex;
+        align-items: center; 
+        gap:8px;
+        font-size: 16px;
+      }
+
+      .last-known-location, .first-seen-in{
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+    }
+  }
+}
+
+.status-cirlce{
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.status-dead{
+  background-color: $red;
+}
+
+.status-alive{
+  background-color: $green;
+}

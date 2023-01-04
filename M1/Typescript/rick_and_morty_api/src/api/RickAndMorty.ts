@@ -5,7 +5,7 @@ class RickAndMorty {
 	async getAllCharacters(): Promise<RickAndMortyCharacter | boolean> {
 		try {
 			const request = await axios.get(API_TYPES.CHARACTER);
-			const data = request.data as RickAndMortyCharacter;
+			const data = JSON.parse(request.data) as RickAndMortyCharacter;
 
 			return data;
 		} catch (err) {
@@ -17,4 +17,4 @@ class RickAndMorty {
 
 const rickAndMorty = new RickAndMorty();
 
-export default RickAndMorty;
+export default rickAndMorty;

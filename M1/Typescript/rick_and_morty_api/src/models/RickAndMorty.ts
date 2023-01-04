@@ -6,13 +6,13 @@ export enum API_TYPES {
 	EPISODES = "episodes",
 }
 
-interface RickAndMortyCharacterInfo {
+export interface RickAndMortyCharacterInfo {
 	count: number;
 	pages: number;
 	next: string;
 	prev: null | string;
 }
-interface RickAndMortyCharacterResult {
+export interface RickAndMortyCharacterResult {
 	id: number;
 	name: string;
 	status: string;
