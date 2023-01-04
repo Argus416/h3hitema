@@ -25,11 +25,13 @@ h1.home-title{
 }
 
 .charechters-container{
-  display: grid;
+  display: flex;
   grid-template-columns: repeat(2, 1fr);  
   grid-gap: 20px;
   background-color: $black;
   padding: 2rem 5rem;
+  flex-wrap: wrap;
+  justify-content: center;
   .my-card{
     display: flex;
     background-color: $black-2;
@@ -37,6 +39,7 @@ h1.home-title{
     border-radius: 10px;
     overflow: hidden;
     width: 600px;
+    min-width: 500px;
     height: 220px;
     gap: 15px;
     box-shadow: rgb(0 0 0 / 10%) 0px 4px 6px -1px, rgb(0 0 0 / 6%) 0px 2px 4px -1px;

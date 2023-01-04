@@ -2,10 +2,13 @@ import { API_TYPES, RickAndMortyCharacter } from "./../models/RickAndMorty";
 import axios from "../utils/Axiso";
 
 class RickAndMorty {
-	async getAllCharacters(): Promise<RickAndMortyCharacter | boolean> {
+	async getAllCharacters(page = "1"): Promise<RickAndMortyCharacter | boolean> {
 		try {
-			const request = await axios.get(API_TYPES.CHARACTER);
-			const data = JSON.parse(request.data) as RickAndMortyCharacter;
+			const request = await axios({
+				method: "get",
+				url: API_TYPES.CHARACTER,
+			});
+			const data = request.data as RickAndMortyCharacter;
 
 			return data;
 		} catch (err) {
