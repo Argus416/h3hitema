@@ -7,6 +7,9 @@ class RickAndMorty {
 			const request = await axios({
 				method: "get",
 				url: API_TYPES.CHARACTER,
+				params: {
+					page,
+				},
 			});
 			const data = request.data as RickAndMortyCharacter;
 

@@ -1,9 +1,9 @@
 import RickAndMortyApi from "../api/RickAndMorty";
 
 class RickAndMorty {
-	async getCharechter() {
+	async getCharechter(page = "1") {
 		try {
-			const result = await RickAndMortyApi.getAllCharacters();
+			const result = await RickAndMortyApi.getAllCharacters(page);
 			return result;
 		} catch (err) {
 			console.error(`Error getting charechter from controller ${err}`);
