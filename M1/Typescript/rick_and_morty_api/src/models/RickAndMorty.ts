@@ -1,5 +1,11 @@
 // https://rickandmortyapi.com/api/character
 
+export enum API_TYPES {
+	CHARACTER = "character",
+	LOCATIONS = "locations",
+	EPISODES = "episodes",
+}
+
 interface RickAndMortyCharacterInfo {
 	count: number;
 	pages: number;
