@@ -1,0 +1,19 @@
+@import './_var.scss';
+@import './_function.scss';
+@import './_btn.scss';
+
+html {
+  font-family: -apple-system, BlinkMacSystemFont,
+  "Segoe UI", "Roboto", "Oxygen",
+  "Ubuntu", "Cantarell", "Fira Sans",
+  "Droid Sans", "Helvetica Neue", sans-serif !important;
+
+  box-sizing: border-box;
+  overflow-y: scroll;
+}
+
+svg{
+  fill : $black;
+}
+
+
