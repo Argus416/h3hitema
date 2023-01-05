@@ -1,4 +1,7 @@
 @import './_var.scss';
+@import './_function.scss';
+@import './_btn.scss';
+
 html {
   font-family: -apple-system, BlinkMacSystemFont,
   "Segoe UI", "Roboto", "Oxygen",
@@ -18,6 +21,19 @@ svg{
 .my-secondary-titie {
   color : $grey;
   font-size: 16px;
+}
+
+.my-navbar-nav{
+  list-style: none;
+  display: flex;
+  gap: 15px;
+
+  .my-nav-link{
+    text-decoration: none;
+    font-weight: 600;
+    color: $black-2;
+    @include hoverEffect() 
+  }
 }
 
 .title-container{
@@ -90,9 +106,8 @@ svg{
         text-decoration:  none;
         color: #fff;
         transition: .1s all ease-in-out;
-        &:hover{
-          color: $orange;
-        }
+        @include hoverEffect() 
+
       }
       .my-card-title{
         font-size: 1.5rem;

@@ -1,0 +1,10 @@
+.my-secondary-btn{
+    border: 2px $orange solid;
+    padding: 8px 15px;
+    border-radius: 10px;
+
+    &:hover{
+        background-color: $orange;
+        color: #fff !important;
+    }   
+}
