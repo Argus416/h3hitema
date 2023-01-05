@@ -3,6 +3,7 @@ import { RickAndMortyCharacter, RickAndMortyCharacterResult } from "../models/Ri
 import rickAndMorty from "../controllers/RickAndMorty";
 import Card from "../components/Card";
 import Pagination from "../components/Pagination";
+import { ReactComponent as RickAndMortyIlmg } from "../assets/rickAndMorty.svg";
 
 const Home = () => {
 	const [charechters, setCharechters] = useState({} as RickAndMortyCharacter);
@@ -24,8 +25,11 @@ const Home = () => {
 		<div className="home">
 			<div className="title-container text-center">
 				<h1 className="home-title">The Rick and Morty API</h1>
+				<div className="svg-container">
+					<RickAndMortyIlmg />
+				</div>
 			</div>
-			<div className="charechters-container mt-5">
+			<div className="charechters-container">
 				{charechters?.results?.length && charechters.results.map((charechter) => <Card charechter={charechter} key={charechter.id} />)}
 			</div>
 
