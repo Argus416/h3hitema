@@ -1,11 +1,14 @@
 import * as React from "react";
 import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Avatar, Button, Tooltip, MenuItem } from "@mui/material";
 import { Menu as MenuIcon, Adb as AdbIcon } from "@mui/icons-material";
+import { Link, useNavigate } from "react-router-dom";
+import { routeInterface, routes } from "../models/Routes";
 
-const pages = ["Products", "Pricing", "Blog"];
+const pages = Object.values(routes);
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const Navbar: React.FC = () => {
+	const navigate = useNavigate();
 	const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
 	const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
@@ -16,7 +19,10 @@ const Navbar: React.FC = () => {
 		setAnchorElUser(event.currentTarget);
 	};
 
-	const handleCloseNavMenu = () => {
+	const handleCloseNavMenu = (page: undefined | routeInterface = undefined) => {
+		if (page) {
+			navigate(page.url);
+		}
 		setAnchorElNav(null);
 	};
 
@@ -26,7 +32,7 @@ const Navbar: React.FC = () => {
 
 	return (
 		<AppBar position="static">
-			<Container>
+			<Container className="navbar">
 				<Toolbar disableGutters>
 					<AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
 					<Typography
@@ -71,14 +77,14 @@ const Navbar: React.FC = () => {
 								horizontal: "left",
 							}}
 							open={Boolean(anchorElNav)}
-							onClose={handleCloseNavMenu}
+							onClose={() => handleCloseNavMenu}
 							sx={{
 								display: { xs: "block", md: "none" },
 							}}
 						>
 							{pages.map((page) => (
-								<MenuItem key={page} onClick={handleCloseNavMenu}>
-									<Typography textAlign="center">{page}</Typography>
+								<MenuItem key={page.name} onClick={() => handleCloseNavMenu(page)}>
+									<Typography textAlign="center">{page.name}</Typography>
 								</MenuItem>
 							))}
 						</Menu>
@@ -104,8 +110,8 @@ const Navbar: React.FC = () => {
 					</Typography>
 					<Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
 						{pages.map((page) => (
-							<Button key={page} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }}>
-								{page}
+							<Button key={page.name} onClick={() => handleCloseNavMenu(page)} sx={{ my: 2, color: "white", display: "block" }}>
+								{page.name}
 							</Button>
 						))}
 					</Box>

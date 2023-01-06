@@ -5,3 +5,10 @@
         color: $orange;
     }
 }
+
+@mixin puppleCard(){
+    box-shadow: $box-shadow;
+    border-radius: 30px;
+    padding: 20px 30px;
+}
+

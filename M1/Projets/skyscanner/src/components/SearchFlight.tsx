@@ -3,7 +3,7 @@ import MyDateTimePicker from "./MyDateTimePicker";
 
 const SearchFlight: React.FC = () => {
 	return (
-		<Box>
+		<Box className="searchFlight">
 			<MyDateTimePicker />
 		</Box>
 	);

@@ -4,6 +4,7 @@
 
 @import './components/cardFlight.scss';
 @import './components/searchFlight.scss';
+@import './components/_navbar.scss';
 
 html {
   box-sizing: border-box;
@@ -18,5 +19,4 @@ body{
 svg{
   fill : $black;
 }
-
 
