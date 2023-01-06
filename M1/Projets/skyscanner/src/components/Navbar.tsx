@@ -31,7 +31,7 @@ const Navbar: React.FC = () => {
 	};
 
 	return (
-		<AppBar position="static">
+		<AppBar position="static" sx={{ marginBottom: 3 }}>
 			<Container className="navbar">
 				<Toolbar disableGutters>
 					<AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />

@@ -3,9 +3,13 @@ import axios from "../utils/Axiso";
 
 class Skyscanner {
 	async getAllAirport(city: string): Promise<Airport[]> {
-		const request = await axios.get("/searchAirport", { params: city });
-		const data = request.data as Airport[];
-		return data;
+		try {
+			const request = await axios.get("/searchAirport", { params: { query: city } });
+			const data = request.data.data as Airport[];
+			return data;
+		} catch (err) {
+			console.error(`Error fetching airports`, err);
+		}
 	}
 
 	async getAllFlights(): Promise<Flight[]> {
