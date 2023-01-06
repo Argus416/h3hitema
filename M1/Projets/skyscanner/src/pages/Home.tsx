@@ -2,6 +2,7 @@ import SmallCard from "../components/SmallCard";
 import { Box, Container, Typography } from "@mui/material";
 import { City } from "../models/Public";
 import CardFlight from "../components/CardFlight";
+import SearchFlight from "../components/SearchFlight";
 
 const Home = () => {
 	const cities: City[] = [
@@ -32,7 +33,7 @@ const Home = () => {
 			</Container>
 
 			<Container>
-				<CardFlight />
+				<SearchFlight />
 			</Container>
 
 			<Container
