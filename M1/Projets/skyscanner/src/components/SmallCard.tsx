@@ -1,6 +1,6 @@
 import { City } from "../models/Public";
 import { Box, Link, Typography } from "@mui/material";
-import { lightPurple } from "../theme/Colors";
+import { Colors } from "../theme/index";
 
 interface SmallCardProps {
 	city: City;
@@ -12,7 +12,7 @@ const SmallCard: React.FC<SmallCardProps> = ({ city }) => {
 			className="smallCard"
 			style={{
 				display: "flex",
-				backgroundColor: lightPurple,
+				backgroundColor: Colors.lightPurple,
 				gap: "20px",
 				borderRadius: "8px",
 			}}
