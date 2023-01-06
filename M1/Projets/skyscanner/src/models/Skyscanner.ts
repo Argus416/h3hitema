@@ -2,6 +2,15 @@ export enum localStorageKeys {
 	airports = "airports",
 }
 
+export enum CabinClass {
+	economy = "economy",
+	premium_economy = "premium_economy",
+	business = "business",
+	first = "first",
+	not_in_request = "not_in_request",
+}
+
+
 export interface Airport {
 	PlaceId: string;
 	PlaceName: string;
@@ -30,6 +39,21 @@ export interface Flight {
 	eco_contender_delta: number;
 	score: number;
 	totalDuration: number;
+}
+
+
+export interface GetFlightsParams {
+	origin: string;
+	destination: string;
+	date: Date;
+	returnDate?: Date;
+	adults?: number;
+	children?: number;
+	infants?: number;
+	cabinClass: CabinClass;
+	currency: string;
+	countryCode: string;
+	market: string;
 }
 
 interface FlightPrice {

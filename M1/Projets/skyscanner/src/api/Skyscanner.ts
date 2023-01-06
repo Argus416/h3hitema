@@ -1,27 +1,38 @@
-import { Airport, Flight, FlightDetails, localStorageKeys } from "../models/Skyscanner";
+import { Airport, Flight, FlightDetails, GetFlightsParams, localStorageKeys } from "../models/Skyscanner";
 import axios from "../utils/Axiso";
 
 class Skyscanner {
-	async getAllAirport(city: string): Promise<Airport[]> {
+	async getAllAirport(city: string): Promise<Airport[] | boolean> {
 		try {
 			const request = await axios.get("/searchAirport", { params: { query: city } });
 			const data = request.data.data as Airport[];
 			return data;
 		} catch (err) {
 			console.error(`Error fetching airports`, err);
+			return false;
 		}
 	}
 
-	async getAllFlights(): Promise<Flight[]> {
-		const request = await axios.get("/searchFlights");
-		const data = request.data;
-		return data;
+	async getAllFlights({ ...params }: GetFlightsParams): Promise<Flight[] | boolean> {
+		try {
+			const request = await axios.get("/searchFlights", { params: { ...params } });
+			const data = request.data as Flight[];
+			return data;
+		} catch (err) {
+			console.error(`Error fetching flights`, err);
+			return false;
+		}
 	}
 
-	async getFlight(): Promise<FlightDetails> {
-		const request = await axios.get("/getFlightDetails");
-		const data = request.data as FlightDetails;
-		return data;
+	async getFlight(): Promise<FlightDetails | boolean> {
+		try {
+			const request = await axios.get("/getFlightDetails");
+			const data = request.data as FlightDetails;
+			return data;
+		} catch (err) {
+			console.error(`Error fetching flight`, err);
+			return false;
+		}
 	}
 }
 

@@ -12,4 +12,9 @@ export const routes = {
 		name: "Airports",
 		url: "/airports",
 	},
+
+	flights: {
+		name: "Flights",
+		url: "/flights",
+	},
 };
