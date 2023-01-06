@@ -3,8 +3,12 @@ import { Box, Container, Typography } from "@mui/material";
 import { City } from "../models/Public";
 import CardFlight from "../components/CardFlight";
 import SearchFlight from "../components/SearchFlight";
+import { Flight } from "../models/Skyscanner";
+import { useState } from "react";
 
 const Home = () => {
+	const [flights, setFlights] = useState([] as Flight[]);
+
 	const cities: City[] = [
 		{
 			id: crypto.randomUUID(),
@@ -34,8 +38,14 @@ const Home = () => {
 			</Container>
 
 			<Container sx={{ marginBottom: "20px" }}>
-				<SearchFlight />
+				<SearchFlight
+					extractResult={(result: Flight[]) => {
+						setFlights(result);
+					}}
+				/>
 			</Container>
+
+			{flights?.length > 0 && flights?.map((flight) => <CardFlight key={flight.id} flight={flight} />)}
 
 			{/* <Container
 				sx={{

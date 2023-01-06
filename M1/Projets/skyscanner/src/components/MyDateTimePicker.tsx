@@ -13,10 +13,9 @@ interface MyDateTimePicker {
 }
 
 const MyDateTimePicker: React.FC<MyDateTimePicker> = ({ name, label, required }) => {
-	const [value, setValue] = useState(dayjs("2022-04-07"));
+	const [value, setValue] = useState(dayjs("2023-04-07"));
 	const setNewDate = (newValue: Dayjs | null): void => {
 		const newDate = dayjs(newValue);
-		console.log(newDate);
 		setValue(newDate);
 	};
 	return (
@@ -25,7 +24,7 @@ const MyDateTimePicker: React.FC<MyDateTimePicker> = ({ name, label, required })
 				// renderInput={(props) => {
 				// return <h1>{props.inputProps?.value?.slice(0, -2)}</h1>;
 				// }}
-				renderInput={(props) => <TextField {...props} sx={{ width: "100%" }} name={name} required={required} />}
+				renderInput={(props) => <TextField {...props} sx={{ width: "100%" }} name={name} required={required ?? false} />}
 				label={label}
 				value={value}
 				onChange={(newVal) => setNewDate(newVal)}

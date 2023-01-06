@@ -45,15 +45,15 @@ export interface Flight {
 export interface GetFlightsParams {
 	origin: string;
 	destination: string;
-	date: Date;
-	returnDate?: Date;
+	date: string;
+	returnDate?: string;
 	adults?: number;
 	children?: number;
 	infants?: number;
-	cabinClass: CabinClass;
-	currency: string;
-	countryCode: string;
-	market: string;
+	cabinClass?: CabinClass;
+	currency?: string;
+	countryCode?: string;
+	market?: string;
 }
 
 interface FlightPrice {
@@ -65,7 +65,7 @@ interface FlightPrice {
 	transfer_type: string;
 }
 
-interface FlightLeg {
+export interface FlightLeg {
 	id: string;
 	origin: FlightLegOriginDestination;
 	destination: FlightLegOriginDestination;
@@ -85,7 +85,7 @@ interface FlightCarrier {
 	display_code_type: string;
 }
 
-interface FlightLegOriginDestination {
+export interface FlightLegOriginDestination {
 	id: number;
 	entity_id: number;
 	alt_id: string;

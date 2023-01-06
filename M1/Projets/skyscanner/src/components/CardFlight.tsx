@@ -1,74 +1,57 @@
 import { Box, Typography } from "@mui/material";
 import { Flight as FlightIcon } from "@mui/icons-material";
-import { Flight } from "../models/Skyscanner";
+import { Flight, FlightLeg } from "../models/Skyscanner";
+import { getTime } from "../utils/Helper";
 interface CardFlightProps {
-	flight?: any;
+	flight?: Flight;
+	flightLeg?: FlightLeg;
 }
 
-const Details: React.FC<CardFlightProps> = ({ flight }) => {
+const Details: React.FC<CardFlightProps> = ({ flightLeg }) => {
+	let departure: Date | string = flightLeg?.departure ? new Date(flightLeg?.departure) : "";
+	let arrival: Date | string = flightLeg?.arrival ? new Date(flightLeg?.arrival) : "";
+
+	if (departure) {
+		departure = getTime(departure);
+	}
+
+	if (arrival) {
+		arrival = getTime(arrival);
+	}
 	return (
 		<Box className="details">
 			<Box className="left">
 				<Typography variant="h6" fontWeight="200" fontSize="14px">
-					{flight.airport}
+					{flightLeg?.origin.name}
 				</Typography>
 
 				<Typography className="operatedBy" variant="h6">
-					{flight.operatedBy}
+					{flightLeg?.origin.name}
 				</Typography>
 			</Box>
 
 			<Box className="right">
-				<Typography variant="h5">{flight.departure}</Typography>
+				<Typography variant="h5">{departure}</Typography>
 				<Box className="middle">
 					<Typography variant="h6" fontSize="15px">
-						{flight.duration}
+						{flightLeg?.duration}
 					</Typography>
 					<Box className="flightSeperator">
 						<span className="line"></span>
 						<FlightIcon className="flightIcon" />
 					</Box>
-					<Typography variant="h6" fontSize="15px">
-						{flight.escalade === 0 ? "Direct" : `${flight.escalade} escalade`}
-					</Typography>
+					{/* <Typography variant="h6" fontSize="15px">
+						{flightLeg?.escalade === 0 ? "Direct" : `${flightLeg?.escalade} escalade`}
+					</Typography> */}
 				</Box>
-				<Typography variant="h5">{flight.arrival}</Typography>
+				<Typography variant="h5">{arrival}</Typography>
 			</Box>
 		</Box>
 	);
 };
 
 const CardFlight: React.FC<CardFlightProps> = ({ flight }) => {
-	const flightExemple = [
-		{
-			airport: "Ryanair",
-			origin: "Paris",
-			destination: "Lyon",
-			img: "https://logo.clearbit.com/ryanair.com",
-			departure: "20:05",
-			codeDeparture: "MRS",
-			arrival: "22:30",
-			codeArrival: "BVA",
-			operatedBy: "Opéré par Malta Air",
-			duration: "1:30",
-			escalade: 0,
-		},
-
-		{
-			airport: "Ryanair",
-			origin: "Lyon",
-			destination: "Paris",
-			img: "https://logo.clearbit.com/ryanair.com",
-			arrival: "09:25",
-			codeDeparture: "BVA",
-			departure: "11:50",
-			codeArrival: "MRS",
-			operatedBy: "Opéré par Malta Air",
-			duration: "1:30",
-			escalade: 0,
-		},
-	];
-	return <Box className="cardFlight">{flightExemple.length >= 1 && flightExemple.map((flight) => <Details flight={flight} />)}</Box>;
+	return <Box className="cardFlight">{flight?.legs?.length >= 1 && flight?.legs.map((details) => <Details flightLeg={details} key={details.id} />)}</Box>;
 };
 
 export default CardFlight;

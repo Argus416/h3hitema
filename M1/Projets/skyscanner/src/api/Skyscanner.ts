@@ -15,9 +15,15 @@ class Skyscanner {
 
 	async getAllFlights({ ...params }: GetFlightsParams): Promise<Flight[] | boolean> {
 		try {
-			const request = await axios.get("/searchFlights", { params: { ...params } });
-			const data = request.data as Flight[];
-			return data;
+			console.log(params);
+			const request = (await axios.get("/searchFlights", { params: { ...params } })) as any;
+			if (request.status) {
+				const data = request.data.data as Flight[];
+				console.log(request, "data");
+				return data;
+			}
+			throw new Error(request.message);
+			return false;
 		} catch (err) {
 			console.error(`Error fetching flights`, err);
 			return false;
@@ -54,10 +60,4 @@ const skyscanner = new SkyscannerWithLocalStorageMethods();
 
 export default skyscanner;
 
-// page permettant de trouver tous les aéroports d'une localité (https://skyscanner50.p.rapidapi.com/api/v1/searchAirport)
 
-// page permettant de chercher des vols (https://skyscanner50.p.rapidapi.com/api/v1/searchFlights)
-
-// page permettant d'obtenir le détail d'un vol (https://skyscanner50.p.rapidapi.com/api/v1/getFlightDetails)
-
-// page permettant de consulter les favoris
