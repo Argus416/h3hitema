@@ -5,7 +5,7 @@ import { Menu as MenuIcon, Adb as AdbIcon } from "@mui/icons-material";
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-const ResponsiveAppBar: React.FC = () => {
+const Navbar: React.FC = () => {
 	const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
 	const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
@@ -144,4 +144,4 @@ const ResponsiveAppBar: React.FC = () => {
 		</AppBar>
 	);
 };
-export default ResponsiveAppBar;
+export default Navbar;
