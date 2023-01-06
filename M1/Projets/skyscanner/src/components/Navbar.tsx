@@ -50,7 +50,7 @@ const Navbar: React.FC = () => {
 							textDecoration: "none",
 						}}
 					>
-						LOGO
+						Skyscanner
 					</Typography>
 
 					<Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
