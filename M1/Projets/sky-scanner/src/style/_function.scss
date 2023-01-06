@@ -1,7 +1,0 @@
-@mixin hoverEffect(){
-    transition: all .2s ease-in-out;
-    &:hover{
-        opacity: .8;
-        color: $orange;
-    }
-}
