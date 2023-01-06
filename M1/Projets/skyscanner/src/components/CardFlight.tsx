@@ -3,11 +3,14 @@ import { Flight as FlightIcon } from "@mui/icons-material";
 import { Flight, FlightLeg } from "../models/Skyscanner";
 import { getTime } from "../utils/Helper";
 interface CardFlightProps {
-	flight?: Flight;
-	flightLeg?: FlightLeg;
+	flight: Flight;
 }
 
-const Details: React.FC<CardFlightProps> = ({ flightLeg }) => {
+interface CardFlightDetails {
+	flightLeg: FlightLeg;
+}
+
+const Details: React.FC<CardFlightDetails> = ({ flightLeg }) => {
 	let departure: Date | string = flightLeg?.departure ? new Date(flightLeg?.departure) : "";
 	let arrival: Date | string = flightLeg?.arrival ? new Date(flightLeg?.arrival) : "";
 

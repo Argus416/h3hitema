@@ -1,9 +1,9 @@
-import { Box, Button, Grid, TextField } from "@mui/material";
+import { Autocomplete, Box, Button, Grid, TextField } from "@mui/material";
 import MyDateTimePicker from "./MyDateTimePicker";
 import React, { useState } from "react";
 import { convertDateToEngFormat } from "../utils/Helper";
-import { Flight, GetFlightsParams } from "../models/Skyscanner";
-import skyscanner from "../api/Skyscanner";
+import { Airport, Flight, GetFlightsParams } from "../models/Skyscanner";
+import Skyscanner from "../api/Skyscanner";
 
 interface SearchFlight {
 	extractResult?: Function;
@@ -11,6 +11,26 @@ interface SearchFlight {
 
 const SearchFlight: React.FC<SearchFlight> = ({ extractResult }) => {
 	// const [flights, setFlights] = useState([] as Flight[]);
+	const [destination, setDestination] = useState("");
+	const [destinationList, setDestinationList] = useState([]);
+
+	const [arrival, setArrival] = useState("");
+	const [arrivalList, setArrivalList] = useState([]);
+
+	const onInputHandler = async (e) => {
+		let airports = (await Skyscanner.getAllAirport(e)) as Airport[];
+		if (airports) {
+			airports = airports.map((el) => {
+				const obj = {
+					label: Math.random().toString(),
+					value: Math.random().toString(),
+				};
+
+				return obj;
+			}) as any;
+			setDestinationList(airports as any);
+		}
+	};
 
 	const submitHandler = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -28,7 +48,7 @@ const SearchFlight: React.FC<SearchFlight> = ({ extractResult }) => {
 			returnDate: arrivalDate,
 		} as GetFlightsParams;
 
-		const searchResult = (await skyscanner.getAllFlights({ ...values })) as Flight[];
+		const searchResult = (await Skyscanner.getAllFlights({ ...values })) as Flight[];
 		// setFlights(searchResult.slice(0, 20));
 
 		if (extractResult) {
@@ -42,10 +62,28 @@ const SearchFlight: React.FC<SearchFlight> = ({ extractResult }) => {
 		<Box component="form" className="searchFlight" onSubmit={submitHandler}>
 			<Grid container spacing={2}>
 				<Grid item sx={{ width: "50%" }}>
-					<TextField sx={{ width: "100%" }} name="origin" id="outlined-basic" label="De" variant="outlined" value="LOND" />
+					<TextField
+						sx={{ width: "100%" }}
+						name="origin"
+						id="outlined-basic"
+						label="De"
+						variant="outlined"
+						value="LOND"
+						// options={arrivalList}
+						// renderInput={(params) => <TextField {...params} label="Movie" onInput={(e: any) => onInputHandler(e.target.value)} />}
+					/>
 				</Grid>
 				<Grid item sx={{ width: "50%" }}>
-					<TextField sx={{ width: "100%" }} name="destination" id="outlined-basic" label="A" variant="outlined" value="NYCA" />
+					<TextField
+						sx={{ width: "100%" }}
+						name="destination"
+						id="outlined-basic"
+						label="A"
+						variant="outlined"
+						value="NYCA"
+						// options={destinationList}
+						// renderInput={(params) => <TextField {...params} label="Movie" onInput={(e: any) => onInputHandler(e.target.value)} />}
+					/>
 				</Grid>
 			</Grid>
 
