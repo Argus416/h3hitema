@@ -24,6 +24,7 @@ const MyDateTimePicker: React.FC<MyDateTimePicker> = ({ name, label, required })
 				// renderInput={(props) => {
 				// return <h1>{props.inputProps?.value?.slice(0, -2)}</h1>;
 				// }}
+				inputFormat="DD/MM/YYYY"
 				renderInput={(props) => <TextField {...props} sx={{ width: "100%" }} name={name} required={required ?? false} />}
 				label={label}
 				value={value}

@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { convertDateToEngFormat } from "../utils/Helper";
 import { Airport, Flight, GetFlightsParams } from "../models/Skyscanner";
 import Skyscanner from "../api/Skyscanner";
+import { AutocompleteInterface } from "../models/Public";
 
 interface SearchFlight {
 	extractResult?: Function;
@@ -12,23 +13,41 @@ interface SearchFlight {
 const SearchFlight: React.FC<SearchFlight> = ({ extractResult }) => {
 	// const [flights, setFlights] = useState([] as Flight[]);
 	const [destination, setDestination] = useState("");
-	const [destinationList, setDestinationList] = useState([]);
+	const [destinationList, setDestinationList] = useState([] as AutocompleteInterface[]);
 
-	const [arrival, setArrival] = useState("");
-	const [arrivalList, setArrivalList] = useState([]);
+	const [origin, setOrigin] = useState("");
+	const [originList, setOriginList] = useState([] as AutocompleteInterface[]);
 
-	const onInputHandler = async (e) => {
-		let airports = (await Skyscanner.getAllAirport(e)) as Airport[];
+	const loadAirportsForAutocomplete = async (city: string): Promise<AutocompleteInterface[] | boolean> => {
+		let airports: Airport[] | AutocompleteInterface[] = (await Skyscanner.getAllAirport(city)) as Airport[];
+
 		if (airports) {
 			airports = airports.map((el) => {
-				const obj = {
-					label: Math.random().toString(),
-					value: Math.random().toString(),
+				const obj: AutocompleteInterface = {
+					label: `${el.CountryName} - ${el.PlaceName}`,
+					value: el.PlaceId,
 				};
 
 				return obj;
 			}) as any;
-			setDestinationList(airports as any);
+			return airports as AutocompleteInterface[];
+		}
+		return false;
+	};
+
+	const AutocompleteDestination = async (e) => {
+		let airports: AutocompleteInterface[] | boolean = await loadAirportsForAutocomplete(e);
+
+		if (airports) {
+			setDestinationList(airports as AutocompleteInterface[]);
+		}
+	};
+
+	const AutocompleteOrigin = async (e) => {
+		let airports: AutocompleteInterface[] | boolean = await loadAirportsForAutocomplete(e);
+
+		if (airports) {
+			setOriginList(airports as AutocompleteInterface[]);
 		}
 	};
 
@@ -38,21 +57,24 @@ const SearchFlight: React.FC<SearchFlight> = ({ extractResult }) => {
 		const formData = new FormData(form);
 
 		const departureDate = convertDateToEngFormat(formData.get("departure_date"));
-		const arrivalDate = convertDateToEngFormat(formData.get("arrival_date"));
+		const originDate = convertDateToEngFormat(formData.get("origin_date"));
 
 		const values = {
-			origin: formData.get("origin"),
-			destination: formData.get("destination"),
+			origin: origin,
+			destination: destination,
 			passenger: formData.get("passenger"),
 			date: departureDate,
-			returnDate: arrivalDate,
+			returnDate: originDate,
 		} as GetFlightsParams;
+
+		console.log(values);
 
 		const searchResult = (await Skyscanner.getAllFlights({ ...values })) as Flight[];
 		// setFlights(searchResult.slice(0, 20));
 
 		if (extractResult) {
-			extractResult(searchResult?.slice(0, 20));
+			// extractResult(searchResult?.slice(0, 20));
+			extractResult(searchResult);
 		}
 
 		console.log(searchResult);
@@ -62,27 +84,21 @@ const SearchFlight: React.FC<SearchFlight> = ({ extractResult }) => {
 		<Box component="form" className="searchFlight" onSubmit={submitHandler}>
 			<Grid container spacing={2}>
 				<Grid item sx={{ width: "50%" }}>
-					<TextField
+					<Autocomplete
+						onChange={(event, value) => (value ? setOrigin(value.value) : "")}
 						sx={{ width: "100%" }}
-						name="origin"
-						id="outlined-basic"
-						label="De"
-						variant="outlined"
-						value="LOND"
-						// options={arrivalList}
-						// renderInput={(params) => <TextField {...params} label="Movie" onInput={(e: any) => onInputHandler(e.target.value)} />}
+						options={originList}
+						renderInput={(params) => <TextField {...params} label="De" onInput={(e: any) => AutocompleteOrigin(e.target.value)} />}
 					/>
 				</Grid>
 				<Grid item sx={{ width: "50%" }}>
-					<TextField
+					<Autocomplete
 						sx={{ width: "100%" }}
-						name="destination"
-						id="outlined-basic"
-						label="A"
-						variant="outlined"
-						value="NYCA"
-						// options={destinationList}
-						// renderInput={(params) => <TextField {...params} label="Movie" onInput={(e: any) => onInputHandler(e.target.value)} />}
+						onChange={(event, value) => (value ? setDestination(value.value) : "")}
+						options={destinationList}
+						renderInput={(params) => {
+							return <TextField {...params} label="à" onInput={(e: any) => AutocompleteDestination(e.target.value)} />;
+						}}
 					/>
 				</Grid>
 			</Grid>
@@ -94,7 +110,7 @@ const SearchFlight: React.FC<SearchFlight> = ({ extractResult }) => {
 					<MyDateTimePicker name="departure_date" label="Départ" />
 				</Grid>
 				<Grid item sx={{ width: "50%" }}>
-					<MyDateTimePicker name="arrival_date" label="Arrivé" required={false} />
+					<MyDateTimePicker name="origin_date" label="Retour" required={false} />
 				</Grid>
 			</Grid>
 

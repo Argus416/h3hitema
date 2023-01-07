@@ -1,5 +1,5 @@
 import SmallCard from "../components/SmallCard";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container, Grid, Typography } from "@mui/material";
 import { City } from "../models/Public";
 import CardFlight from "../components/CardFlight";
 import SearchFlight from "../components/SearchFlight";
@@ -43,9 +43,16 @@ const Home = () => {
 						setFlights(result);
 					}}
 				/>
-			</Container>
 
-			{flights?.length > 0 && flights?.map((flight) => <CardFlight key={flight.id} flight={flight} />)}
+				<Grid container spacing={2} justifyContent="space-between" marginTop="30px">
+					{flights?.length > 0 &&
+						flights?.map((flight) => (
+							<Grid item>
+								<CardFlight key={flight.id} flight={flight} />
+							</Grid>
+						))}
+				</Grid>
+			</Container>
 
 			{/* <Container
 				sx={{

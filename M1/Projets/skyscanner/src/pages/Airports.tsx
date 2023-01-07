@@ -23,12 +23,18 @@ const Airports: React.FC = () => {
 		<Container>
 			<Box>
 				<form onSubmit={(e) => searchAirport(e)}>
-					<TextField sx={{ width: "100%" }} label="Rechecher un aéroport" variant="outlined" onInput={(e: any) => setSearchText(e.target.value)} />
+					<TextField
+						sx={{ width: "100%" }}
+						required
+						label="Rechecher un aéroport"
+						variant="outlined"
+						onInput={(e: any) => setSearchText(e.target.value)}
+					/>
 				</form>
 			</Box>
 
 			<Box sx={{ marginTop: 3 }}>
-				{searchResult.length > 0 && fromIsSubmited && (
+				{searchResult?.length > 0 && fromIsSubmited && (
 					<Box>
 						<Typography> Trouvé {searchResult.length} résultat </Typography>
 						<Box
@@ -46,7 +52,7 @@ const Airports: React.FC = () => {
 					</Box>
 				)}
 
-				{searchResult.length === 0 && fromIsSubmited && (
+				{searchResult?.length === 0 && fromIsSubmited && (
 					<Box>
 						<Typography> Aucune résultat n'a été trouvé</Typography>
 					</Box>

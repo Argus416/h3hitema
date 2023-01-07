@@ -3,3 +3,9 @@ export interface City {
 	name: string;
 	url: string;
 }
+
+
+export interface AutocompleteInterface {
+	label: string;
+	value: string;
+}
