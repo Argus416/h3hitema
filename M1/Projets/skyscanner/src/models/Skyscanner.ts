@@ -74,7 +74,7 @@ export interface FlightLeg {
 	duration: number;
 	carriers: FlightCarrier[];
 	stop_count: 0;
-	stops: [];
+	stops: FlightLegOriginDestination[];
 }
 
 interface FlightCarrier {

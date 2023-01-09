@@ -22,6 +22,8 @@ const SearchFlight: React.FC<SearchFlight> = ({ extractResult }) => {
 		let airports: Airport[] | AutocompleteInterface[] = (await Skyscanner.getAllAirport(city)) as Airport[];
 
 		if (airports) {
+			console.log(airports);
+
 			airports = airports.map((el) => {
 				const obj: AutocompleteInterface = {
 					label: `${el.CountryName} - ${el.PlaceName}`,
@@ -45,7 +47,6 @@ const SearchFlight: React.FC<SearchFlight> = ({ extractResult }) => {
 
 	const AutocompleteOrigin = async (e) => {
 		let airports: AutocompleteInterface[] | boolean = await loadAirportsForAutocomplete(e);
-
 		if (airports) {
 			setOriginList(airports as AutocompleteInterface[]);
 		}

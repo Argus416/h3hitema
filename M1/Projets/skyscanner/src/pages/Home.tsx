@@ -1,5 +1,5 @@
 import SmallCard from "../components/SmallCard";
-import { Box, Container, Grid, Typography } from "@mui/material";
+import { Alert, Box, Container, Grid, Typography } from "@mui/material";
 import { City } from "../models/Public";
 import CardFlight from "../components/CardFlight";
 import SearchFlight from "../components/SearchFlight";
@@ -8,26 +8,7 @@ import { useState } from "react";
 
 const Home = () => {
 	const [flights, setFlights] = useState([] as Flight[]);
-
-	const cities: City[] = [
-		{
-			id: crypto.randomUUID(),
-			name: "Paris",
-			url: "https://picsum.photos/640/360",
-		},
-
-		{
-			id: crypto.randomUUID(),
-			name: "Rome",
-			url: "https://picsum.photos/640/360",
-		},
-
-		{
-			id: crypto.randomUUID(),
-			name: "Vienne",
-			url: "https://picsum.photos/640/360",
-		},
-	];
+	const [searchFlightIsSuppmited, setSearchFlightIsSuppmited] = useState(false);
 
 	return (
 		<Box component="main">
@@ -37,20 +18,28 @@ const Home = () => {
 				</Typography>
 			</Container>
 
-			<Container sx={{ marginBottom: "20px" }}>
+			<Container sx={{ marginBottom: "20px", overflow: "hidden" }}>
 				<SearchFlight
 					extractResult={(result: Flight[]) => {
 						setFlights(result);
+						setSearchFlightIsSuppmited(true);
 					}}
 				/>
 
 				<Grid container spacing={2} justifyContent="space-between" marginTop="30px">
 					{flights?.length > 0 &&
+						searchFlightIsSuppmited &&
 						flights?.map((flight) => (
-							<Grid item>
-								<CardFlight key={flight.id} flight={flight} />
+							<Grid item key={flight.id}>
+								<CardFlight flight={flight} />
 							</Grid>
 						))}
+
+					{flights?.length < 0 && searchFlightIsSuppmited && (
+						<Alert severity="error" sx={{ width: "100%" }}>
+							Aucun vol n'a été trouvé
+						</Alert>
+					)}
 				</Grid>
 			</Container>
 

@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { Flight as FlightIcon } from "@mui/icons-material";
-import { Flight, FlightLeg } from "../models/Skyscanner";
+import { Flight, FlightLeg, FlightLegOriginDestination } from "../models/Skyscanner";
 import { getTime } from "../utils/Helper";
 interface CardFlightProps {
 	flight: Flight;
@@ -21,6 +21,23 @@ const Details: React.FC<CardFlightDetails> = ({ flightLeg }) => {
 	if (arrival) {
 		arrival = getTime(arrival);
 	}
+
+	const directOrStopover = (stops: FlightLegOriginDestination[]) => {
+		let result = "";
+		switch (stops.length) {
+			case 0:
+				result = "Direct";
+				break;
+			case 1:
+				result = `${stops.length} escale`;
+				break;
+
+			default:
+				result = `${stops.length} escales`;
+				break;
+		}
+		return result;
+	};
 	return (
 		<Box className="details">
 			<Box className="left">
@@ -37,7 +54,7 @@ const Details: React.FC<CardFlightDetails> = ({ flightLeg }) => {
 				<Typography variant="h5">{departure}</Typography>
 				<Box className="middle">
 					<Typography variant="h6" fontSize="15px">
-						{flightLeg?.duration}
+						{directOrStopover(flightLeg.stops)}
 					</Typography>
 					<Box className="flightSeperator">
 						<span className="line"></span>
