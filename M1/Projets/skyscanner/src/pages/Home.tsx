@@ -18,7 +18,7 @@ const Home = () => {
 				</Typography>
 			</Container>
 
-			<Container sx={{ marginBottom: "20px", overflow: "hidden" }}>
+			<Container sx={{ marginBottom: "20px" }}>
 				<SearchFlight
 					extractResult={(result: Flight[]) => {
 						setFlights(result);
@@ -35,7 +35,7 @@ const Home = () => {
 							</Grid>
 						))}
 
-					{flights?.length < 0 && searchFlightIsSuppmited && (
+					{flights?.length === 0 && searchFlightIsSuppmited && (
 						<Alert severity="error" sx={{ width: "100%" }}>
 							Aucun vol n'a été trouvé
 						</Alert>

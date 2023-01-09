@@ -56,6 +56,14 @@ export interface GetFlightsParams {
 	market?: string;
 }
 
+export interface GetFlightDetailsParams {
+	itineraryId: string;
+	legs: string;
+	currency?: string;
+}
+
+
+
 interface FlightPrice {
 	amount: number;
 	update_status: string;

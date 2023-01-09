@@ -12,7 +12,7 @@ const Airports: React.FC = () => {
 
 	const searchAirport = async (e: React.FormEvent): Promise<void> => {
 		e.preventDefault();
-		const searchAirportRequest = (await Skyscanner.getAllAirport(searchText)) as Airport[];
+		const searchAirportRequest = (await Skyscanner.searchAirports(searchText)) as Airport[];
 		setSearchResult(searchAirportRequest);
 		setFromIsSubmited(true);
 

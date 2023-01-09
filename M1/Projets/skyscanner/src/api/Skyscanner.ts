@@ -1,8 +1,8 @@
-import { Airport, Flight, FlightDetails, GetFlightsParams, localStorageKeys } from "../models/Skyscanner";
+import { Airport, Flight, FlightDetails, GetFlightDetailsParams, GetFlightsParams, localStorageKeys } from "../models/Skyscanner";
 import axios from "../utils/Axiso";
 
 class Skyscanner {
-	async getAllAirport(city: string): Promise<Airport[] | boolean> {
+	async searchAirports(city: string): Promise<Airport[] | boolean> {
 		try {
 			const request = await axios.get("/searchAirport", { params: { query: city } });
 			const data = request.data.data as Airport[];
@@ -13,16 +13,17 @@ class Skyscanner {
 		}
 	}
 
-	async getAllFlights({ ...params }: GetFlightsParams): Promise<Flight[] | boolean> {
+	async searchFlights({ ...params }: GetFlightsParams): Promise<Flight[] | boolean> {
 		try {
 			console.log(params);
-			const request = (await axios.get("/searchFlights", { params: { ...params } })) as any;
+			const request = await axios.get("/searchFlights", { params: { ...params, currency: "EUR" } });
 			if (request.status) {
 				const data = request.data.data as Flight[];
 				console.log(request, "data");
 				return data;
 			}
-			throw new Error(request.message);
+
+			throw new Error(request.message) as any;
 			return false;
 		} catch (err) {
 			console.error(`Error fetching flights`, err);
@@ -30,10 +31,12 @@ class Skyscanner {
 		}
 	}
 
-	async getFlight(): Promise<FlightDetails | boolean> {
+	async getFlightDetails(params: string): Promise<FlightDetails | boolean> {
 		try {
-			const request = await axios.get("/getFlightDetails");
-			const data = request.data as FlightDetails;
+			params = params + "&currency=EUR";
+			console.log(params);
+			const request = await axios.get("/getFlightDetails?" + params);
+			const data = request.data.data as FlightDetails;
 			return data;
 		} catch (err) {
 			console.error(`Error fetching flight`, err);
@@ -59,5 +62,3 @@ class SkyscannerWithLocalStorageMethods extends Skyscanner {
 const skyscanner = new SkyscannerWithLocalStorageMethods();
 
 export default skyscanner;
-
-

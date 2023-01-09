@@ -19,7 +19,7 @@ const SearchFlight: React.FC<SearchFlight> = ({ extractResult }) => {
 	const [originList, setOriginList] = useState([] as AutocompleteInterface[]);
 
 	const loadAirportsForAutocomplete = async (city: string): Promise<AutocompleteInterface[] | boolean> => {
-		let airports: Airport[] | AutocompleteInterface[] = (await Skyscanner.getAllAirport(city)) as Airport[];
+		let airports: Airport[] | AutocompleteInterface[] = (await Skyscanner.searchAirports(city)) as Airport[];
 
 		if (airports) {
 			console.log(airports);
@@ -37,7 +37,7 @@ const SearchFlight: React.FC<SearchFlight> = ({ extractResult }) => {
 		return false;
 	};
 
-	const AutocompleteDestination = async (e) => {
+	const AutocompleteDestination = async (e: any) => {
 		let airports: AutocompleteInterface[] | boolean = await loadAirportsForAutocomplete(e);
 
 		if (airports) {
@@ -45,7 +45,7 @@ const SearchFlight: React.FC<SearchFlight> = ({ extractResult }) => {
 		}
 	};
 
-	const AutocompleteOrigin = async (e) => {
+	const AutocompleteOrigin = async (e: any) => {
 		let airports: AutocompleteInterface[] | boolean = await loadAirportsForAutocomplete(e);
 		if (airports) {
 			setOriginList(airports as AutocompleteInterface[]);
@@ -68,9 +68,7 @@ const SearchFlight: React.FC<SearchFlight> = ({ extractResult }) => {
 			returnDate: originDate,
 		} as GetFlightsParams;
 
-		console.log(values);
-
-		const searchResult = (await Skyscanner.getAllFlights({ ...values })) as Flight[];
+		const searchResult = (await Skyscanner.searchFlights({ ...values })) as Flight[];
 		// setFlights(searchResult.slice(0, 20));
 
 		if (extractResult) {
@@ -83,7 +81,7 @@ const SearchFlight: React.FC<SearchFlight> = ({ extractResult }) => {
 
 	return (
 		<Box component="form" className="searchFlight" onSubmit={submitHandler}>
-			<Grid container spacing={2}>
+			<Grid container spacing={2} sx={{ marginBottom: "20px" }}>
 				<Grid item sx={{ width: "50%" }}>
 					<Autocomplete
 						onChange={(event, value) => (value ? setOrigin(value.value) : "")}
@@ -104,7 +102,7 @@ const SearchFlight: React.FC<SearchFlight> = ({ extractResult }) => {
 				</Grid>
 			</Grid>
 
-			<TextField sx={{ width: "100%", marginBlock: "20px" }} name="passenger" id="outlined-basic" label="Passager" variant="outlined" type="number" />
+			{/* <TextField sx={{ width: "100%", marginBlock: "20px" }} name="passenger" id="outlined-basic" label="Passager" variant="outlined" type="number" /> */}
 
 			<Grid container spacing={2}>
 				<Grid item sx={{ width: "50%" }}>

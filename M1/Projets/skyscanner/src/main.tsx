@@ -2,11 +2,12 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from "./App";
 import Airports from "./pages/Airports";
-import Flights from "./pages/Flights";
+import FlightDetails from "./pages/FlightDetails";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import { routes } from "./models/Routes";
+import Error404 from "./pages/Error";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 	<React.StrictMode>
@@ -15,7 +16,10 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 			<Routes>
 				<Route path={routes.home.url} element={<App />} />
 				<Route path={routes.airports.url} element={<Airports />} />
-				<Route path={routes.flights.url} element={<Flights />} />
+
+				<Route path={routes.flightDetails.url} element={<FlightDetails />} />
+
+				<Route path={routes.errors["404"].url} element={<Error404 />} />
 			</Routes>
 		</Router>
 	</React.StrictMode>

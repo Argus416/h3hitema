@@ -5,7 +5,7 @@ import axios, { AxiosRequestConfig } from "axios";
 const config: AxiosRequestConfig = {
 	baseURL: API_URL,
 	responseType: "json",
-
+	timeout: 120000,
 	headers: {
 		"X-RapidAPI-Key": API_KEY,
 		"X-RapidAPI-Host": "skyscanner50.p.rapidapi.com",

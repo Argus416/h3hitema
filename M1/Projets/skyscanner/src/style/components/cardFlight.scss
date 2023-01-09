@@ -4,10 +4,10 @@
     padding: 20px 30px;
     // margin-block: 30px;
     // margin-inline: auto;
-    min-width: 500px;
+    min-width: 700px;
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
+
 
     .details{
         display: flex;
@@ -32,7 +32,7 @@
             }
         }
 
-        .right{
+        .center{
             display: flex;
             align-items: center;
             gap: 40px;
@@ -56,6 +56,14 @@
             }
 
         }
+    }
 
+    .right{
+        width: 30%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-left: 1px solid #eee;
+        margin-left: 30px;
     }
 }
