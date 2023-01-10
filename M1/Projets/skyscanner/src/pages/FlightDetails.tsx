@@ -1,6 +1,6 @@
 import { Box, Container, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { FlightDetails as FlightDetailsInterface, FlightLeg, GetFlightDetailsParams } from "../models/Skyscanner";
+import { FlightDetails as FlightDetailsInterface } from "../models/Skyscanner";
 import { useParams, useSearchParams } from "react-router-dom";
 import Skyscanner from "../api/Skyscanner";
 import { flightDetailsUrlQueryParams } from "../models/Routes";
@@ -36,7 +36,10 @@ const FlightDetails: React.FC = () => {
 			for await (let param of params) {
 				param = param.replaceAll("%", "");
 				const flight = (await Skyscanner.getFlightDetails(param)) as FlightDetailsInterface[] | boolean;
-				flights.push(flight);
+				if (flight) {
+					flight.url = param;
+					flights.push(flight);
+				}
 			}
 
 			setFlightDetails(flights);
@@ -46,11 +49,8 @@ const FlightDetails: React.FC = () => {
 
 			console.log(flights);
 		})();
-
-		// Skyscanner.getFlightDetails(getFlightDetailsParams).then((details) => {
-		// 	setFlightDetails(details as FlightDetailsInterface);
-		// });
 	}, [params.length]);
+
 	return (
 		<Container>
 			<Box
@@ -59,7 +59,7 @@ const FlightDetails: React.FC = () => {
 					flexDirection: "column",
 					gap: "20px",
 				}}>
-				<Typography variant="h4">Détail de vol</Typography>
+				<Typography variant="h4">Détail du vol</Typography>
 				{Array.isArray(flightDetails) &&
 					flightDetails.length > 0 &&
 					!flightDetails.includes(undefined) &&
@@ -80,7 +80,9 @@ const FlightDetails: React.FC = () => {
 
 			{loader && (
 				<Box>
-					<h2>Loading...</h2>
+					<Typography variant="h5" sx={{ marginTop: "15px" }}>
+						Loading...
+					</Typography>
 				</Box>
 			)}
 		</Container>

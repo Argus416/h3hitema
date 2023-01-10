@@ -1,6 +1,11 @@
 export enum flightDetailsUrlQueryParams {
 	params = "params",
 }
+export interface routeInterface {
+	name: string;
+	url: string;
+	displayInNavBar: boolean;
+}
 
 export const routes = {
 	home: {
@@ -13,9 +18,9 @@ export const routes = {
 		url: "/airports",
 		displayInNavBar: true,
 	},
-	flights: {
-		name: "Flights",
-		url: "/flights",
+	favorite: {
+		name: "Favorite",
+		url: "/favorite",
 		displayInNavBar: true,
 	},
 	flightDetails: {

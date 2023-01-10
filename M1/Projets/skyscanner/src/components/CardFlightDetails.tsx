@@ -1,7 +1,8 @@
 import { Box, Typography } from "@mui/material";
 import { Flight, FlightDetailsLeg, FlightLeg, FlightLegOriginDestination } from "../models/Skyscanner";
-import { getTime } from "../utils/Helper";
-import { Flight as FlightIcon } from "@mui/icons-material";
+import { getTime, getFullYear } from "../utils/Helper";
+import { FavoriteBorder as FavoriteBorderIcon } from "@mui/icons-material";
+import FlightSeperator from "./ui/FlightSeperator";
 
 interface CardFlightDetailsInterface {
 	flightLeg: FlightLeg | FlightDetailsLeg;
@@ -48,7 +49,7 @@ const CardFlightDetails: React.FC<CardFlightDetailsInterface> = ({ flightLeg, fl
 				</Typography>
 
 				<Typography className="operatedBy" variant="h6">
-					{flightLeg?.origin.name}
+					{getFullYear(flightLeg?.arrival)}
 				</Typography>
 			</Box>
 
@@ -58,15 +59,18 @@ const CardFlightDetails: React.FC<CardFlightDetailsInterface> = ({ flightLeg, fl
 					<Typography variant="h6" fontSize="15px">
 						{directOrStopover(flightLeg.stops)}
 					</Typography>
-					<Box className="flightSeperator">
-						<span className="line"></span>
-						<FlightIcon className="flightIcon" />
-					</Box>
+
+					<FlightSeperator />
+
 					{/* <Typography variant="h6" fontSize="15px">
 						{flightLeg?.escalade === 0 ? "Direct" : `${flightLeg?.escalade} escalade`}
 					</Typography> */}
 				</Box>
 				<Typography variant="h5">{arrival}</Typography>
+			</Box>
+
+			<Box>
+				<FavoriteBorderIcon />
 			</Box>
 		</Box>
 	);

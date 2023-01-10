@@ -110,6 +110,7 @@ export interface FlightDetails {
 	legs: FlightDetailsLeg[];
 	pricingOptions: [];
 	linked: {};
+	url?: "";
 }
 
 export interface FlightDetailsLeg {
@@ -173,4 +174,16 @@ interface FlightDetailsLegOriginDestination {
 	name: string;
 	displayCode: string;
 	city: string;
+}
+
+interface FavoriteFlightLeg {
+	aireport: string;
+	depart: string;
+	arrival: string;
+	date: string;
+}
+
+export interface FavoriteFlight {
+	urlRequest: string;
+	legs: FavoriteFlightLeg[];
 }

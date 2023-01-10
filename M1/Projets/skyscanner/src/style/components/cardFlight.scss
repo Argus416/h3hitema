@@ -39,19 +39,7 @@
         .middle{
             text-align: center;
 
-            .flightSeperator{
-                display: flex;
-                align-items: center;
-                .line{
-                    width: 100px;
-                    height: .125rem;
-                    background-color: $grey;
-                }
-                .flightIcon{
-                    transform: rotate(90deg) scale(0.8);
-                    fill: $grey;
-                }
-            }
+         
         }
 
     }
@@ -64,4 +52,18 @@
     justify-content: center;
     border-left: 1px solid #eee;
     margin-left: 30px;
+}
+
+.flightSeperator{
+    display: flex;
+    align-items: center;
+    .line{
+        width: 100px;
+        height: .125rem;
+        background-color: $grey;
+    }
+    .flightIcon{
+        transform: rotate(90deg) scale(0.8);
+        fill: $grey;
+    }
 }
