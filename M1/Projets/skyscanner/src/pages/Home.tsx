@@ -25,7 +25,7 @@ const Home = () => {
 						console.log(result, "result");
 						if (result === "Server is down" && typeof result === "string") {
 							setErrorMessage("Server is down" as string);
-						} else if (result.length) {
+						} else if (result.length && typeof result !== "string") {
 							setFlights(result);
 						} else {
 							setErrorMessage("Aucun vol n'a été trouvé" as string);
@@ -50,18 +50,6 @@ const Home = () => {
 					)}
 				</Grid>
 			</Container>
-
-			{/* <Container
-				sx={{
-					display: "grid",
-					gridGap: "20px",
-					gridTemplateColumns: "repeat(3, 1fr)",
-				}}
-			>
-				{cities.map((city) => (
-					<SmallCard city={city} key={city.id} />
-				))}
-			</Container> */}
 		</Box>
 	);
 };
