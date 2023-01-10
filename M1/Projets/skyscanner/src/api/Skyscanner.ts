@@ -13,17 +13,21 @@ class Skyscanner {
 		}
 	}
 
-	async searchFlights({ ...params }: GetFlightsParams): Promise<Flight[] | boolean> {
+	async searchFlights({ ...params }: GetFlightsParams): Promise<Flight[] | boolean | string> {
 		try {
 			console.log(params);
 			const request = await axios.get("/searchFlights", { params: { ...params, currency: "EUR" } });
-			if (request.status) {
+			if (request.data.status) {
 				const data = request.data.data as Flight[];
 				console.log(request, "data");
 				return data;
 			}
 
-			throw new Error(request.message) as any;
+			if (!request.data.status) {
+				console.log("here");
+				return "Server is down";
+			}
+
 			return false;
 		} catch (err) {
 			console.error(`Error fetching flights`, err);

@@ -5,6 +5,7 @@ import { convertDateToEngFormat } from "../utils/Helper";
 import { Airport, Flight, GetFlightsParams } from "../models/Skyscanner";
 import Skyscanner from "../api/Skyscanner";
 import { AutocompleteInterface } from "../models/Public";
+import _ from "lodash";
 
 interface SearchFlight {
 	extractResult?: Function;
@@ -68,15 +69,16 @@ const SearchFlight: React.FC<SearchFlight> = ({ extractResult }) => {
 			returnDate: originDate,
 		} as GetFlightsParams;
 
-		const searchResult = (await Skyscanner.searchFlights({ ...values })) as Flight[];
+		let searchResult = await Skyscanner.searchFlights({ ...values });
+		if (searchResult && typeof searchResult === "object" && typeof searchResult !== "string") {
+			searchResult = _.orderBy(searchResult, "price.amount", "desc") as Flight[];
+		}
 		// setFlights(searchResult.slice(0, 20));
 
 		if (extractResult) {
 			// extractResult(searchResult?.slice(0, 20));
 			extractResult(searchResult);
 		}
-
-		console.log(searchResult);
 	};
 
 	return (

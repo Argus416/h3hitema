@@ -9,6 +9,7 @@ import { useState } from "react";
 const Home = () => {
 	const [flights, setFlights] = useState([] as Flight[]);
 	const [searchFlightIsSuppmited, setSearchFlightIsSuppmited] = useState(false);
+	const [errorMessage, setErrorMessage] = useState("Server is down" as string);
 
 	return (
 		<Box component="main">
@@ -20,8 +21,15 @@ const Home = () => {
 
 			<Container sx={{ marginBottom: "20px" }}>
 				<SearchFlight
-					extractResult={(result: Flight[]) => {
-						setFlights(result);
+					extractResult={(result: Flight[] | string) => {
+						console.log(result, "result");
+						if (result === "Server is down" && typeof result === "string") {
+							setErrorMessage("Server is down" as string);
+						} else if (result.length) {
+							setFlights(result);
+						} else {
+							setErrorMessage("Aucun vol n'a été trouvé" as string);
+						}
 						setSearchFlightIsSuppmited(true);
 					}}
 				/>
@@ -37,7 +45,7 @@ const Home = () => {
 
 					{flights?.length === 0 && searchFlightIsSuppmited && (
 						<Alert severity="error" sx={{ width: "100%" }}>
-							Aucun vol n'a été trouvé
+							{errorMessage}
 						</Alert>
 					)}
 				</Grid>
