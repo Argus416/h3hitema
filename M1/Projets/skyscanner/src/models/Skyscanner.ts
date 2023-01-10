@@ -112,7 +112,7 @@ export interface FlightDetails {
 	linked: {};
 }
 
-interface FlightDetailsLeg {
+export interface FlightDetailsLeg {
 	id: string;
 	origin: FlightDetailsLegOriginDestination;
 	destination: FlightDetailsLegOriginDestination;
@@ -123,6 +123,7 @@ interface FlightDetailsLeg {
 	departure: Date;
 	arrival: Date;
 	dayChange: number;
+	stops: [];
 }
 
 interface FlightDetailsLegLayovers {

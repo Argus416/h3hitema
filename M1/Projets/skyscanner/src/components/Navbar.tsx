@@ -45,8 +45,7 @@ const Navbar: React.FC = () => {
 							fontWeight: 700,
 							color: "inherit",
 							textDecoration: "none",
-						}}
-					>
+						}}>
 						Skyscanner
 					</Typography>
 
@@ -57,8 +56,7 @@ const Navbar: React.FC = () => {
 							aria-controls="menu-appbar"
 							aria-haspopup="true"
 							onClick={handleOpenNavMenu}
-							color="inherit"
-						>
+							color="inherit">
 							<MenuIcon />
 						</IconButton>
 						<Menu
@@ -77,8 +75,7 @@ const Navbar: React.FC = () => {
 							onClose={() => handleCloseNavMenu}
 							sx={{
 								display: { xs: "block", md: "none" },
-							}}
-						>
+							}}>
 							{pages.map((page) => (
 								<MenuItem key={page.name} onClick={() => handleCloseNavMenu(page)}>
 									<Typography textAlign="center">{page.name}</Typography>
@@ -101,16 +98,19 @@ const Navbar: React.FC = () => {
 							letterSpacing: ".3rem",
 							color: "inherit",
 							textDecoration: "none",
-						}}
-					>
+						}}>
 						LOGO
 					</Typography>
 					<Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-						{pages.map((page) => (
-							<Button key={page.name} onClick={() => handleCloseNavMenu(page)} sx={{ my: 2, color: "white", display: "block" }}>
-								{page.name}
-							</Button>
-						))}
+						{pages.map((page: any) => {
+							if (page.displayInNavBar) {
+								return (
+									<Button key={page.name} onClick={() => handleCloseNavMenu(page)} sx={{ my: 2, color: "white", display: "block" }}>
+										{page.name}
+									</Button>
+								);
+							}
+						})}
 					</Box>
 
 					<Box sx={{ flexGrow: 0 }}>
@@ -133,8 +133,7 @@ const Navbar: React.FC = () => {
 								horizontal: "right",
 							}}
 							open={Boolean(anchorElUser)}
-							onClose={handleCloseUserMenu}
-						>
+							onClose={handleCloseUserMenu}>
 							{settings.map((setting) => (
 								<MenuItem key={setting} onClick={handleCloseUserMenu}>
 									<Typography textAlign="center">{setting}</Typography>
