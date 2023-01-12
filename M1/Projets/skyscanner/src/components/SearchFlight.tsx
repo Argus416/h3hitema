@@ -71,7 +71,7 @@ const SearchFlight: React.FC<SearchFlight> = ({ extractResult }) => {
 
 		let searchResult = await Skyscanner.searchFlights({ ...values });
 		if (searchResult && typeof searchResult === "object" && typeof searchResult !== "string") {
-			searchResult = _.orderBy(searchResult, "price.amount", "desc") as Flight[];
+			searchResult = _.orderBy(searchResult, "price.amount", "asc") as Flight[];
 		}
 		// setFlights(searchResult.slice(0, 20));
 
