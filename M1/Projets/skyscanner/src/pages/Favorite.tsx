@@ -6,7 +6,7 @@ import { FlightDetails, FlightDetailsLeg } from "../models/Skyscanner";
 import Loading from "../components/ui/Loading";
 import { getFullYear, getTime } from "../utils/Helper";
 import { Favorite as FavoriteIcon } from "@mui/icons-material";
-
+import _ from "lodash";
 interface FavoriteCardProps {
 	flightLeg: FlightDetailsLeg;
 	idLocalStorage?: string;
@@ -32,7 +32,7 @@ const FavoriteCard: React.FC<FavoriteCardProps> = ({ flightLeg, idLocalStorage, 
 				boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
 				borderRadius: "8px",
 				padding: "12px",
-				maxWidth: "300px",
+				minWidth: "300px",
 				marginBottom: "15px",
 			}}>
 			<Box>
@@ -91,22 +91,23 @@ const Favorite: React.FC = () => {
 	useEffect(() => {
 		// first timeLoad
 		if (!favorites.length) {
+			console.log("reload 1 ");
 			loadFavorites().then((x: any) => {
 				setFavorites(x);
 				setLoader(true);
 			});
 		} else {
 			// remove favorite directly from the list
-			const filterdList = favorites.filter((x: FlightDetails) => x.legs[0].id !== elementIdToRemove);
+			const filterdList = favorites.filter((x: FlightDetails) => x.url !== elementIdToRemove);
 			setFavorites(filterdList);
-			console.log("reloaded", { filterdList, favorites });
+			console.log("reload 2", { filterdList, favorites });
 		}
 	}, [reload]);
 
 	return (
 		<Container>
 			<Typography variant="h4">Favoris </Typography>
-			<Box sx={{ paddingTop: "15px" }}>
+			<Box sx={{ paddingTop: "15px", display: "flex", gap: "20px" }}>
 				{favorites.length > 0 &&
 					favorites.map((favorite: FlightDetails, index: number) => (
 						<FavoriteCard key={index} idLocalStorage={favorite.url} flightLeg={favorite.legs[0]} reloadPage={reloadPage} />
