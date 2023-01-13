@@ -63,7 +63,7 @@ class SkyscannerWithLocalStorageMethods extends Skyscanner {
 	
 	removeFromFavorite(data: any) {
 		const currentData = this.getFavoris();
-		const removeFavorite =currentData.filter((x:string) => data === x)
+		const removeFavorite = currentData.filter((x: string) => data !== x);
 		localStorage.setItem(localStorageKeys.airports, JSON.stringify(removeFavorite));
 		// const removeFavorite = 
 	}

@@ -4,6 +4,7 @@ import { getTime, getFullYear } from "../utils/Helper";
 import { FavoriteBorder as FavoriteBorderIcon, Favorite as FavoriteIcon } from "@mui/icons-material";
 import FlightSeperator from "./ui/FlightSeperator";
 import Skyscanner from "../api/Skyscanner";
+import { useEffect, useState } from "react";
 interface CardFlightDetailsInterface {
 	flightLeg: FlightLeg | FlightDetailsLeg;
 	displayLike?: boolean;
@@ -11,6 +12,7 @@ interface CardFlightDetailsInterface {
 }
 
 const CardFlightDetails: React.FC<CardFlightDetailsInterface> = ({ flightLeg, displayLike, url }) => {
+	const [inFavorite, setInFavorite] = useState(false);
 	let departure: Date | string = flightLeg?.departure ? new Date(flightLeg?.departure) : "";
 	let arrival: Date | string = flightLeg?.arrival ? new Date(flightLeg?.arrival) : "";
 
@@ -21,6 +23,15 @@ const CardFlightDetails: React.FC<CardFlightDetailsInterface> = ({ flightLeg, di
 	if (arrival) {
 		arrival = getTime(arrival);
 	}
+
+	const isInFavorite = () => {
+		const isInFavorite = Skyscanner.getFavoris().includes(url);
+		setInFavorite(isInFavorite);
+	};
+
+	useEffect(() => {
+		isInFavorite();
+	}, [inFavorite]);
 
 	const directOrStopover = (stops: FlightLegOriginDestination[]) => {
 		let result = "";
@@ -44,10 +55,12 @@ const CardFlightDetails: React.FC<CardFlightDetailsInterface> = ({ flightLeg, di
 
 	const addToFavorites = () => {
 		Skyscanner.setFavoris(url);
+		isInFavorite();
 	};
 
 	const removeFromFavorite = () => {
 		Skyscanner.removeFromFavorite(url);
+		isInFavorite();
 	};
 
 	return (
@@ -80,12 +93,15 @@ const CardFlightDetails: React.FC<CardFlightDetailsInterface> = ({ flightLeg, di
 
 			{displayLike && (
 				<Box>
-					<Button onClick={addToFavorites}>
-						<FavoriteBorderIcon />
-					</Button>
-					<Button onClick={removeFromFavorite}>
-						<FavoriteIcon sx={{ fill: "red !important" }} />
-					</Button>
+					{inFavorite ? (
+						<Button onClick={removeFromFavorite}>
+							<FavoriteIcon sx={{ fill: "red !important" }} />
+						</Button>
+					) : (
+						<Button onClick={addToFavorites}>
+							<FavoriteBorderIcon />
+						</Button>
+					)}
 				</Box>
 			)}
 		</Box>

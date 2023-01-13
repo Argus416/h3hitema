@@ -6,8 +6,7 @@ import Skyscanner from "../api/Skyscanner";
 import { flightDetailsUrlQueryParams } from "../models/Routes";
 import CardFlightDetails from "../components/CardFlightDetails";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
-
-
+import Loading from "../components/ui/Loading";
 
 function createData(name: string, price: number, url: string) {
 	return { name, price, url };
@@ -35,7 +34,7 @@ const FlightDetails: React.FC<FlightDetailsProps> = ({ displayLike }) => {
 	// };
 
 	const pricingOptionsToRow = (array: any) => {
-		array = array.map((value) => {
+		array = array.map((value: any) => {
 			const agent = value.agents[0];
 			return createData(agent.name, agent.price, agent.url);
 		});
@@ -75,6 +74,7 @@ const FlightDetails: React.FC<FlightDetailsProps> = ({ displayLike }) => {
 			}
 
 			setFlightDetails(flights);
+			console.log(flights);
 			if (flights.length && !flights.includes(undefined)) {
 				setLoader(false);
 			}
@@ -154,13 +154,7 @@ const FlightDetails: React.FC<FlightDetailsProps> = ({ displayLike }) => {
 					})}
 			</Box>
 
-			{loader && (
-				<Box>
-					<Typography variant="h5" sx={{ marginTop: "15px" }}>
-						Loading...
-					</Typography>
-				</Box>
-			)}
+			{loader && <Loading />}
 		</Container>
 	);
 };

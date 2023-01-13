@@ -32,7 +32,7 @@ const FavoriteCard: React.FC<FavoriteCardProps> = ({ flightLeg, idLocalStorage, 
 				boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
 				borderRadius: "8px",
 				padding: "12px",
-				minWidth: "300px",
+				minWidth: "450px",
 				marginBottom: "15px",
 			}}>
 			<Box>
@@ -45,9 +45,13 @@ const FavoriteCard: React.FC<FavoriteCardProps> = ({ flightLeg, idLocalStorage, 
 
 			<Box sx={{ display: "flex", justifyContent: "space-between" }}>
 				<Typography fontWeight="bold" marginTop="30px">
+					{getFullYear(flightLeg.departure, "/", true)}
+					<span> à </span>
 					{getTime(flightLeg.departure)}
 				</Typography>
 				<Typography fontWeight="bold" marginTop="30px">
+					{getFullYear(flightLeg.arrival, "/", true)}
+					<span> à </span>
 					{getTime(flightLeg.arrival)}
 				</Typography>
 			</Box>
@@ -107,7 +111,7 @@ const Favorite: React.FC = () => {
 	return (
 		<Container>
 			<Typography variant="h4">Favoris </Typography>
-			<Box sx={{ paddingTop: "15px", display: "flex", gap: "20px" }}>
+			<Box sx={{ paddingTop: "15px", display: "flex", justifyContent: "space-between", flexWrap: "wrap" }}>
 				{favorites.length > 0 &&
 					favorites.map((favorite: FlightDetails, index: number) => (
 						<FavoriteCard key={index} idLocalStorage={favorite.url} flightLeg={favorite.legs[0]} reloadPage={reloadPage} />
