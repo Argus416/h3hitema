@@ -35,7 +35,7 @@ const CardFlight: React.FC<CardFlightProps> = ({ flight }) => {
 					flexDirection: "column",
 					gap: "20px",
 				}}>
-				{flight?.legs?.length >= 1 && flight?.legs.map((details) => <CardFlightDetails flight={flight} flightLeg={details} key={details.id} />)}
+				{flight?.legs?.length >= 1 && flight?.legs.map((details) => <CardFlightDetails flightLeg={details} key={details.id} />)}
 			</Box>
 
 			<Box className="right">

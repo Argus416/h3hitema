@@ -1,17 +1,19 @@
 import { Box, Typography } from "@mui/material";
 import { Flight, FlightDetailsLeg, FlightLeg, FlightLegOriginDestination } from "../models/Skyscanner";
 import { getTime, getFullYear } from "../utils/Helper";
-import { FavoriteBorder as FavoriteBorderIcon } from "@mui/icons-material";
+import { FavoriteBorder as FavoriteBorderIcon, Favorite as FavoriteIcon } from "@mui/icons-material";
 import FlightSeperator from "./ui/FlightSeperator";
 
 interface CardFlightDetailsInterface {
 	flightLeg: FlightLeg | FlightDetailsLeg;
-	flight?: Flight;
+	displayLike?: Boolean;
 }
 
-const CardFlightDetails: React.FC<CardFlightDetailsInterface> = ({ flightLeg, flight }) => {
+const CardFlightDetails: React.FC<CardFlightDetailsInterface> = ({ flightLeg, displayLike }) => {
 	let departure: Date | string = flightLeg?.departure ? new Date(flightLeg?.departure) : "";
 	let arrival: Date | string = flightLeg?.arrival ? new Date(flightLeg?.arrival) : "";
+
+	console.log({ flightLeg });
 
 	if (departure) {
 		departure = getTime(departure);
@@ -69,9 +71,12 @@ const CardFlightDetails: React.FC<CardFlightDetailsInterface> = ({ flightLeg, fl
 				<Typography variant="h5">{arrival}</Typography>
 			</Box>
 
-			<Box>
-				<FavoriteBorderIcon />
-			</Box>
+			{displayLike && (
+				<Box>
+					<FavoriteBorderIcon />
+					<FavoriteIcon sx={{ fill: "red !important" }} />
+				</Box>
+			)}
 		</Box>
 	);
 };

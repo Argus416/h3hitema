@@ -7,11 +7,13 @@ import { flightDetailsUrlQueryParams } from "../models/Routes";
 import CardFlightDetails from "../components/CardFlightDetails";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
 
+
+
 function createData(name: string, price: number, url: string) {
 	return { name, price, url };
 }
 
-const FlightDetails: React.FC = () => {
+const FlightDetails: React.FC<FlightDetailsProps> = ({ displayLike }) => {
 	const [flightDetails, setFlightDetails] = useState([] as FlightDetailsInterface[] | boolean);
 	const [loader, setLoader] = useState(false);
 	const [searchParams] = useSearchParams();
@@ -75,12 +77,8 @@ const FlightDetails: React.FC = () => {
 		})();
 	}, [params.length]);
 
-	const toto = () => {
-		console.log({ rowsOne, rowsTwo });
-	};
 	return (
 		<Container>
-			<Button onClick={toto}>toto</Button>
 			<Box
 				sx={{
 					display: "flex",
@@ -100,15 +98,18 @@ const FlightDetails: React.FC = () => {
 									borderRadius: "8px",
 									padding: "12px",
 								}}>
-								<CardFlightDetails flightLeg={detail?.legs[0]} />
+								<CardFlightDetails displayLike={true} flightLeg={detail?.legs[0]} />
 
-								<TableContainer component={Paper} sx={{ marginTop: "20px" }}>
+								<Typography variant="h5" sx={{ marginTop: "30px", marginBottom: "20px" }}>
+									Tous les prix
+								</Typography>
+								<TableContainer component={Paper}>
 									<Table aria-label="simple table">
 										<TableHead>
 											<TableRow>
-												<TableCell align="right">Nom</TableCell>
-												<TableCell align="right">Price</TableCell>
-												<TableCell align="right">Url</TableCell>
+												<TableCell>Nom</TableCell>
+												<TableCell>Price</TableCell>
+												<TableCell>Url</TableCell>
 											</TableRow>
 										</TableHead>
 										<TableBody>
@@ -118,8 +119,8 @@ const FlightDetails: React.FC = () => {
 														<TableCell component="th" scope="row">
 															{row.name}
 														</TableCell>
-														<TableCell align="right">{row.price}€</TableCell>
-														<TableCell align="right">
+														<TableCell>{row.price}€</TableCell>
+														<TableCell>
 															<Link target="_blank" href={row.url}>
 																Voir l'offre
 															</Link>
@@ -133,8 +134,8 @@ const FlightDetails: React.FC = () => {
 														<TableCell component="th" scope="row">
 															{row.name}
 														</TableCell>
-														<TableCell align="right">{row.price}€</TableCell>
-														<TableCell align="right">
+														<TableCell>{row.price}€</TableCell>
+														<TableCell>
 															<Link target="_blank" href={row.url}>
 																Voir l'offre
 															</Link>
