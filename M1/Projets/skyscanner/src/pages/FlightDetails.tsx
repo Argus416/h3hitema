@@ -21,6 +21,9 @@ const FlightDetails: React.FC<FlightDetailsProps> = ({ displayLike }) => {
 	const [rowsOne, setRowsOne] = useState<any>([]);
 	const [rowsTwo, setRowsTwo] = useState<any>([]);
 
+	// const [firstFlightIdWithLegs, setFirstFlightIdWithLegs] = useState<string>('')
+	// const [secondFlightIdWithLegs, setSecondFlightIdWithLegs] = useState<string>('')
+
 	let params = JSON.parse(searchParams.get(flightDetailsUrlQueryParams.params) ?? "");
 
 	// const fetchFlights = (params) => {
@@ -61,8 +64,9 @@ const FlightDetails: React.FC<FlightDetailsProps> = ({ displayLike }) => {
 					flight.url = param;
 					flights.push(flight);
 
+					// TODO : optimize this row in one state
 					setRowsOne(pricingOptionsToRow(flight.pricingOptions));
-
+					// if second flight exist
 					if (index === 1) {
 						setRowsTwo(pricingOptionsToRow(flight.pricingOptions));
 					}
@@ -98,7 +102,7 @@ const FlightDetails: React.FC<FlightDetailsProps> = ({ displayLike }) => {
 									borderRadius: "8px",
 									padding: "12px",
 								}}>
-								<CardFlightDetails displayLike={true} flightLeg={detail?.legs[0]} />
+								<CardFlightDetails displayLike={true} flightLeg={detail?.legs[0]} url={detail.url} />
 
 								<Typography variant="h5" sx={{ marginTop: "30px", marginBottom: "20px" }}>
 									Tous les prix

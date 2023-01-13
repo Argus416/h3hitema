@@ -1,19 +1,18 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { Flight, FlightDetailsLeg, FlightLeg, FlightLegOriginDestination } from "../models/Skyscanner";
 import { getTime, getFullYear } from "../utils/Helper";
 import { FavoriteBorder as FavoriteBorderIcon, Favorite as FavoriteIcon } from "@mui/icons-material";
 import FlightSeperator from "./ui/FlightSeperator";
-
+import Skyscanner from "../api/Skyscanner";
 interface CardFlightDetailsInterface {
 	flightLeg: FlightLeg | FlightDetailsLeg;
-	displayLike?: Boolean;
+	displayLike?: boolean;
+	url?: string;
 }
 
-const CardFlightDetails: React.FC<CardFlightDetailsInterface> = ({ flightLeg, displayLike }) => {
+const CardFlightDetails: React.FC<CardFlightDetailsInterface> = ({ flightLeg, displayLike, url }) => {
 	let departure: Date | string = flightLeg?.departure ? new Date(flightLeg?.departure) : "";
 	let arrival: Date | string = flightLeg?.arrival ? new Date(flightLeg?.arrival) : "";
-
-	console.log({ flightLeg });
 
 	if (departure) {
 		departure = getTime(departure);
@@ -41,6 +40,14 @@ const CardFlightDetails: React.FC<CardFlightDetailsInterface> = ({ flightLeg, di
 		}
 
 		return result;
+	};
+
+	const addToFavorites = () => {
+		Skyscanner.setFavoris(url);
+	};
+
+	const removeFromFavorite = () => {
+		Skyscanner.removeFromFavorite(url);
 	};
 
 	return (
@@ -73,8 +80,12 @@ const CardFlightDetails: React.FC<CardFlightDetailsInterface> = ({ flightLeg, di
 
 			{displayLike && (
 				<Box>
-					<FavoriteBorderIcon />
-					<FavoriteIcon sx={{ fill: "red !important" }} />
+					<Button onClick={addToFavorites}>
+						<FavoriteBorderIcon />
+					</Button>
+					<Button onClick={removeFromFavorite}>
+						<FavoriteIcon sx={{ fill: "red !important" }} />
+					</Button>
 				</Box>
 			)}
 		</Box>

@@ -53,10 +53,22 @@ class SkyscannerWithLocalStorageMethods extends Skyscanner {
 	}
 
 	setFavoris(data: any) {
-		const favoris = localStorage.set(localStorageKeys.airports, JSON.stringify(data));
-
+		const currentData = this.getFavoris();
+		const isIncluded = currentData.includes(data);
+		if (isIncluded) return;
+		const favoris = localStorage.setItem(localStorageKeys.airports, JSON.stringify([data, ...currentData]));
 		return favoris;
 	}
+
+	
+	removeFromFavorite(data: any) {
+		const currentData = this.getFavoris();
+		const removeFavorite =currentData.filter((x:string) => data === x)
+		localStorage.setItem(localStorageKeys.airports, JSON.stringify(removeFavorite));
+		// const removeFavorite = 
+	}
+
+	
 }
 
 const skyscanner = new SkyscannerWithLocalStorageMethods();
