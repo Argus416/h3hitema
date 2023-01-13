@@ -15,16 +15,13 @@ class Skyscanner {
 
 	async searchFlights({ ...params }: GetFlightsParams): Promise<Flight[] | boolean | string> {
 		try {
-			console.log(params);
 			const request = await axios.get("/searchFlights", { params: { ...params, currency: "EUR" } });
 			if (request.data.status) {
 				const data = request.data.data as Flight[];
-				console.log(request, "data");
 				return data;
 			}
 
 			if (!request.data.status) {
-				console.log("here");
 				return "Server is down";
 			}
 
@@ -38,7 +35,6 @@ class Skyscanner {
 	async getFlightDetails(params: string): Promise<FlightDetails | boolean> {
 		try {
 			params = params + "&currency=EUR";
-			console.log(params);
 			const request = await axios.get("/getFlightDetails?" + params);
 			const data = request.data.data as FlightDetails;
 			return data;

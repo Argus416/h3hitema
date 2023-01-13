@@ -16,7 +16,6 @@ const Airports: React.FC = () => {
 		setSearchResult(searchAirportRequest);
 		setFromIsSubmited(true);
 
-		console.log(searchAirportRequest);
 	};
 
 	return (
