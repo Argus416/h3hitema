@@ -40,7 +40,7 @@ const CardFlight: React.FC<CardFlightProps> = ({ flight }) => {
 
 			<Box className="right">
 				<Button variant="contained" color="success" onClick={() => goToDetails(flight)}>
-					{flight.price.amount}€
+					{flight?.price?.amount}€
 				</Button>
 			</Box>
 		</Box>
