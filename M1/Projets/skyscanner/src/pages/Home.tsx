@@ -22,8 +22,9 @@ const Home = () => {
 			<Container sx={{ marginBottom: "20px" }}>
 				<SearchFlight
 					extractResult={(result: Flight[] | string) => {
-						if (result === "Server is down" && typeof result === "string") {
-							setErrorMessage("Server is down" as string);
+						console.log(result);
+						if (!result || (result === "Server down, Please try again after sometime." && typeof result === "string")) {
+							setErrorMessage("Server down, Please try again after sometime" as string);
 						} else if (result.length && typeof result !== "string") {
 							setFlights(result);
 						} else {

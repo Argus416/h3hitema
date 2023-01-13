@@ -15,7 +15,6 @@ const Airports: React.FC = () => {
 		const searchAirportRequest = (await Skyscanner.searchAirports(searchText)) as Airport[];
 		setSearchResult(searchAirportRequest);
 		setFromIsSubmited(true);
-
 	};
 
 	return (
