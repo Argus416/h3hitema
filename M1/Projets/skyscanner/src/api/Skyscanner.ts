@@ -22,7 +22,7 @@ class Skyscanner {
 			}
 
 			if (!request.data.status) {
-				return "Server is down";
+				return request.data.message;
 			}
 
 			return false;
