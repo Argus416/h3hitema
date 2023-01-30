@@ -11,8 +11,26 @@
 <div class="example-wrapper">
     <h1>Accueil</h1>
 
-    <a href="{{ url('app_product') }}">Produits</a>
 
+    {% for product in products %}
+        <div class="card col-6">
+            <img src="{{product.image}}" class="card-img-top img-fluid" alt="...">
+            <div class="card-body">
+                <h5 class="card-title d-flex justify-content-between">
+                <span>
+                    {{product.name}}
+                </span>
+                <span>
+                    {{product.price}}€
+                </span>
+                </h5>
+                <p class="card-text">{{product.description}}€</p>
+                <a href="{{url('app_one_product', {slug: product.slug })}}" class="btn btn-primary">Voir le produit</a>
+            </div>
+        </div>
+    {% endfor %}
+
+    <a href="{{ url('app_product') }}">Produits</a>
 
 </div>
 {% endblock %}

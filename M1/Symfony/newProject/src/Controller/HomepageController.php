@@ -22,7 +22,6 @@ class HomepageController extends AbstractController
 
         $products = $this->productsRepository->getRandomProducts();
 
-        dump($products);
 
         return $this->render('homepage/index.html.twig', [
             'controller_name' => 'HomepageController',
