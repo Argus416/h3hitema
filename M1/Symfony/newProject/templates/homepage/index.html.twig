@@ -11,11 +11,8 @@
 <div class="example-wrapper">
     <h1>Accueil</h1>
 
-    <ul>
-    {% for product in products %}
-        <li><a href="{{url('app_product', {id: loop.index })}}">{{ product }}</a></li>
-    {% endfor %}
-    </ul>
+    <a href="{{ url('app_product') }}">Produits</a>
+
 
 </div>
 {% endblock %}
