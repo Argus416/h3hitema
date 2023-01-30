@@ -14,11 +14,18 @@
     <div class="row">
     {% for product in products %}
     <div class="card col-6">
-        <img src="{{product.photo}}" class="card-img-top img-fluid" alt="...">
+        <img src="{{product.image}}" class="card-img-top img-fluid" alt="...">
         <div class="card-body">
-            <h5 class="card-title">{{product.name}}</h5>
-            <p class="card-text">{{product.price}}€</p>
-            <a href="{{url('app_one_product', {id: loop.index })}}" class="btn btn-primary">Voir le produit</a>
+            <h5 class="card-title d-flex justify-content-between">
+            <span>
+                {{product.name}}
+            </span>
+            <span>
+                {{product.price}}€
+            </span>
+             </h5>
+            <p class="card-text">{{product.description}}€</p>
+            <a href="{{url('app_one_product', {slug: product.slug })}}" class="btn btn-primary">Voir le produit</a>
         </div>
     </div>
     {% endfor %}

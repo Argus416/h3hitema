@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\ProductsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -9,38 +10,28 @@ use Symfony\Component\Routing\Annotation\Route;
 
 
 class ProductController extends AbstractController
-{
-    private $products = [
-        1 => [
-            'name' => 'Pomme',
-            'price' => 1.2,
-            'photo' => 'https://images.pexels.com/photos/206959/pexels-photo-206959.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
-        ],
-        2 => [
-            'name' => 'Orange',
-            'price' => 3,
-            'photo' => 'https://images.pexels.com/photos/161559/background-bitter-breakfast-bright-161559.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
-        ],
-        3 => [
-            'name' => 'Pomme de terre',
-            'price' => 5,
-            'photo' => 'https://images.pexels.com/photos/2286776/pexels-photo-2286776.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
-        ],
-    ];
-    
+{    
+    private ProductsRepository $productsRepository;
+    public function __construct(private ProductsRepository $ProductsRepository)
+    {
+        $this->productsRepository = $ProductsRepository;
+    }
+
     #[Route('/products', name: 'app_product')]
     public function index(): Response
     {
+        $products = $this->productsRepository->findAll();
         return $this->render('product/index.html.twig', [
-            'products' => $this->products,
+            'products' => $products,
         ]);
     }
 
-    #[Route('/product/{id}', name: 'app_one_product')]
-    public function product(string $id): Response
+    #[Route('/product/{slug}', name: 'app_one_product')]
+    public function product(string $slug): Response
     {
+        $product = $this->productsRepository->findBy(['slug' => $slug])[0];
         return $this->render('product/product.html.twig', [
-            'product' => $this->products[$id],
+            'product' => $product,
         ]);
     }
 }
