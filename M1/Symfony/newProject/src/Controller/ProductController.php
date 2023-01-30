@@ -12,6 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProductController extends AbstractController
 {    
     private ProductsRepository $productsRepository;
+    
     public function __construct(private ProductsRepository $ProductsRepository)
     {
         $this->productsRepository = $ProductsRepository;
