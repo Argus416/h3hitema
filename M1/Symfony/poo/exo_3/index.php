@@ -1,29 +1,14 @@
 <!-- 
-1- Créer l'interface « CountryInterface » et y créer la méthode « getLanguages() »
-2- Implémenter l'interface « CountryInterface dans la classe « Country »
-3- Créer la propriété « languages » dans la classe « Country »
-4- Implémenter la méthode « getLanguages() » dans les classes  « France » et « UnitedKingdom »
+1- Supprimer les propriétés « president » et « queen » aux classes « France » et « UnitedKingdom »
+2- Créer la propriété « leaderType » ainsi que ses getters/setters dans la classe « Country »
+3- Dans les classes « France » et « UnitedKingdom », redéfinir le getter de la propriété « leaderType »
  -->
  <?php
-    interface CountryInterface{
-        public function getLanguages(): string;
-    }
-
-    class Country implements CountryInterface{
+    class Country{
         private string $name = "";
         private string $currency = "";
         private string $population = "";
         private string $leaderType = "";
-        private string $language = "";
-
-
-        public function setLanguage(string $language):void{
-            $this->language = $language;
-        }
-
-        public function getLanguages():string {
-            return $this->language;
-        }
 
         public function setName(string $name){
             $this->name = $name;
@@ -77,8 +62,6 @@
     echo $france->getLeaderType() . "</br>";
     $france->setCurrency('Euro');
     echo $france->getCurrency(). "</br>";
-    $france->setLanguage('French');
-    echo $france->getLanguages() . "</br>";
     $france->setPopulation('90 000 000');
     echo $france->getPopulation(). "</br>";
 
@@ -86,10 +69,7 @@
     $uk = new UnitedKingdom();
     $uk->setName('United Kingdom'). ":";
     echo $uk->getName() . " :</br>";
-    $uk->setLeaderType('Élisabeth II');
+    echo $uk->setLeaderType('Élisabeth II');
     echo $uk->getLeaderType() . "</br>";
-    $uk->setLanguage('English');
-    echo $uk->getLanguages() . "</br>";
-
 
 ?>
