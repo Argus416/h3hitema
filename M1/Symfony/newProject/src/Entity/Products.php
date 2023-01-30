@@ -6,7 +6,10 @@ use App\Repository\ProductsRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+
 #[ORM\Entity(repositoryClass: ProductsRepository::class)]
+#[ORM\Index(columns : ['name', 'slug'], flags: ['unique'])]
+
 class Products
 {
     #[ORM\Id]
@@ -22,6 +25,12 @@ class Products
 
     #[ORM\Column]
     private ?float $price = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $slug = null;
+
+    #[ORM\Column(length: 500, nullable: true)]
+    private ?string $image = null;
 
     public function getId(): ?int
     {
@@ -60,6 +69,30 @@ class Products
     public function setPrice(float $price): self
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }
