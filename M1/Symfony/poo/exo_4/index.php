@@ -1,26 +1,12 @@
 <!-- 
-1- Créer une classe « Language » et y créer la propriété « name », ainsi que les getters/setters
-2- Créer la propriété « languages » de type « Array » dans la classe « Country », afin de définir les langues officielles d'un pays
-3- Créer la méthode « addLanguage » acceptant un paramètre de type « Language », et permettant d'ajouter une nouvelle entrée dans la liste des langues
-4- Créer une classe « Belgium » et instancier un objet « belgium »
-5- Instancier les langues « french », « dutch » et « german »
-6- Ajouter les trois langues à la Belgique puis les afficher
+1- Créer l'interface « CountryInterface » et y créer la méthode « getLanguages() »
+2- Implémenter l'interface « CountryInterface dans la classe « Country »
+3- Créer la propriété « languages » dans la classe « Country »
+4- Implémenter la méthode « getLanguages() » dans les classes  « France » et « UnitedKingdom »
  -->
  <?php
     interface CountryInterface{
-        public function getLanguages(): array;
-    }
-
-    class Language{
-        private string $name;
-
-        public function getName():string {
-            return $this->name;
-        }
-
-        public function setName(string $name):void{
-            $this->$name = $name;
-        }
+        public function getLanguages(): string;
     }
 
     class Country implements CountryInterface{
@@ -28,15 +14,15 @@
         private string $currency = "";
         private string $population = "";
         private string $leaderType = "";
-        private array $languages = [];
+        private string $language = "";
 
 
-        public function setLanguage(array $language):void{
+        public function setLanguage(string $language):void{
             $this->language = $language;
         }
 
-        public function getLanguages():array {
-            return $this->languages;
+        public function getLanguages():string {
+            return $this->language;
         }
 
         public function setName(string $name){
@@ -74,9 +60,13 @@
     }
 
     class UnitedKingdom extends Country{
+
+
+      
     }
 
-    class France extends Country{ 
+    class France extends Country{
+       
     }
 
     $france = new France();
