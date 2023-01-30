@@ -8,11 +8,19 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomepageController extends AbstractController
 {
+
+    private $products = [
+        1 => 'Pomme',
+        2 => 'Orange',
+        1 => 'Pomme de terre',
+    ];
+
     #[Route('/', name: 'app_homepage')]
     public function index(): Response
     {
         return $this->render('homepage/index.html.twig', [
             'controller_name' => 'HomepageController',
+            'products' => $this->products
         ]);
     }
 

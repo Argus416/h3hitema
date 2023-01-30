@@ -15,7 +15,7 @@ class ProductController extends AbstractController
         2 => 'Orange',
         1 => 'Pomme de terre',
     ];
-
+    
     #[Route('/product/{id}', name: 'app_product')]
     public function index(string $id): Response
     {
