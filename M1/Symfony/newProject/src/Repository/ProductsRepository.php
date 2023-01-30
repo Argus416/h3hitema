@@ -64,6 +64,19 @@ class ProductsRepository extends ServiceEntityRepository
         return $products;
     }
 
+    public function getProductsByOffset(int $offset):array
+    {
+        $products = 
+            $this->createQueryBuilder('p')
+            ->setFirstResult($offset)
+            ->setMaxResults(8)
+            ->orderBy('p.id')
+            ->getQuery()
+            ->getResult();
+
+        return $products;
+    }
+
 //    /**
 //     * @return Products[] Returns an array of Products objects
 //     */

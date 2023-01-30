@@ -12,18 +12,24 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProductController extends AbstractController
 {    
     private ProductsRepository $productsRepository;
-    
+
     public function __construct(private ProductsRepository $ProductsRepository)
     {
         $this->productsRepository = $ProductsRepository;
     }
 
-    #[Route('/products', name: 'app_product')]
-    public function index(): Response
+    #[Route('/products/page/{page}', name: 'app_product')]
+    public function index(string $page): Response
     {
-        $products = $this->productsRepository->findAll();
+        $products = $this->productsRepository->getProductsByOffset($page);
+        $nbProducts = $this->productsRepository->getCountProducts();
+        $nbPages = intval(ceil($nbProducts/10));
+        $page=intval($page);
+        dump($page);
         return $this->render('product/index.html.twig', [
             'products' => $products,
+            'nbPages' => $nbPages,
+            'currentPage' => $page
         ]);
     }
 

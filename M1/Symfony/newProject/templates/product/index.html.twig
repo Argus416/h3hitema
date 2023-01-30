@@ -29,6 +29,16 @@
         </div>
     </div>
     {% endfor %}
+
+
+    {% for page in 0..nbPages %}
+    {% set active = '' %}
+    {% if(page == currentPage) %}
+        {% set active = 'active' %}
+    {% endif %}
+    <a href="{{ url('app_product', {page:page }) }}" class="{{active}}">{{page + 1}}</a>
+    {% endfor %}
+
     </div>
 
 </div>
