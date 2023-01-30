@@ -39,9 +39,8 @@ class ProductsRepository extends ServiceEntityRepository
         }
     }
    
-    public function getRandomProducts()
+    public function getRandomProducts(): array
     {
-
         $products = 
             $this->createQueryBuilder('p')
             ->orderBy('RAND()')
@@ -51,6 +50,20 @@ class ProductsRepository extends ServiceEntityRepository
 
         return $products;
     }
+
+      
+    public function getCountProducts():int 
+    {
+        $products = 
+            $this->createQueryBuilder('p')
+            ->select('count(p.id)')
+            ->getQuery()
+            ->getResult();
+
+        $products = $products[0][1];
+        return $products;
+    }
+
 //    /**
 //     * @return Products[] Returns an array of Products objects
 //     */

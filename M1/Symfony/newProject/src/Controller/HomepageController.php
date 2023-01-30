@@ -21,6 +21,7 @@ class HomepageController extends AbstractController
     {
 
         $products = $this->productsRepository->getRandomProducts();
+        $nbProducts = $this->productsRepository->getCountProducts();
 
 
         return $this->render('homepage/index.html.twig', [
