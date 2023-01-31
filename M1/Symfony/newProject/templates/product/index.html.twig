@@ -31,13 +31,34 @@
     {% endfor %}
 
 
-    {% for page in 0..nbPages %}
-    {% set active = '' %}
-    {% if(page == currentPage) %}
-        {% set active = 'active' %}
-    {% endif %}
-    <a href="{{ url('app_product', {page:page }) }}" class="{{active}}">{{page + 1}}</a>
-    {% endfor %}
+  
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item">
+                {% if currentPage != 0  %}
+                <a class="page-link" href="{{ url('app_product', {page:currentPage - 1 }) }}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+                {% endif %}
+                </li>
+                  {% for page in 0..nbPages %}
+                {% set active = '' %}
+                {% if(page == currentPage) %}
+                    {% set active = 'active' %}
+                {% endif %}
+                <li class="page-item">
+                    <a href="{{ url('app_product', {page:page }) }}" class="page-link {{active}}">{{page + 1}}</a>
+                </li>
+                {% endfor %}
+                {% if currentPage != nbPages  %}
+                <a class="page-link" href="{{ url('app_product', {page:currentPage + 1 }) }}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+                {% endif %}
+            </li>
+        </ul>
+    </nav>
 
     </div>
 
