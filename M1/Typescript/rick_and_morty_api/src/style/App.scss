@@ -129,6 +129,10 @@ svg{
   }
 }
 
+.cursor-pointer{
+  cursor: pointer;
+}
+
 .status-cirlce{
   display: block;
   width: 8px;
@@ -142,4 +146,26 @@ svg{
 
 .status-alive{
   background-color: $green;
+}
+
+.page-link{
+  color:$orange;
+  &:hover{
+    color:$orange;
+  }
+}
+
+.active .page-link{
+  background-color: $orange !important;
+  border: 1px solid $orange !important;
+
+  &:hover{
+    color:$white;
+  }
+}
+
+.navigation-pagination{
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }

@@ -19,7 +19,6 @@ const Home = () => {
 
 	const setCurrentPageProp = (value: string) => {
 		setCurrentPage(value.toString());
-		console.log(value);
 	};
 	return (
 		<div className="home">
@@ -31,9 +30,10 @@ const Home = () => {
 			</div>
 			<div className="charechters-container">
 				{charechters?.results?.length && charechters.results.map((charechter) => <Card charechter={charechter} key={charechter.id} />)}
+
+			{charechters?.results?.length && <Pagination currentPage={currentPage} nbPages={charechters.info.pages} setCurrentPage={(value: any) => setCurrentPageProp(value)} />}
 			</div>
 
-			{charechters?.results?.length && <Pagination nbPages={charechters.info.pages} setCurrentPage={(value: any) => setCurrentPageProp(value)} />}
 		</div>
 	);
 };
