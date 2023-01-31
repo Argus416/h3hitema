@@ -4,10 +4,14 @@ const Pagination = (props: any) => {
 	const nbPages = props.nbPages as number;
 	const setCurrentPageProp = props.setCurrentPage;
 	const currentPage = parseInt(props.currentPage)
-	const [nbPagesInArray, setNbPagesInArray]: any[] = useState(Array(nbPages).fill(null).map((value ,index) => (index )))
+	const [nbPagesInArray, setNbPagesInArray]: any[] = useState(Array(nbPages).fill(null).map((value ,index) => (index )).slice(currentPage , currentPage + 10))
 
 	useEffect(()=>{
-		setNbPagesInArray(Array(nbPages).fill(null).map((value ,index) => (index )).slice(currentPage , currentPage + 10))
+		if(nbPagesInArray.length <= 10){
+			setNbPagesInArray(Array(nbPages).fill(null).map((value ,index) => (index )).slice(currentPage , currentPage + 10))
+		}else{
+			setNbPagesInArray(Array(nbPages).fill(null).map((value ,index) => (index )).slice(currentPage , currentPage - 10))
+		}
 	},[currentPage])
 
 	const changePage = (newPage: number) => {
