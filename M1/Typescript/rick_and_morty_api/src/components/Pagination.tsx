@@ -1,34 +1,44 @@
+import { useEffect, useState } from "react";
+
 const Pagination = (props: any) => {
 	const nbPages = props.nbPages as number;
 	const setCurrentPageProp = props.setCurrentPage;
-	const nbPagesInArray: null[] = Array(nbPages).fill(null);
+	const currentPage = parseInt(props.currentPage)
+	const [nbPagesInArray, setNbPagesInArray]: any[] = useState(Array(nbPages).fill(null).map((value ,index) => (index )).slice(currentPage , currentPage + 10))
+
+	useEffect(()=>{
+		if(nbPagesInArray.length <= 10){
+			setNbPagesInArray(Array(nbPages).fill(null).map((value ,index) => (index )).slice(currentPage , currentPage + 10))
+		}else{
+			setNbPagesInArray(Array(nbPages).fill(null).map((value ,index) => (index )).slice(currentPage , currentPage - 10))
+		}
+	},[currentPage])
 
 	const changePage = (newPage: number) => {
-		console.log("clicked");
 		setCurrentPageProp(newPage);
 	};
 
 	return (
-		<nav aria-label="Page navigation example">
+		<nav className="navigation-pagination" aria-label="navigation">
 			<ul className="pagination">
 				<li className="page-item">
-					<a className="page-link" href="#" aria-label="Previous">
+					<span className="page-link cursor-pointer" aria-label="Next" onClick={() => changePage(parseInt(currentPage) - 1)}>
 						<span aria-hidden="true">&laquo;</span>
-					</a>
+					</span>
 				</li>
 
-				{nbPagesInArray.map((page, index) => (
-					<li className="page-item" key={index}>
-						<span className="page-link" onClick={() => changePage(index + 1)}>
-							{index + 1}
+				{nbPagesInArray.length > 0 && nbPagesInArray.map((page, index) => (
+					<li className={`page-item cursor-pointer ${page === currentPage ? 'active' : ''}`}  key={index}>
+						<span className="page-link" onClick={() => changePage(page)}>
+							{page}
 						</span>
 					</li>
 				))}
 
 				<li className="page-item">
-					<a className="page-link" href="#" aria-label="Next">
+					<span className="page-link cursor-pointer" aria-label="Next" onClick={() => changePage(currentPage + 1)}>
 						<span aria-hidden="true">&raquo;</span>
-					</a>
+					</span>
 				</li>
 			</ul>
 		</nav>
