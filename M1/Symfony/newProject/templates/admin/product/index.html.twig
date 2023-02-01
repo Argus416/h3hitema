@@ -3,18 +3,43 @@
 {% block title %}Hello ProductController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+<div class="container">
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/Users/mohamad-alkhatib/Desktop/h3hitema/M1/Symfony/newProject/src/Controller/Admin/ProductController.php'|file_link(0) }}">src/Controller/Admin/ProductController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/Users/mohamad-alkhatib/Desktop/h3hitema/M1/Symfony/newProject/templates/admin/product/index.html.twig'|file_link(0) }}">templates/admin/product/index.html.twig</a></code></li>
-    </ul>
+    <div class="my-4 d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-center gap-2">
+        <span class="btn btn-warning" onclick="history.back()">back</span>
+        <h1 class="">Administration product</h1>
+    </div>
+        <a class="btn btn-success" href="#">Add new product</a>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Product</th>
+                {# <th scope="col">Description</th> #}
+                <th scope="col">Image</th>
+                <th scope="col">Category</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in products %}
+            <tr>
+                <th scope="row">{{ loop.index }}</th>
+                <td>{{item.productName}}</td>
+                {# <td>{{item.productDesc}}</td> #}
+                <td><img src="{{item.productImage}}"/ class="small-img"></td>
+                <td>{{item.categoryName}}</td>
+                <td>
+                    <a class="btn btn-warning">Update</a>
+                    <a class="btn btn-danger">Remove</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 {% endblock %}

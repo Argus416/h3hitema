@@ -2,8 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\Category;
 use App\Entity\Products;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -74,6 +76,26 @@ class ProductsRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
 
+        return $products;
+    }
+
+    public function getProducts():array
+    {
+        $products = 
+            $this->createQueryBuilder('p')
+            ->select('
+                p.id as productId,
+                p.name as productName,
+                p.description as productDesc,
+                p.image as productImage,
+                c.name as categoryName
+            ')
+            ->innerJoin(Category::class,'c',Join::WITH, 'p.category = c.id')
+            ->orderBy('p.id', 'asc')
+            ->getQuery()
+            ->getResult();
+
+           
         return $products;
     }
 
