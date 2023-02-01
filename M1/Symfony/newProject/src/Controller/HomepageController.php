@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Category;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class HomepageController extends AbstractController
 {
@@ -27,7 +28,7 @@ class HomepageController extends AbstractController
       
         return $this->render('homepage/index.html.twig', [
             'controller_name' => 'HomepageController',
-            'products' => $products
+            'products' => $products,
         ]);
     }
 

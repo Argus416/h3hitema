@@ -8,9 +8,15 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-<div class="example-wrapper">
-    <h1>Accueil</h1>
-
+<div class="container">
+    <h1 class="my-3">Accueil</h1>
+    {% if app.session.flashbag.get('success')  %}
+        <div class="alert alert-success">
+        {% for item in app.session.flashbag.get('success') %}
+            <span>{{ item }}</span>
+        {% endfor %}
+        </div>
+    {% endif %}
     <div class="row">
     {% for product in products %}
         <div class="card col-6">
