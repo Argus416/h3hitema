@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProductController!{% endblock %}
+
+{% block body %}
+
+<div class="container">
+
+    <div class="my-4 d-flex align-items-center gap-2">
+        <span class="btn btn-warning" onclick="history.back()">back</span>
+        <h1 class="">Add product</h1>
+    </div>
+
+    {{ form(form) }}
+
+</div>
+{% endblock %}
