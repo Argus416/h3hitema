@@ -25,7 +25,6 @@ class ProductController extends AbstractController
         $nbProducts = $this->productsRepository->getCountProducts();
         $nbPages = intval(ceil($nbProducts/10));
         $page=intval($page);
-        dump($page);
         return $this->render('product/index.html.twig', [
             'products' => $products,
             'nbPages' => $nbPages,
