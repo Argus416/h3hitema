@@ -10,13 +10,11 @@
 
 <div class="container">
     <h1 class="my-3">Accueil</h1>
-    {% if app.session.flashbag.get('success')  %}
-        <div class="alert alert-success">
         {% for item in app.session.flashbag.get('success') %}
+        <div class="alert alert-success">
             <span>{{ item }}</span>
-        {% endfor %}
         </div>
-    {% endif %}
+        {% endfor %}
     <div class="row">
     {% for product in products %}
         <div class="card col-6">
