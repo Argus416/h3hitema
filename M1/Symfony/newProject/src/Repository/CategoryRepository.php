@@ -57,11 +57,11 @@ class CategoryRepository extends ServiceEntityRepository
     }
 
     // category name and nb products
-    public function getCategoriesInfo(): array
+    public function getCategories(): array
     {
         $category = 
             $this->createQueryBuilder('c')
-            ->select('count(c.id) as nbCategory, c.name as categoryName')
+            ->select('count(c.id) as nbProducts, c.name as name, c.slug as categorySlug')
             ->innerJoin(Products::class,'p',Join::WITH, 'p.category = c.id')
             ->groupBy('c.id')
             ->getQuery()
@@ -70,13 +70,13 @@ class CategoryRepository extends ServiceEntityRepository
         return $category;
     }
 
-    public function getProducts(int $id): Category
+    public function getCategory(string $slug): Category
     {
         $category = 
             $this->createQueryBuilder('c')
             ->innerJoin(Products::class,'p',Join::WITH, 'p.category = c.id')
-            ->where('c.id = :id')
-            ->setParameter('id', $id)
+            ->where('c.slug = :slug')
+            ->setParameter('slug', $slug)
             ->getQuery()
             ->getResult();
 

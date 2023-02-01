@@ -24,10 +24,7 @@ class HomepageController extends AbstractController
         $nbProducts = $this->productsRepository->getCountProducts();
         $productsByOffset = $this->productsRepository->getProductsByOffset(0);
 
-        $toto = $this->categoryRepository->getProducts(111);
-        
-        dd($toto->getProducts());
-
+      
         return $this->render('homepage/index.html.twig', [
             'controller_name' => 'HomepageController',
             'products' => $products
