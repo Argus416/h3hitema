@@ -12,6 +12,11 @@ use Faker;
 class ProductsFixtures extends Fixture
 {
 
+    public function __construct(private CategoryRepository $categoryRepository)
+    {
+        
+    }
+
     public function load(ObjectManager $manager): void
     {
         // $product = new Product();
@@ -28,7 +33,9 @@ class ProductsFixtures extends Fixture
             $products[$i]->setImage("https://picsum.photos/id/$i/1920/1080");
             $products[$i]->setPrice($faker->randomNumber(2));
             $products[$i]->setSlug($faker->uuid());
-
+            $products[$i]->setCategory($this->categoryRepository->getRandomCategory()[0]);
+    
+            $this->addReference($products[$i]->getSlug(),$products[$i]);
             // $categoryId = $this->categoryRepository->getRandomCategory()[0]->getId();
             // dd($categoryId);
             // $products[$i]->setCategory($this->categoryRepository->getRandomCategory()[0]);

@@ -2,18 +2,18 @@
 
 namespace App\Controller;
 
+use App\Repository\CategoryRepository;
 use App\Repository\ProductsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Category;
 
 class HomepageController extends AbstractController
 {
-    private ProductsRepository $productsRepository;
 
-    public function __construct(private ProductsRepository $ProductsRepository)
+    public function __construct(private ProductsRepository $productsRepository, private CategoryRepository $categoryRepository)
     {
-        $this->productsRepository = $ProductsRepository;
     }
 
     #[Route('/', name: 'app_homepage')]
@@ -24,7 +24,9 @@ class HomepageController extends AbstractController
         $nbProducts = $this->productsRepository->getCountProducts();
         $productsByOffset = $this->productsRepository->getProductsByOffset(0);
 
-        dump($productsByOffset);
+        $toto = $this->categoryRepository->getProducts(111);
+        
+        dd($toto->getProducts());
 
         return $this->render('homepage/index.html.twig', [
             'controller_name' => 'HomepageController',
