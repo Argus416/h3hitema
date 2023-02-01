@@ -22,7 +22,7 @@
     {{ form_start(form, {attr : {novalidate: 'novalidate', action : '/contact'}}) }}
         <div class="mb-3">
             {{form_label(form.email, "Email: ")}}        
-            {{form_widget(form.email, { attr: {required : false} })}}        
+            {{form_widget(form.email)}}        
             {{form_errors(form.email)}}        
         </div>
 

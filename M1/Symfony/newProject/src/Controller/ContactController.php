@@ -24,11 +24,12 @@ class ContactController extends AbstractController
         $session= $request->getSession();
 
         if($form->isSubmitted()){
-            $formIsValid = $form->isValid();
+            $formIsValid = $form->isValid() && $form->isSubmitted();
 
-            if($form->isValid() === false){
-                $this->addFlash('error',"Form n'est pas valide");
+            if($formIsValid){
+                $this->addFlash('error',"Le formulaire n'est pas valide");
             }else{
+                $session = new Session(); 
                 $session->getFlashBag()->add('success', 'You will be contacted soon');
                 return $this->redirectToRoute('app_homepage');
             }

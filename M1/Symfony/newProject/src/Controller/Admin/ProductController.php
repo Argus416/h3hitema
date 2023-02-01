@@ -8,6 +8,7 @@ use App\Repository\ProductsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ProductController extends AbstractController
@@ -36,10 +37,25 @@ class ProductController extends AbstractController
 
         $form->handleRequest($request);
 
-        dump($form);
+        $formIsValid = false;
+        if($form->isSubmitted()){
+            $formIsValid = $form->isValid() && $form->isSubmitted();
+            // dd($form->getData());
+            if(!$formIsValid){
+                $this->addFlash('error',"Le formulaire n'est pas valide");
+            }else{
+                $session = new Session();
+                $session->getFlashBag()->add('success', 'Product has been added');
+                
+                $this->productsRepository->save($form->getData(), true);
+                
+                return $this->redirectToRoute('app_admin_product');
+            }
+        }
 
         return $this->render('admin/product/add.html.twig', [
             'form' => $form->createView(),
+            'formIsValid'=> $formIsValid
         ]);
     }
 

@@ -11,7 +11,55 @@
         <h1 class="">Add product</h1>
     </div>
 
-    {{ form(form) }}
+    {% for item in app.flashes('error') %}
+    <div class="alert alert-danger">
+        <span>
+            {{ item }}
+        </span>
+    </div>
+    {% endfor %}
+
+    {{ form_start(form) }}
+        <div class="mb-3">
+            {{ form_label(form.name, 'Titre') }}
+            {{ form_widget(form.name) }}
+            {{ form_errors(form.name) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.description, 'Description') }}
+            {{ form_widget(form.description) }}
+            {{ form_errors(form.description) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.price, 'Price') }}
+            {{ form_widget(form.price) }}
+            {{ form_errors(form.price) }}
+        </div>
+
+         <div class="mb-3">
+            {{ form_label(form.slug, 'Slug') }}
+            {{ form_widget(form.slug) }}
+            {{ form_errors(form.slug) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.image, 'Image') }}
+            {{ form_widget(form.image) }}
+            {{ form_errors(form.image) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.category, 'Category') }}
+            {{ form_widget(form.category) }}
+            {{ form_errors(form.category) }}
+        </div>
+
+        <div class="mb-3">
+            <button class="btn btn-success">Ajouter</button>
+        </div>
+    {{ form_end(form) }}
 
 </div>
 {% endblock %}
