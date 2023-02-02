@@ -52,7 +52,13 @@ class ProductType extends AbstractType
                     ])
                 ]
             ])
-            ->add('image', FileType::class)
+            ->add('image', FileType::class
+            // , [
+                // 'constraints'=> $options['data']-›getId() 
+                    // ? []
+                    // : [new NotBlank(['message' => 'No image selected'])]
+            // ]
+            )
             ->add('category', EntityType::class, 
             [
                 'class' => Category::class,

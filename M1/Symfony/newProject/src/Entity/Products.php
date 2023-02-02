@@ -5,7 +5,7 @@ namespace App\Entity;
 use App\Repository\ProductsRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 #[ORM\Entity(repositoryClass: ProductsRepository::class)]
 #[ORM\Index(columns : ['name', 'slug'], flags: ['unique'])]
@@ -88,12 +88,12 @@ class Products
         return $this;
     }
 
-    public function getImage(): ?string
+    public function getImage(): string|null|UploadedFile
     {
         return $this->image;
     }
 
-    public function setImage(?string $image): self
+    public function setImage(string|null|UploadedFile $image):self
     {
         $this->image = $image;
 
