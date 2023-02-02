@@ -40,11 +40,12 @@ class ProductController extends AbstractController
         $formIsValid = false;
         if($form->isSubmitted()){
             $formIsValid = $form->isValid() && $form->isSubmitted();
+            $session = new Session();
             // dd($form->getData());
             if(!$formIsValid){
-                $this->addFlash('error',"Le formulaire n'est pas valide");
+                $session->getFlashBag()->add('error',"Le formulaire n'est pas valide");
+        
             }else{
-                $session = new Session();
                 $session->getFlashBag()->add('success', 'Product has been added');
                 
                 $this->productsRepository->save($form->getData(), true);
@@ -100,7 +101,7 @@ class ProductController extends AbstractController
         $this->productsRepository->remove($product, true);
 
         $session = new Session();
-        $session->getFlashBag()->add('error',"Produit a été supprimée");
+        $session->getFlashBag()->add('success',"Produit a été supprimée");
 
         return $this->redirectToRoute('app_admin_product');
     }

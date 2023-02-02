@@ -11,7 +11,7 @@
         <h1 class="">Add product</h1>
     </div>
 
-    {% for item in app.flashes('error') %}
+    {% for item in app.session.flashbag.get('error') %}
     <div class="alert alert-danger">
         <span>
             {{ item }}
