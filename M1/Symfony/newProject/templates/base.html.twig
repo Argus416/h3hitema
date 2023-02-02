@@ -40,6 +40,16 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('app_admin_homepage')}}">Administration</a>
                     </li>
+
+                    {% if app.user %}
+                     <li class="nav-item">
+                        <a class="btn btn-danger" href="{{ url('app_logout')}}">Logout</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="btn btn-primary" href="{{ url('app_login')}}">login</a>
+                    </li>
+                    {% endif %}
                 </ul>
                 
                 </div>

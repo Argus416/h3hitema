@@ -15,6 +15,11 @@
             <span>{{ item }}</span>
         </div>
         {% endfor %}
+        {% for item in app.session.flashbag.get('error') %}
+        <div class="alert alert-success">
+            <span>{{ item }}</span>
+        </div>
+        {% endfor %}
     <div class="row">
     {% for product in products %}
         <div class="card col-6">

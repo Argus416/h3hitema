@@ -18,16 +18,23 @@ class UserFixtures extends Fixture
 
         $faker = Faker\Factory::create('fr_FR');
 
-        for ($i = 0; $i < 5; $i++) {
-            $user[$i] = new User();
+        // for ($i = 0; $i < 5; $i++) {
+        //     $user[$i] = new User();
+        //     $user[$i]->setEmail($faker->email());
+        //     $user[$i]->setRoles(['ROLE_USER']);
+        //     $user[$i]->setPassword('$2y$13$Pe3T/mYRFR1SdMHOfD90LO3OC8YkqsM80tlPlQ44D19hetxfjbWwK');
 
-            $user[$i] = new User();
-            $user[$i]->setEmail($faker->email());
-            $user[$i]->setRoles(['ROLE_USER']);
-            $user[$i]->setPassword('$2y$13$Pe3T/mYRFR1SdMHOfD90LO3OC8YkqsM80tlPlQ44D19hetxfjbWwK');
+        //     $manager->persist($user[$i]);
+        // }
 
-            $manager->persist($user[$i]);
-        }
+        $user = new User();
+        $user->setEmail("admin@example.com");
+        $user->setRoles(['ROLE_USER']);
+        $user->setPassword('$2y$13$Pe3T/mYRFR1SdMHOfD90LO3OC8YkqsM80tlPlQ44D19hetxfjbWwK');
+
+        $manager->persist($user);
+
+
         $manager->flush();
     }
 }
