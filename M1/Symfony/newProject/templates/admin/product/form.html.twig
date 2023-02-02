@@ -8,16 +8,9 @@
 
     <div class="my-4 d-flex align-items-center gap-2">
         <span class="btn btn-warning" onclick="history.back()">back</span>
-        <h1 class="">Add product</h1>
+        <h1 class="">{{ title }}</h1>
     </div>
 
-    {% for item in app.session.flashbag.get('error') %}
-    <div class="alert alert-danger">
-        <span>
-            {{ item }}
-        </span>
-    </div>
-    {% endfor %}
 
     {{ form_start(form) }}
         <div class="mb-3">
@@ -52,12 +45,13 @@
 
         <div class="mb-3">
             {{ form_label(form.category, 'Category') }}
+            {# {{ form_widget(form.category) }} #}
             {{ form_widget(form.category) }}
             {{ form_errors(form.category) }}
         </div>
 
         <div class="mb-3">
-            <button class="btn btn-success">Ajouter</button>
+            <button class="btn btn-success">{{ btnText }}</button>
         </div>
     {{ form_end(form) }}
 

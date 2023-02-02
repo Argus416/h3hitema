@@ -52,20 +52,28 @@ class ProductType extends AbstractType
                     ])
                 ]
             ])
-            ->add('image', FileType::class
+            ->add('image', FileType::class,[
+                'data_class' => null,
+            ]
             // , [
-                // 'constraints'=> $options['data']-›getId() 
-                    // ? []
-                    // : [new NotBlank(['message' => 'No image selected'])]
+            //     'constraints'=> $options['data']-›getId() 
+            //         ? []
+            //         : [new NotBlank(['message' => 'No image selected'])]
             // ]
             )
             ->add('category', EntityType::class, 
             [
                 'class' => Category::class,
-                'choices' =>  $allCategories,
-                'choice_value' => function (?Category $entity) {
-                    return $entity ? $entity->getId() : '';
-                },
+                'placeholder' => '',
+                'constraints' =>[
+                    new NotBlank([
+                        'message' => 'Veuillez remplir le champ'
+                    ])
+                ]
+                // 'choices' =>  $allCategories,
+                // 'choice_value' => function (?Category $entity) {
+                //     return $entity ? $entity->getId() : '';
+                // },
                
             ]
             )

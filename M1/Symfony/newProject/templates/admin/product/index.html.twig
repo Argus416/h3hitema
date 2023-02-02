@@ -11,7 +11,7 @@
         <span class="btn btn-warning" onclick="history.back()">back</span>
         <h1 class="">Administration product</h1>
     </div>
-        <a class="btn btn-success" href="{{ url('app_admin_product_add') }}">Add new product</a>
+        <a class="btn btn-success" href="{{ url('app_admin_product_form', {product_id: "null"}) }}">Add new product</a>
     </div>
 
     {% for item in app.session.flashbag.get('success') %}
@@ -40,8 +40,8 @@
                 <td><img src="{{item.productImage}}"/ class="small-img"></td>
                 <td>{{item.categoryName}}</td>
                 <td>
-                    <a href="{{ url('app_admin_product_edit', {PRODUCT_ID : item.productId}) }}" class="btn btn-warning">Update</a>
-                    <a href="{{ url('app_admin_product_delete', {PRODUCT_ID : item.productId}) }}" class="btn btn-danger">Remove</a>
+                    <a href="{{ url('app_admin_product_form', {product_id : item.productId}) }}" class="btn btn-warning">Update</a>
+                    <a href="{{ url('app_admin_product_delete', {product_id : item.productId}) }}" class="btn btn-danger">Remove</a>
                 </td>
             </tr>
             {% endfor %}

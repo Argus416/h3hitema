@@ -1,7 +1,7 @@
 <?php
 
 // src/EventListener/DatabaseActivitySubscriber.php
-namespace App\EventListener;
+namespace App\EventSubscriber;
 
 use App\Entity\Products;
 use App\Repository\ProductsRepository;
@@ -9,6 +9,7 @@ use Doctrine\Bundle\DoctrineBundle\EventSubscriber\EventSubscriberInterface;
 use Doctrine\ORM\Events;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Exception;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Contracts\EventDispatcher\Event;
 
 class DatabaseActivitySubscriber implements EventSubscriberInterface
@@ -16,7 +17,7 @@ class DatabaseActivitySubscriber implements EventSubscriberInterface
     // this method can only return the event names; you cannot define a
     // custom method name to execute when each event triggers
 
-    public function __construct(private ProductsRepository $productsRepository)
+    public function __construct(private ProductsRepository $productsRepository, private SluggerInterface $slugger)
     {
         
     }
@@ -24,28 +25,30 @@ class DatabaseActivitySubscriber implements EventSubscriberInterface
     public function getSubscribedEvents(): array
     {
         return [
-            Events::postPersist,
-            Events::postRemove,
+            // Events::postPersist,
+            // Events::postRemove,
             Events::postUpdate,
-            Events::postFlush,
+            // Events::postFlush,
         ];
     }
 
     // callback methods must be called exactly like the events they listen to;
     // they receive an argument of type LifecycleEventArgs, which gives you access
     // to both the entity object of the event and the entity manager itself
-    public function postPersist(LifecycleEventArgs $args): void
-    {
-        $this->logActivity('persist', $args);
-    }
+    // public function postPersist(LifecycleEventArgs $args): void
+    // {
+    //     $this->logActivity('persist', $args);
+    // }
     
-    // public function postFlush(LifecycleEventArgs $event): void
+    // // public function postFlush(LifecycleEventArgs $event): void
     public function postUpdate(LifecycleEventArgs $event): void
     {
-        // $products = $products->setSlug('gggggg');
+        // // $products = $products->setSlug('gggggg');
         try{
             if($event->getObject() instanceof Products){
-                $product = $event->getObject()->setSlug('123123');
+                $product = $event->getObject()->setSlug(
+                    $this->slugger->slug("Je suis En train de coder à l'école")->lower()
+                );
                 $this->productsRepository->updateById($product);
             }
         }catch(Exception $e){
@@ -54,11 +57,11 @@ class DatabaseActivitySubscriber implements EventSubscriberInterface
         $this->logActivity('update', $event);
     }
 
-    public function postRemove(LifecycleEventArgs $args): void
-    {
-        // dump($args);
-        $this->logActivity('remove', $args);
-    }
+    // public function postRemove(LifecycleEventArgs $args): void
+    // {
+    //     // dump($args);
+    //     $this->logActivity('remove', $args);
+    // }
 
   
 
