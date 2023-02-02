@@ -41,6 +41,11 @@ class ProductsRepository extends ServiceEntityRepository
         }
     }
    
+    public function flush(): void
+    {
+        $this->getEntityManager()->flush();
+    }
+   
     public function getRandomProducts(): array
     {
         $products = 

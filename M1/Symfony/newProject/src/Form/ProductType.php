@@ -39,7 +39,8 @@ class ProductType extends AbstractType
                     ])
                 ]
             ])
-            ->add('description', TextareaType::class)
+            ->add('description', TextType::class, [
+            ])
             ->add('price', NumberType::class, [
                 'constraints' =>[
                     new NotBlank([

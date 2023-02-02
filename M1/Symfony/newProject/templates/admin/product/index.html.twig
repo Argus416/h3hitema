@@ -40,7 +40,7 @@
                 <td><img src="{{item.productImage}}"/ class="small-img"></td>
                 <td>{{item.categoryName}}</td>
                 <td>
-                    <a class="btn btn-warning">Update</a>
+                    <a href="{{ url('app_admin_product_edit', {PRODUCT_ID : item.productId}) }}" class="btn btn-warning">Update</a>
                     <a href="{{ url('app_admin_product_delete', {PRODUCT_ID : item.productId}) }}" class="btn btn-danger">Remove</a>
                 </td>
             </tr>

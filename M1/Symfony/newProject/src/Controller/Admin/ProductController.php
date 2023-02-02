@@ -60,8 +60,8 @@ class ProductController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/product/form/{PRODUCT_ID}', name: 'app_admin_product_edit')]
-    public function edit(Request $request): Response
+    #[Route('/admin/product/edit/{PRODUCT_ID}', name: 'app_admin_product_edit')]
+    public function edit(int $PRODUCT_ID , Request $request): Response
     {
         $type = ProductType::class;
         $products = new Products();
@@ -69,7 +69,9 @@ class ProductController extends AbstractController
         $form = $this->createForm($type , $products);
 
         $form->handleRequest($request);
-
+        $product = $this->productsRepository->findOneBy(["id" => $PRODUCT_ID]);
+        
+        
         $formIsValid = false;
         if($form->isSubmitted()){
             $formIsValid = $form->isValid() && $form->isSubmitted();
@@ -78,17 +80,20 @@ class ProductController extends AbstractController
                 $this->addFlash('error',"Le formulaire n'est pas valide");
             }else{
                 $session = new Session();
-                $session->getFlashBag()->add('success', 'Product has been added');
-                
-                $this->productsRepository->save($form->getData(), true);
+                $session->getFlashBag()->add('success', 'Product has been updated');
+                $product->setName($form->getData()->getName());
+                $product->setDescription($form->getData()->getDescription());
+
+                $this->productsRepository->flush();
                 
                 return $this->redirectToRoute('app_admin_product');
             }
         }
 
-        return $this->render('admin/product/add.html.twig', [
+        return $this->render('admin/product/edit.html.twig', [
             'form' => $form->createView(),
-            'formIsValid'=> $formIsValid
+            'product' => $product,
+            // 'formIsValid'=> $formIsValid
         ]);
     }
 
@@ -97,7 +102,7 @@ class ProductController extends AbstractController
     public function delete(int $PRODUCT_ID):Response
     {
 
-        $product = $this->productsRepository->findOneBy(["id"=>$PRODUCT_ID]);
+        $product = $this->productsRepository->findOneBy(["id" => $PRODUCT_ID]);
         $this->productsRepository->remove($product, true);
 
         $session = new Session();
