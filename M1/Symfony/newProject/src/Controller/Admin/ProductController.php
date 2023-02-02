@@ -59,4 +59,50 @@ class ProductController extends AbstractController
         ]);
     }
 
+    #[Route('/admin/product/form/{PRODUCT_ID}', name: 'app_admin_product_edit')]
+    public function edit(Request $request): Response
+    {
+        $type = ProductType::class;
+        $products = new Products();
+
+        $form = $this->createForm($type , $products);
+
+        $form->handleRequest($request);
+
+        $formIsValid = false;
+        if($form->isSubmitted()){
+            $formIsValid = $form->isValid() && $form->isSubmitted();
+            // dd($form->getData());
+            if(!$formIsValid){
+                $this->addFlash('error',"Le formulaire n'est pas valide");
+            }else{
+                $session = new Session();
+                $session->getFlashBag()->add('success', 'Product has been added');
+                
+                $this->productsRepository->save($form->getData(), true);
+                
+                return $this->redirectToRoute('app_admin_product');
+            }
+        }
+
+        return $this->render('admin/product/add.html.twig', [
+            'form' => $form->createView(),
+            'formIsValid'=> $formIsValid
+        ]);
+    }
+
+    // ,methods: ['delete']
+    #[Route('/admin/product/delete/{PRODUCT_ID}', name: 'app_admin_product_delete')]
+    public function delete(int $PRODUCT_ID):Response
+    {
+
+        $product = $this->productsRepository->findOneBy(["id"=>$PRODUCT_ID]);
+        $this->productsRepository->remove($product, true);
+
+        $session = new Session();
+        $session->getFlashBag()->add('error',"Produit a été supprimée");
+
+        return $this->redirectToRoute('app_admin_product');
+    }
+
 }

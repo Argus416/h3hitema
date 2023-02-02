@@ -41,7 +41,7 @@
                 <td>{{item.categoryName}}</td>
                 <td>
                     <a class="btn btn-warning">Update</a>
-                    <a class="btn btn-danger">Remove</a>
+                    <a href="{{ url('app_admin_product_delete', {PRODUCT_ID : item.productId}) }}" class="btn btn-danger">Remove</a>
                 </td>
             </tr>
             {% endfor %}
