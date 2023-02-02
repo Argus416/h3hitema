@@ -28,7 +28,6 @@ class DatabaseActivitySubscriber implements EventSubscriberInterface
             // Events::postPersist,
             // Events::postRemove,
             Events::postUpdate,
-            // Events::postFlush,
         ];
     }
 

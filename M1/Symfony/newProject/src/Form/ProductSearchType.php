@@ -13,6 +13,7 @@ class ProductSearchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->setAction('/search')
             ->add('name', SearchType::class, [
                 'label' => 'Rechercher',
             ])

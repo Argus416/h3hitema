@@ -37,30 +37,17 @@ class ProductController extends AbstractController
 
         $form_search->handleRequest($request);
 
-        $data = $form_search->getData();
+        $nbProducts = $this->productsRepository->getCountProducts();
+        $nbPages = intval(ceil($nbProducts/10));
 
-        $searchMode = ( $form_search->isSubmitted() &&  !empty($data->getName()) );
+        return $this->render('product/index.html.twig', [
+            'products' => $products,
+            'nbPages' => $nbPages,
+            'currentPage' => $page,
+            'form_search' => $form_search
+        ]);
 
-        if($searchMode){
-            $products = $this->productsRepository->search($data->getName());
-            $nbProducts = $this->productsRepository->getCountProducts();
-            $nbPages = intval(ceil($nbProducts/10));
-
-            return $this->render('product/index.html.twig', [
-                'products' => $products,
-                'nbPages' => $nbPages,
-                'currentPage' => $page,
-                'form_search' => $form_search
-            ]);
-            
-        }else{
-            return $this->render('product/index.html.twig', [
-                'products' => $products,
-                'nbPages' => $nbPages,
-                'currentPage' => $page,
-                'form_search' => $form_search
-            ]);
-        }
+        
     }
 
     #[Route('/product/{slug}', name: 'app_one_product')]
