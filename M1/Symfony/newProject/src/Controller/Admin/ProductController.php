@@ -83,6 +83,8 @@ class ProductController extends AbstractController
                 $session->getFlashBag()->add('success', 'Product has been updated');
                 $product->setName($form->getData()->getName());
                 $product->setDescription($form->getData()->getDescription());
+                $product->setSlug($form->getData()->getSlug());
+                $product->setCategory($form->getData()->getCategory());
 
                 $this->productsRepository->flush();
                 

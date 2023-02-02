@@ -52,8 +52,8 @@
 
         <div class="mb-3">
             {{ form_label(form.category, 'Category') }}
-            {{ form_widget(form.category) }}
-            {# {{ form_widget(form.category, {attr : {selected : product.category}}) }} #}
+            {# {{ form_widget(form.category) }} #}
+            {{ form_widget(form.category, {attr : {value : product.category}}) }}
             {{ form_errors(form.category) }}
         </div>
 

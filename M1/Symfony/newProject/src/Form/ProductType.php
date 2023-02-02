@@ -5,7 +5,9 @@ namespace App\Form;
 use App\Entity\Category;
 use App\Entity\Products;
 use App\Repository\CategoryRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\ChoiceList\ChoiceList;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -24,12 +26,7 @@ class ProductType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $allCategories = $this->categoryRepository->getCategoriesBasic();
-        $categories = array();
-        foreach($allCategories as $key => $value){
-            $categories[$value->getName()] = $value;
-            // $allCategories= new Category($value);
-        };
-
+      
         
         $builder
             ->add('name', TextType::class, [
@@ -56,9 +53,16 @@ class ProductType extends AbstractType
                 ]
             ])
             ->add('image', FileType::class)
-            ->add('category', ChoiceType::class, [
-                'choices'  => $categories,
-            ])
+            ->add('category', EntityType::class, 
+            [
+                'class' => Category::class,
+                'choices' =>  $allCategories,
+                'choice_value' => function (?Category $entity) {
+                    return $entity ? $entity->getId() : '';
+                },
+               
+            ]
+            )
         ;
     }
 
