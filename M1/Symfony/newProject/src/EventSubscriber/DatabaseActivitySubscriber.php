@@ -4,20 +4,30 @@
 namespace App\EventListener;
 
 use App\Entity\Products;
+use App\Repository\ProductsRepository;
 use Doctrine\Bundle\DoctrineBundle\EventSubscriber\EventSubscriberInterface;
 use Doctrine\ORM\Events;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
+use Exception;
+use Symfony\Contracts\EventDispatcher\Event;
 
 class DatabaseActivitySubscriber implements EventSubscriberInterface
 {
     // this method can only return the event names; you cannot define a
     // custom method name to execute when each event triggers
+
+    public function __construct(private ProductsRepository $productsRepository)
+    {
+        
+    }
+
     public function getSubscribedEvents(): array
     {
         return [
             Events::postPersist,
             Events::postRemove,
             Events::postUpdate,
+            Events::postFlush,
         ];
     }
 
@@ -28,20 +38,31 @@ class DatabaseActivitySubscriber implements EventSubscriberInterface
     {
         $this->logActivity('persist', $args);
     }
+    
+    // public function postFlush(LifecycleEventArgs $event): void
+    public function postUpdate(LifecycleEventArgs $event): void
+    {
+        // $products = $products->setSlug('gggggg');
+        try{
+            if($event->getObject() instanceof Products){
+                $product = $event->getObject()->setSlug('123123');
+                $this->productsRepository->updateById($product);
+            }
+        }catch(Exception $e){
+            $this->logActivity("error_update" ,"Error update ".  $e->getMessage());
+        }
+        $this->logActivity('update', $event);
+    }
 
     public function postRemove(LifecycleEventArgs $args): void
     {
-        dd($args);
+        // dump($args);
         $this->logActivity('remove', $args);
     }
 
-    public function postUpdate(LifecycleEventArgs $args): void
-    {
-        dd($args);
-        $this->logActivity('update', $args);
-    }
+  
 
-    private function logActivity(string $action, LifecycleEventArgs $args): void
+    private function logActivity(string $action, LifecycleEventArgs|Exception|string $args): void
     {
         $entity = $args->getObject();
 

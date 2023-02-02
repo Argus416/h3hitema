@@ -40,6 +40,24 @@ class ProductsRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    public function updateById(Products $entity): void
+    {
+        $this->getEntityManager()->persist($entity);
+        $this->getEntityManager()->flush();
+    }
+
+    public function search(string $name): array
+    {
+        $searchedProducts = 
+            $this->createQueryBuilder('p')
+            ->where('p.name LIKE :name')
+            ->setParameter('name', $name)
+            ->getQuery()
+            ->getResult();
+
+        return $searchedProducts;
+    }
    
     public function flush(): void
     {
