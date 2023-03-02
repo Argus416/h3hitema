@@ -1,0 +1,14 @@
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./src:/app/src
+      - ./tsconfig.json:/app/tsconfig.json
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo
+    volumes:
+      - ./data:/data/db

@@ -20,15 +20,11 @@ class CacheServices{
     updateTodo(id,data){
         this.todos = this.todos.map(todo =>{
             if(todo.id === id){
-                console.log(data)
                 todo = { ...todo,...data}
             }
 
             return todo
         })
-
-        console.log(this.todos)
-
 
         cache.set(TODOS_KEY, this.todos)
     }

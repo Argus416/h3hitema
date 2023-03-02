@@ -5,9 +5,7 @@ import crypto from "crypto"
 export const homePage = (req, res, next)=>{
     console.log(cache);
     const todos = cacheServices.getTodos()
-    res.send({
-        data :todos
-    })
+    res.json(todos)
 }
 
 
