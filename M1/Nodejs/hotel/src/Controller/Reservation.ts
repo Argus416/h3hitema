@@ -1,5 +1,5 @@
 import {Request, Response} from 'express';
-import { Ireservations } from "../Model/Ireservations";
+import { Ireservations } from "../Model/interface/Ireservations";
 import * as crypto from "crypto";
 import User from "./User";
 import Chamber from "./Chamber";

@@ -1,83 +1,93 @@
 import { createUsername } from '../helpers/formater';
 import {Request, Response} from 'express';
-import {Iusers, Role} from "../Model/Iusers";
+import MUser, {IUser, Role} from "../Model/MUser";
 import * as crypto from "crypto";
 import { faker } from '@faker-js/faker';
 import _ from "lodash"
+import mongoose from 'mongoose';
+
+// const muser = mongoose.model('user', );
 
 class User {
 
-    users: Array<Iusers> = []
+    users: Array<any> = []
 
     constructor(){
-        this.users = _.range(10).map((e, index:number)=>{
-            const firstname = faker.name.firstName()
-            const lastname = faker.name.lastName()
-            const result: Iusers = {
-                id: `${index}`,
-                firstname, 
-                lastname, 
-                username : createUsername([firstname, lastname]),
-                password: `${index}`,
-                role : faker.helpers.arrayElement([Role.admin, Role.employee, Role.client])
-            }
-            return result
-        })
+        // this.users = _.range(10).map((e, index:number)=>{
+        //     const firstname = faker.name.firstName()
+        //     const lastname = faker.name.lastName()
+        //     const result = {
+        //         id: `${index}`,
+        //         firstname, 
+        //         lastname, 
+        //         username : createUsername([firstname, lastname]),
+        //         password: `${index}`,
+        //         role : faker.helpers.arrayElement([Role.admin, Role.employee, Role.client])
+        //     }
+        //     return result
+        // })
     }
     /*
         On crée un utilisateur avec les données du body de la requête HTTP
         (POST) et on l'ajoute à la liste des utilisateurs (this.users)
      */
-    createUser = (req: Request, res: Response) => {
+    createUser = async (req: Request, res: Response) => {
+        try{
 
-        const user: Iusers = {
-
-            id: crypto.randomUUID(),
-            ...req.body
-
-        };
-
-        this.users.push(user);
-
-        res.json({text: "User created"});
-
+            const user = new MUser({...req.body})
+            await user.save()
+            
+            res.json({data: user});
+        }catch(err){
+            console.error(`Error creating user ${err}`)
+        }
     }
 
     /*
         On retourne la liste des utilisateurs (this.users)
      */
-    getAllUsers = (req: Request, res: Response) => {
-        res.json(this.users);
+    getAllUsers = async (req: Request, res: Response) => {
+        try{
+            const users = await MUser.find()
+            res.json({ data : users })
+        }catch(err){
+            console.error(`Error fetching users ${err}`)
+        }
     }
 
     /*
        On supprime un utilisateur de la liste des utilisateurs (this.users) en fonction de son id
      */
-    deleteUser = (req: Request, res: Response) => {
-        const id = req.params.id;
-        const user = this.users.find(user => user.id === id);
-        if (user) {
-            this.users = this.users.filter(user => user.id !== id);
-            res.json({text: "User deleted"});
-        } else {
-            res.status(404).json({text: "User not found"});
+    deleteUser = async (req: Request, res: Response) => {
+        try{
+            const { id } = req.params;
+            const user = await MUser.deleteOne({
+                _id : id
+            })
+    
+            res.json({user});
+        }catch(err){
+            console.error(`Error deleting user ${err}`)
         }
     }
 
     /*
         On met à jour un utilisateur de la liste des utilisateurs (this.users) en fonction de son id
      */
-    updateUser = (req: Request, res: Response) => {
-        const id = req.params.id;
-        const user = this.users.find(user => user.id === id);
-        if (user) {
-            this.users = this.users.map(u => u.id === id ? {...u, ...req.body} : u)
-            res.json({text: "User updated"});
-        } else {
+    updateUser = async (req: Request, res: Response) => {
+        try{
+            const { id } = req.params;
+            const user = await MUser.updateOne({_id: id}, {
+                ...req.body
+            })
+
+            res.json(user)
+        }catch(err){
+            console.error(`Error updating user ${err}`)
             res.status(404).json({text: "User not found"});
         }
-    }
 
+    }
 }
 
 const user = new User();

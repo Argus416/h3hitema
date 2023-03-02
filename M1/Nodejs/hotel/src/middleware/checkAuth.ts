@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express"
 import Auth from "../Controller/Auth"
-import { Role } from "../Model/Iusers"
+import { Role } from "../Model/MUser"
 import _ from "lodash"
 
 export const isConnected = (req: Request,res: Response,next: NextFunction) =>{

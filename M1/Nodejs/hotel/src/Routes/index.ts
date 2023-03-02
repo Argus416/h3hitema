@@ -19,8 +19,7 @@ router.delete("/user/:id", User.deleteUser);
 router.patch("/user/:id", User.updateUser);
 
 router.post("/chamber/new", isAdmin ,Chamber.createChamber);
-router.post("/chamber/random-new",isAdmin, Chamber.createRandomChamber);
-router.get("/chambers", Chamber.getAllchambers);
+router.get("/chambers", Chamber.getAllChambers);
 router.delete("/chamber/:id", isAdmin, Chamber.deleteChamber);
 router.patch("/chamber/:id",isAdmin, Chamber.updateChamber);
 

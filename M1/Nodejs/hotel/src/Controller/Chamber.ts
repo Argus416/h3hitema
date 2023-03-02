@@ -1,87 +1,70 @@
 import {Request, Response} from 'express';
-import { Ichambers } from "../Model/Ichambers";
 import * as crypto from "crypto";
+import { faker } from '@faker-js/faker';
+import _ from "lodash"
+import mongoose from 'mongoose';
+import MChamber, {IChamber} from '../Model/MChamber';
+
 
 class Chamber {
 
-    chambers: Array<Ichambers> = []
+    chambers: Array<any> = []
 
-    /*
-        On crée un utilisateur avec les données du body de la requête HTTP
-        (POST) et on l'ajoute à la liste des utilisateurs (this.chambers)
-     */
-    createChamber = (req: Request, res: Response) => {
-
-        const chamber: Ichambers = {
-
-            id: crypto.randomUUID(),
-            ...req.body
-
-        };
-
-        console.log(req.body)
-
-        this.chambers.push(chamber);
-
-        res.json({text: "Chamber created"});
-
+    createChamber = async (req: Request, res: Response) => {
+        try{
+            const chamber = new MChamber({...req.body})
+            await chamber.save()
+            res.json({data: chamber});
+        }catch(err){
+            console.error(`Error creating chamber ${err}`)
+            res.send(`Error creating chamber ${err}`)
+        }
     }
 
-    /*
-        On crée un utilisateur avec des données aléatoires
-        et on l'ajoute à la liste des utilisateurs (this.chambers)
-     */
-    createRandomChamber = (req: Request, res: Response) => {
-        const chambers: Ichambers = {
-            id: crypto.randomUUID(),
-            number: Math.ceil(Math.random() * 9),
-            floor: Math.ceil(Math.random() * 5),
-            price: Math.ceil(Math.random() * 10000),
-        };
-
-        console.log(req.body)
-
-        this.chambers.push(chambers);
-
-        res.json({text: "Chambers created"});
-
-    }
-
-    /*
-        On retourne la liste des utilisateurs (this.chambers)
-     */
-    getAllchambers = (req: Request, res: Response) => {
-        res.json(this.chambers);
+    getAllChambers = async (req: Request, res: Response) => {
+        try{
+            const chambers = await MChamber.find()
+            res.json({ data : chambers })
+        }catch(err){
+            console.error(`Error fetching chambers ${err}`)
+            res.send(`Error fetching chambers ${err}`)
+        }
     }
 
     /*
        On supprime un utilisateur de la liste des utilisateurs (this.chambers) en fonction de son id
      */
-    deleteChamber = (req: Request, res: Response) => {
-        const id = req.params.id;
-        const chamber = this.chambers.find(p => p.id === id);
-        if (chamber) {
-            this.chambers = this.chambers.filter(p => p.id !== id);
-            res.json({text: "Chamber deleted"});
-        } else {
-            res.status(404).json({text: "Chamber not found"});
+    deleteChamber = async (req: Request, res: Response) => {
+        try{
+            const { id } = req.params;
+            const chamber = await MChamber.deleteOne({
+                _id : id
+            })
+    
+            res.json({chamber});
+        }catch(err){
+            console.error(`Error deleting chamber ${err}`)
+            res.send(`Error deleting chamber ${err}`)
         }
     }
 
     /*
         On met à jour un utilisateur de la liste des utilisateurs (this.chambers) en fonction de son id
      */
-    updateChamber = (req: Request, res: Response) => {
-        const id = req.params.id;
-        const chamber = this.chambers.find(p => p.id === id);
-        if (chamber) {
-            this.chambers = this.chambers.map(p => p.id === id ? {...p, ...req.body} : p);
-            res.json({text: "Chamber updated"});
-        } else {
-            res.status(404).json({text: "Chamber not found"});
-        }
-    }
+    updateChamber = async (req: Request, res: Response) => {
+        try{
+            const { id } = req.params;
+            const chamber = await MChamber.updateOne({_id: id}, {
+                ...req.body
+            })
 
+            res.json(chamber)
+        }catch(err){
+            console.error(`Error updating chamber ${err}`)
+            res.send(`Error updating chamber ${err}`)
+        }
+
+    }
 }
 
 const chamber = new Chamber();

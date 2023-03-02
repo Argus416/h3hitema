@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Iusers } from "../Model/Iusers";
+import { IUser } from "../Model/MUser";
 import User from "./User";
 
 class Auth{
@@ -7,7 +7,7 @@ class Auth{
     /*
         On crée un utilisateur vide pour stocker l'utilisateur connecté
      */
-    currentUser = {} as Iusers
+    currentUser = {} as IUser
 
     /*
         On vérifie si l'utilisateur existe dans la liste des utilisateurs
@@ -15,7 +15,7 @@ class Auth{
      */
     public login = (req: Request, res: Response) => {
         const { lastname, password } = req.body
-        this.currentUser = User.users.find(user => user.lastname === lastname && user.password === password) ?? {} as Iusers
+        this.currentUser = User.users.find(user => user.lastname === lastname && user.password === password) ?? {} as IUser
         if(this.currentUser.id){
             res.json({text: "User connected"})
         }else{
@@ -27,7 +27,7 @@ class Auth{
         On déconnecte l'utilisateur en vidant l'utilisateur connecté
      */
     public logout = (req: Request, res: Response) => {
-        this.currentUser = {} as Iusers
+        this.currentUser = {} as IUser
         res.json({text: "User disconnected"})
     }
 }
