@@ -1,11 +1,3 @@
-import app from "./server";
-import connectDatabase from "./database";
+import RUN_APP from "./core"
 
-const port = 3001;
-
-
-connectDatabase()
-
-app.listen(port, () => {
-    console.log('Server is running on port 3000');
-});
+RUN_APP()
