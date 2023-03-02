@@ -1,32 +1,11 @@
-import express from 'express';
-import multer from 'multer';
-import cookieParser from 'cookie-parser';
+import app from "./server";
+import connectDatabase from "./database";
 
-import { Iusers, Role } from './Model/Iusers';
-import Routes from './Routes/index';
-import mongoose from 'mongoose';
-
-const port = 3000;
-const host = 'localhost';
-const app = express();
-
-mongoose.connect('mongodb://mongo:27017/mydatabase').then(() => {
-  console.log('Connected to MongoDB');
-}).catch((err) => {
-  console.error(err);
-});
+const port = 3001;
 
 
-/*
-    On indique qu'on veut récupérer du json
- */
-app.use(express.json());
+connectDatabase()
 
-
-
-app.use('/', Routes);
-
-app.listen(3000, () => {
+app.listen(port, () => {
     console.log('Server is running on port 3000');
-
 });
