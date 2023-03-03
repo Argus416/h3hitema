@@ -5,6 +5,7 @@ import User from "../Controller/User";
 import Chamber from "../Controller/Chamber";
 import Reservation from "../Controller/Reservation";
 import Auth from "../Controller/Auth";
+// import authenticate from '../middleware/authenticate';
 
 const router = express.Router();
 

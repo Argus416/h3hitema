@@ -1,6 +1,11 @@
 import { Request, Response } from "express";
 import MUser, { IUser } from "../Model/MUser";
 import User from "./User";
+import { JWT_SECRET } from "../config";
+
+import jwt from 'jsonwebtoken';
+
+
 
 class Auth{
 
@@ -11,8 +16,11 @@ class Auth{
         this.currentUser = await MUser.findOne({
             lastname , password
         })
+
+        const token = jwt.sign({ id: this.currentUser.id }, JWT_SECRET, { expiresIn: '1h' });
+        
         if(this.currentUser){
-            res.json({text: "User connected"})
+            res.json({text: "User connected", token})
         }else{
             res.json({text: "User not found"})
         }
