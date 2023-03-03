@@ -5,6 +5,7 @@ import * as crypto from "crypto";
 import { faker } from '@faker-js/faker';
 import _ from "lodash"
 import mongoose from 'mongoose';
+import { StatusCodes } from 'http-status-codes';
 
 // const muser = mongoose.model('user', );
 
@@ -40,6 +41,8 @@ class User {
             res.json({data: user});
         }catch(err){
             console.error(`Error creating user ${err}`)
+            res.status(StatusCodes.UNAUTHORIZED).send(`Error creating user ${err}`)
+
         }
     }
 
@@ -52,6 +55,7 @@ class User {
             res.json({ data : users })
         }catch(err){
             console.error(`Error fetching users ${err}`)
+            res.status(StatusCodes.UNAUTHORIZED).send(`Error fetching users ${err}`)
         }
     }
 
@@ -68,6 +72,7 @@ class User {
             res.json({user});
         }catch(err){
             console.error(`Error deleting user ${err}`)
+            res.status(StatusCodes.UNAUTHORIZED).send(`Error deleting user ${err}`)
         }
     }
 
@@ -84,7 +89,7 @@ class User {
             res.json(user)
         }catch(err){
             console.error(`Error updating user ${err}`)
-            res.status(404).json({text: "User not found"});
+            res.status(StatusCodes.NOT_FOUND).send(`User not found ${err}`);
         }
 
     }

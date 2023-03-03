@@ -4,6 +4,10 @@ import { faker } from '@faker-js/faker';
 import _ from "lodash"
 import mongoose from 'mongoose';
 import MChamber, {IChamber} from '../Model/MChamber';
+import {
+	ReasonPhrases,
+	StatusCodes,
+} from 'http-status-codes';
 
 
 class Chamber {
@@ -17,7 +21,7 @@ class Chamber {
             res.json({data: chamber});
         }catch(err){
             console.error(`Error creating chamber ${err}`)
-            res.send(`Error creating chamber ${err}`)
+            res.status(StatusCodes.UNAUTHORIZED).send(`Error creating chamber ${err}`)
         }
     }
 
@@ -27,7 +31,7 @@ class Chamber {
             res.json({ data : chambers })
         }catch(err){
             console.error(`Error fetching chambers ${err}`)
-            res.send(`Error fetching chambers ${err}`)
+            res.status(StatusCodes.UNAUTHORIZED).send(`Error fetching chambers ${err}`)
         }
     }
 
@@ -44,7 +48,7 @@ class Chamber {
             res.json({chamber});
         }catch(err){
             console.error(`Error deleting chamber ${err}`)
-            res.send(`Error deleting chamber ${err}`)
+            res.status(StatusCodes.UNAUTHORIZED).send(`Error deleting chamber ${err}`)
         }
     }
 
@@ -61,7 +65,7 @@ class Chamber {
             res.json(chamber)
         }catch(err){
             console.error(`Error updating chamber ${err}`)
-            res.send(`Error updating chamber ${err}`)
+            res.status(StatusCodes.UNAUTHORIZED).send(`Error updating chamber ${err}`)
         }
 
     }

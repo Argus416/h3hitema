@@ -1,30 +1,24 @@
 import {Request, Response} from 'express';
-import { Ireservations } from "../Model/interface/Ireservations";
+import { IReservation } from "../Model/MReservation";
 import * as crypto from "crypto";
 import User from "./User";
 import Chamber from "./Chamber";
 
 class Reservation {
 
-    reservations: Array<Ireservations> = []
+    reservations: Array<any> = []
 
     /*
         On crée un utilisateur avec les données du body de la requête HTTP
         (POST) et on l'ajoute à la liste des utilisateurs (this.reservations)
      */
     createReservation = (req: Request, res: Response) => {
-
-        const reservation: Ireservations = {
-
+        const reservation: IReservation = {
             id: crypto.randomUUID(),
             ...req.body
-
         };
 
-        console.log(req.body)
-
         this.reservations.push(reservation);
-
         res.json({text: "Reservation created"});
 
     }
@@ -34,7 +28,7 @@ class Reservation {
         et on l'ajoute à la liste des utilisateurs (this.reservations)
      */
     createRandomReservation = (req: Request, res: Response) => {
-        const reservations: Ireservations = {
+        const reservations = {
             id: crypto.randomUUID(),
             dateStart: new Date(),
             dateEnd: new Date(),
@@ -44,10 +38,8 @@ class Reservation {
             chamberNumber: Chamber.chambers[0]?.id ?? 'no-selected-chamber'
         };
 
-        console.log(req.body)
 
         this.reservations.push(reservations);
-
         res.json({text: "Reservations created"});
 
     }
