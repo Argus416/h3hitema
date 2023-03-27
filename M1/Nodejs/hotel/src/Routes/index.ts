@@ -10,8 +10,8 @@ import Auth from "../Controller/Auth";
 const router = express.Router();
 
 
-router.post("/login", isConnected , Auth.login);
-router.post("/logout", Auth.logout);
+router.post("/login" , Auth.login);
+router.patch("/logout", Auth.logout);
 
 router.get("/users", User.getAllUsers);
 router.post("/user/new",isAdmin, User.createUser);

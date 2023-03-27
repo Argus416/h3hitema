@@ -16,10 +16,9 @@ class Auth{
         this.currentUser = await MUser.findOne({
             lastname , password
         })
-
-        const token = jwt.sign({ id: this.currentUser.id }, JWT_SECRET, { expiresIn: '1h' });
         
         if(this.currentUser){
+            const token = jwt.sign({ id: this.currentUser.id }, JWT_SECRET, { expiresIn: '1h' });
             res.json({text: "User connected", token})
         }else{
             res.json({text: "User not found"})
