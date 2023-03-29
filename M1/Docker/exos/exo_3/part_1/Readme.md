@@ -9,7 +9,7 @@ docker build -t miniflaskapp .
 
 ## Create a container 
 ```shell
-docker run --name miniflaskapp_container  -p 3500:3500 -d miniflaskapp
+docker run --name miniflaskapp_container  -p 80:80 -d miniflaskapp
 ```
 
 ## Check logs 
