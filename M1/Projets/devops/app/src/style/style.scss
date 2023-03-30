@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "./_var.scss";
+@import "./_utils.scss";
+@import "./_functions.scss";
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+        'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+    background-color: $my-color-primary;
+}
+
+img {
+    width: 100%;
+}
+
+p{
+    font-size: 14px;
+    margin: 0;
+}
+
+#body {
+    height: 100vh;
+    width: 550px;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.formkit-wrapper{
+    max-width: none !important;
+
+    .formkit-input{
+        padding: 7px 12px;
+        font-size: 14px;
+    }
+}
+@import "./_navbar.scss";
+@import "./_post.scss";
+@import "./_newPost.scss";
+@import "./_comment.scss";

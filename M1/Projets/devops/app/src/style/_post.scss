@@ -1,0 +1,63 @@
+.post {
+    @include borderRadius($boder-two);
+    min-width: 550px;
+    max-width: 40%;
+    background-color: $bg-post;
+    height: fit-content;
+    margin-top: 1em;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+    main {
+
+        header {
+            display: flex;
+            padding-block: .8em;
+
+            .left {
+                display: flex;
+                align-items: flex-start;
+                justify-content: center;
+
+                .post-avatar {
+                    margin-right: 10px;
+                }
+            }
+        }
+
+        header,
+        .post-content {
+            padding-inline: .8em 1em;
+        }
+
+        .img-post {
+            padding-top: .8em;
+            max-height: 390px;
+            object-fit: cover;
+        }
+
+        footer {
+            padding-inline: 10px;
+
+            .info {
+                display: flex;
+                justify-content: space-between;
+                padding-bottom: 8px;
+                padding-top: 5px;
+
+                .stats {
+                    text-align: right;
+                }
+            }
+
+            .btns {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-block: 2px solid $my-grey;
+                overflow: hidden;
+            }
+
+        }
+    }
+
+}

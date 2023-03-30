@@ -1,0 +1,24 @@
+.new-post-warapper {
+    @include borderRadius($boder-two);
+    background-color: $bg-post;
+    padding: 0.8em 1em;
+    margin-top: 10px;
+
+    .new-post-form {
+        @include spaceBetween(10px, column);
+        align-items: flex-start;
+        &>* {
+            width: 100%;
+        }
+        .new-post-input-wrapper{
+            display: flex;
+            gap: 10px;
+        }
+        .formkit-input {
+            border-radius: 50px;
+            padding: 1px 11px;
+            padding-block: 3px !important;
+        }
+    }
+
+}

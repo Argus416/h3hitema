@@ -1,0 +1,76 @@
+version: "3.9"
+
+services:
+    postgres:
+        image: postgres
+        container_name: postgres_compose
+        environment:
+            POSTGRES_USER: mohamad
+            POSTGRES_PASSWORD: 123321
+            POSTGRES_DB: mohamad
+        networks:
+            - postgres
+
+        expose:
+            - 5432
+            # - 3001
+            # - 3000
+        ports:
+            - 5432:5432
+
+    backend:
+        build: server/
+        container_name: backend_container
+        expose:
+            # - 5432
+            - 3001
+            # - 3000
+        ports:
+            - 3001:3001
+        networks:
+            - postgres
+        volumes:
+            - ./server:/app
+            - /app/node_modules
+
+        deploy:
+            restart_policy:
+                condition: on-failure # condition: none, on-failure, or any (default)
+                delay: 3s # Duration between restart attempts
+                max_attempts: 3 # Maximum number of attempts outside of the restart window
+                window: 120s # Duration for determining if a restart is successful
+       
+        depends_on:
+           - postgres
+
+    frontend:
+        build: app/
+        container_name: frontend
+        expose:
+            # - 5432
+            # - 3001
+            - 3000
+        ports:
+            - 3000:3000
+        networks:
+            - postgres
+        volumes:
+            - ./app:/app
+            - /app/node_modules
+        deploy:
+            restart_policy:
+                condition: on-failure # condition: none, on-failure, or any (default)
+                delay: 3s # Duration between restart attempts
+                max_attempts: 3 # Maximum number of attempts outside of the restart window
+                window: 120s # Duration for determining if a restart is successful
+        depends_on: 
+        - backend
+        
+
+networks:
+    postgres:
+        driver: bridge
+        # ipam:
+        #     config:
+        #         - subnet: 10.5.0.0/16
+        #           gateway: 10.5.0.1

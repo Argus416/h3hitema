@@ -1,0 +1,44 @@
+header {
+    background-color: $bg-post;
+    top: 0;
+    z-index: 10;
+
+    .right-side {
+        position: relative;
+
+        .icon {
+            cursor: pointer;
+        }
+
+        .menu {
+            position: absolute;
+            border: 1px solid $my-grey-dark;
+            right: 0;
+            border-radius: $boder-one;
+            top: 33px;
+            background-color: $bg-post;
+            @include spaceBetween(0, column);
+            li,a{
+                width: 100%;
+                padding: 3px 8px;
+                cursor: pointer;
+                transition: .2s all ease-in-out;
+                border-bottom: 1px solid $my-color-primary;
+
+                &:last-child {
+                    border-bottom: none !important;
+                }
+
+                &:hover {
+                    opacity: 0.4;
+                }
+            }
+
+            .danger{
+                background-color: crimson;
+                color: $bg-post;
+            }
+        }
+        
+    }
+}
