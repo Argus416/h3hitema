@@ -1,0 +1,1 @@
+java -cp ../target/forme-1.0.jar com.hitema.Form
