@@ -52,7 +52,7 @@ public class FilmDao extends DaoSession implements Dao<Film, Long> {
             Transaction transaction = (Transaction) session.beginTransaction();
 
             Query query = session.createQuery("UPDATE Film SET title = :title WHERE id = :id");
-            query.setParameter("name", name);
+            query.setParameter("title", name);
             query.setParameter("id", id);
             query.executeUpdate();
 

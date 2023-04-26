@@ -31,7 +31,7 @@ class FilmDaoTest {
     @Test
     void getAll() {
         List<Film> film =  filmDao.getAll();
-        assertEquals(film.size() != 0, film.size() != 0, "Erreur à l'a récuperation des films");
+        assertEquals(false, film.isEmpty(), "Erreur à la récupération des films");
     }
 
     @Test
@@ -39,6 +39,8 @@ class FilmDaoTest {
         Film film =  filmDao.searchByFilm(FILM_TITLE_TEST).get(0);
         String newTitle = FILM_TITLE_TEST+"_UPDATED";
         filmDao.update(film.getId(),newTitle);
+        film =  filmDao.searchByFilm(FILM_TITLE_TEST).get(0);
+
 
         assertEquals(newTitle, film.getTitle(), "Erreur lors de la mise à jour");
 
@@ -46,10 +48,12 @@ class FilmDaoTest {
 
     @Test
     void delete() {
-        Film film =  filmDao.searchByFilm(FILM_TITLE_TEST).get(0);
-        filmDao.delete(film.getId());
-
-        assertEquals(null, film, "Erreur lors de la mise à jour");
+        List<Film> films =  filmDao.searchByFilm(FILM_TITLE_TEST);
+        films.forEach(film -> {
+            filmDao.delete(film.getId());
+        });
+        Integer nbLength =  filmDao.searchByFilm(FILM_TITLE_TEST).size();
+        assertEquals(0, nbLength, "Erreur lors de la mise à jour");
 
     }
 }
