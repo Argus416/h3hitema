@@ -54,6 +54,11 @@ class FilmDaoTest {
         });
         Integer nbLength =  filmDao.searchByFilm(FILM_TITLE_TEST).size();
         assertEquals(0, nbLength, "Erreur lors de la mise à jour");
+    }
 
+    @Test
+    void searchByFilm() {
+        Integer films =  filmDao.searchByFilm("PUNK").size();
+        assertEquals(4, films, "Erreur lors de la mise à jour");
     }
 }
