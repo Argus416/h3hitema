@@ -2,13 +2,16 @@ package com.hitema.mysql.domains;
 
 import com.hitema.mysql.entities.Film;
 import org.hibernate.Session;
+import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class FilmDaoTest {
 
     public final String FILM_TITLE_TEST = "FILM_TITLE_TEST";
