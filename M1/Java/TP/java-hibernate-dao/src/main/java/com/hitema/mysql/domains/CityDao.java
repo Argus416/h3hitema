@@ -8,10 +8,8 @@ import java.util.List;
 
 public class CityDao extends DaoSession implements Dao<City, Long> {
 
-
-
     @Override
-    public void save(String params) {
+    public void save(String name) {
         try{
             City city = new City();
             city.setCity(name);
