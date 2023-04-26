@@ -21,7 +21,7 @@ public class CityDao extends DaoSession implements Dao<City, Long> {
     }
 
     @Override
-    public City get(Integer id) {
+    public City get(Long id) {
         return null;
     }
 
@@ -30,70 +30,14 @@ public class CityDao extends DaoSession implements Dao<City, Long> {
         return null;
     }
 
+
     @Override
-    public void update(Integer id, String name) {
+    public void update(Long id, String name) {
 
     }
 
     @Override
-    public void delete(Integer t) {
+    public void delete(Long t) {
 
     }
-
-//    @Override
-//    public Country get(Integer id) {
-//        try{
-//            return getCurrentSession().get(Country.class, id);
-//        }
-//        catch (Exception e){
-//            System.out.println("Erreur lors de la récupération des données");
-//            return null;
-//        }
-//    }
-//
-//    @Override
-//    public List<Country> getAll() {
-//        try{
-//            return getCurrentSession().createQuery("from Country", Country.class).getResultList();
-//        }catch (Exception e){
-//            System.out.println("Erreur lors de la récupération des données");
-//            return null;
-//        }
-//    }
-//
-//    @Override
-//    public void update(Integer id, String name) {
-//        try{
-//            Session session = getCurrentSession();
-//            Transaction transaction = (Transaction) session.beginTransaction();
-//
-//            Query query = session.createQuery("UPDATE Country SET country = :name WHERE id = :id");
-//            query.setParameter("name", name);
-//            query.setParameter("id", id);
-//            query.executeUpdate();
-//
-//            transaction.commit();
-//            System.out.println("Mise à jour réussie");
-//        }
-//        catch (Exception e){
-//            System.out.println("Erreur lors de la mise à jour");
-//        }
-//    }
-//
-//    @Override
-//    public void delete(Integer id) {
-//        try{
-//            Session session = getCurrentSession();
-//            Transaction transaction = (Transaction) session.beginTransaction();
-//
-//            Query query = session.createQuery("DELETE FROM Country WHERE id = :id");
-//            query.setParameter("id", id);
-//            query.executeUpdate();
-//
-//            transaction.commit();
-//            System.out.println("Suppression réussie");
-//        }catch (Exception e){
-//            System.out.println("Erreur lors de la suppression "+ e);
-//        }
-//    }
 }

@@ -1,44 +1,42 @@
 package com.hitema.mysql.domains;
+
 import com.hitema.mysql.abstracts.DaoSession;
-import com.hitema.mysql.entities.Country;
+import com.hitema.mysql.entities.Film;
 import com.hitema.mysql.interfaces.Dao;
 import jakarta.persistence.Query;
-import org.hibernate.Transaction;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.util.List;
-import java.util.Optional;
 
-public class CountryDao extends DaoSession implements Dao<Country, Long> {
-
+public class FilmDao extends DaoSession implements Dao<Film, Long> {
 
     @Override
     public void save(String name) {
         try{
-            Country country = new Country();
-            country.setCountry(name);
-            country.setLastUpdate(java.time.LocalDateTime.now());
-            getCurrentSession().save(country);
+            Film film = new Film();
+            film.setTitle(name);
+            film.setLastUpdate(java.time.LocalDateTime.now());
+            getCurrentSession().save(film);
         }catch (Exception e){
             System.out.println("Erreur lors de l'insertion");
         }
     }
 
     @Override
-    public Country get(Long id) {
+    public Film get(Long id) {
         try{
-            return getCurrentSession().get(Country.class, id);
-        }
-        catch (Exception e){
+            return getCurrentSession().get(Film.class, id);
+        }catch (Exception e) {
             System.out.println("Erreur lors de la récupération des données");
             return null;
         }
     }
 
     @Override
-    public List<Country> getAll() {
+    public List<Film> getAll() {
         try{
-            return getCurrentSession().createQuery("from Country", Country.class).getResultList();
+            return getCurrentSession().createQuery("FROM Film", Film.class).getResultList();
         }catch (Exception e){
             System.out.println("Erreur lors de la récupération des données");
             return null;
@@ -51,7 +49,7 @@ public class CountryDao extends DaoSession implements Dao<Country, Long> {
             Session session = getCurrentSession();
             Transaction transaction = (Transaction) session.beginTransaction();
 
-            Query query = session.createQuery("UPDATE Country SET country = :name WHERE id = :id");
+            Query query = session.createQuery("UPDATE Film SET title = :title WHERE id = :id");
             query.setParameter("name", name);
             query.setParameter("id", id);
             query.executeUpdate();
@@ -70,7 +68,7 @@ public class CountryDao extends DaoSession implements Dao<Country, Long> {
             Session session = getCurrentSession();
             Transaction transaction = (Transaction) session.beginTransaction();
 
-            Query query = session.createQuery("DELETE FROM Country WHERE id = :id");
+            Query query = session.createQuery("DELETE FROM Film WHERE id = :id");
             query.setParameter("id", id);
             query.executeUpdate();
 

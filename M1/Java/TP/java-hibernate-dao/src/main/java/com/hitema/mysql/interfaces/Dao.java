@@ -7,11 +7,11 @@ public interface Dao<T, id> {
     void save(String name);
 
 
-    T get(Integer id);
+    T get(Long id);
 
     List<T> getAll();
 
-    void update(Integer id, String name);
+    void update(Long id, String name);
 
-    void delete(Integer t);
+    void delete(Long t);
 }
