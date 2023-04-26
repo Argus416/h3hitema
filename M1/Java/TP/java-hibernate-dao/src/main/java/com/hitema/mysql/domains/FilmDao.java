@@ -16,6 +16,8 @@ public class FilmDao extends DaoSession implements Dao<Film, Long> {
         try{
             Film film = new Film();
             film.setTitle(name);
+            film.setLanguageId(1L);
+            film.setOriginalLanguageId(1L);
             film.setLastUpdate(java.time.LocalDateTime.now());
             getCurrentSession().save(film);
         }catch (Exception e){

@@ -21,10 +21,10 @@ public class Film {
     @Column(name = "release_year")
     private String releaseYear;
     @Column(name = "language_id")
-    private int languageId;
+    private Long languageId;
 
     @Column(name = "original_language_id")
-    private int originalLanguageId;
+    private Long originalLanguageId;
 
     @Column(name = "rental_duration")
     private int rentalDuration;
@@ -80,19 +80,19 @@ public class Film {
         this.releaseYear = releaseYear;
     }
 
-    public int getLanguageId() {
+    public Long getLanguageId() {
         return languageId;
     }
 
-    public void setLanguageId(int languageId) {
+    public void setLanguageId(Long languageId) {
         this.languageId = languageId;
     }
 
-    public int getOriginalLanguageId() {
+    public Long getOriginalLanguageId() {
         return originalLanguageId;
     }
 
-    public void setOriginalLanguageId(int originalLanguageId) {
+    public void setOriginalLanguageId(Long originalLanguageId) {
         this.originalLanguageId = originalLanguageId;
     }
 

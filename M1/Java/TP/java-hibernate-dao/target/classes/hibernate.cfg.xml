@@ -10,10 +10,12 @@
         <property name="hibernate.connection.username">java1</property>
         <property name="hibernate.connection.password">java1</property>
 
-        <property name="show_sql">false</property>
+        <property name="show_sql">true</property>
         <property name="hibernate.current_session_context_class">thread</property>
 
         <mapping class="com.hitema.mysql.entities.Country" />
+        <mapping class="com.hitema.mysql.entities.City" />
+        <mapping class="com.hitema.mysql.entities.Film" />
 
     </session-factory>
 </hibernate-configuration>
