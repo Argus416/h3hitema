@@ -49,9 +49,7 @@ class FilmDaoTest {
         filmDao.update(film.getId(),newTitle);
         film =  filmDao.searchByFilm(FILM_TITLE_TEST).get(0);
 
-
         assertEquals(newTitle, film.getTitle(), "Erreur lors de la mise à jour");
-
     }
 
     @Order(5)
