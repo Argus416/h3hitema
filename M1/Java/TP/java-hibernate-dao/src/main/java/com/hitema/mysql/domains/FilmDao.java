@@ -78,4 +78,16 @@ public class FilmDao extends DaoSession implements Dao<Film, Long> {
             System.out.println("Erreur lors de la suppression "+ e);
         }
     }
+
+    public List<Film> searchByFilm(String title){
+        try{
+            return getCurrentSession()
+                    .createQuery("FROM Film WHERE title LIKE :title", Film.class)
+                    .setParameter("title", "%"+title+"%")
+                    .getResultList();
+        }catch (Exception e){
+            System.out.println("Erreur lors de la récupération des données");
+            return null;
+        }
+    }
 }
