@@ -46,21 +46,21 @@ class FilmDaoTest {
     void update() {
         Film film =  filmDao.searchByFilm(FILM_TITLE_TEST).get(0);
         String newTitle = FILM_TITLE_TEST+"_UPDATED";
-        filmDao.update(film.getId(),newTitle);
+        film.setTitle(newTitle);
+        filmDao.update(film);
         film =  filmDao.searchByFilm(FILM_TITLE_TEST).get(0);
         assertEquals(newTitle, film.getTitle(), "Erreur lors de la mise à jour");
     }
 
     @Order(5)
     @Test
-    void getActors(){
+    void getActorsFilm(){
         Film film =  filmDao.get(1l);
         assertEquals(false, film.getActors().isEmpty(), "Erreur lors de la récupération des acteurs");
     }
 
     @Order(6)
     @Test
-    @Disabled
     void delete() {
         List<Film> films =  filmDao.searchByFilm(FILM_TITLE_TEST);
         films.forEach(film -> {

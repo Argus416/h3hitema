@@ -11,7 +11,7 @@ public interface Dao<T, id> {
 
     List<T> getAll();
 
-    void update(Long id, String name);
+    void update(T entity);
 
     void delete(Long t);
 }

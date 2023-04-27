@@ -46,15 +46,12 @@ public class CountryDao extends DaoSession implements Dao<Country, Long> {
     }
 
     @Override
-    public void update(Long id, String name) {
+    public void update(Country entity) {
         try{
             Session session = getCurrentSession();
             Transaction transaction = (Transaction) session.beginTransaction();
 
-            Query query = session.createQuery("UPDATE Country SET country = :name WHERE id = :id");
-            query.setParameter("name", name);
-            query.setParameter("id", id);
-            query.executeUpdate();
+            session.merge(entity);
 
             transaction.commit();
             System.out.println("Mise à jour réussie");

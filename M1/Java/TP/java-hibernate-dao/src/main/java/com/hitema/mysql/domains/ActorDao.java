@@ -38,7 +38,7 @@ public class ActorDao extends DaoSession implements Dao<Actor, Long> {
     }
 
     @Override
-    public void update(Long id, String name) {
+    public void update(Actor entity) {
 
     }
 

@@ -55,15 +55,12 @@ public class FilmDao extends DaoSession implements Dao<Film, Long> {
     }
 
     @Override
-    public void update(Long id, String name) {
+    public void update(Film entity) {
         try{
             Session session = getCurrentSession();
             Transaction transaction = (Transaction) session.beginTransaction();
 
-            Query query = session.createQuery("UPDATE Film SET title = :title WHERE id = :id");
-            query.setParameter("title", name);
-            query.setParameter("id", id);
-            query.executeUpdate();
+            session.merge(entity);
 
             transaction.commit();
             System.out.println("Mise à jour réussie");

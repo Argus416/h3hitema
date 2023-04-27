@@ -38,7 +38,7 @@ public class CityDao extends DaoSession implements Dao<City, Long> {
 
 
     @Override
-    public void update(Long id, String name) {
+    public void update(City entity) {
 
     }
 
