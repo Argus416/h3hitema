@@ -1,18 +1,30 @@
 package com.hitema.mysql.entities;
 
-import jakarta.persistence.Column;
+import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 
+@Entity
+@Table(name = "actor")
 public class Actor {
-    @Column(name = "actor_id", nullable = false)
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "actor_id")
     private Long id;
-    @Column (name = "first_name")
+
+    @Column(name = "first_name")
     private String firstName;
-    @Column (name = "last_name")
+
+    @Column(name = "last_name")
     private String lastName;
-    @Column (name = "last_update")
+
+    @Column(name = "last_update")
     private Date lastUpdate;
+
+    @ManyToMany(mappedBy = "actors")
+    private List<Film> films;
 
     public Long getId() {
         return id;

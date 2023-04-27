@@ -7,6 +7,7 @@ import jakarta.persistence.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.util.Date;
 import java.util.List;
 
 public class FilmDao extends DaoSession implements Dao<Film, Long> {
@@ -18,7 +19,7 @@ public class FilmDao extends DaoSession implements Dao<Film, Long> {
             film.setTitle(entity.getTitle());
             film.setLanguageId(1L);
             film.setOriginalLanguageId(1L);
-            film.setLastUpdate(java.time.LocalDateTime.now());
+            film.setLastUpdate(Date.from(java.time.Instant.now()));
             getCurrentSession().save(film);
         }catch (Exception e){
             System.out.println("Erreur lors de l'insertion");

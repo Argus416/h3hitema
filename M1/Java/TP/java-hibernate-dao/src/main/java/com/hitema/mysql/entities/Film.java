@@ -2,14 +2,19 @@ package com.hitema.mysql.entities;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
     @Table(name = "film")
 public class Film {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "film_id", nullable = false)
+    @Column(name = "film_id")
     private Long id;
 
     @Column(name = "title")
@@ -19,34 +24,51 @@ public class Film {
     private String description;
 
     @Column(name = "release_year")
-    private String releaseYear;
+    private Integer releaseYear;
+
     @Column(name = "language_id")
     private Long languageId;
 
     @Column(name = "original_language_id")
     private Long originalLanguageId;
 
-    @Column(name = "rental_duration")
-    private int rentalDuration;
 
     @Column(name = "rental_rate")
-    private double rentalRate;
+    private BigDecimal rentalRate;
 
     @Column(name = "length")
-    private int length;
+    private Short length;
 
     @Column(name = "replacement_cost")
-    private double replacementCost;
-
-    @Column(name = "rating")
-    private String rating;
-
-    @Column(name = "special_features")
-    private String specialFeatures;
-
+    private BigDecimal replacementCost;
 
     @Column(name = "last_update")
-    private LocalDateTime lastUpdate;
+    private Date lastUpdate;
+
+    @ManyToMany
+    @JoinTable(name = "film_actor",
+            joinColumns = @JoinColumn(name = "film_id"),
+            inverseJoinColumns = @JoinColumn(name = "actor_id"))
+    private List<Actor> actors;
+
+
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Film{");
+        sb.append("id=").append(id);
+        sb.append(", title='").append(title).append('\'');
+        sb.append(", description='").append(description).append('\'');
+        sb.append(", releaseYear='").append(releaseYear).append('\'');
+        sb.append(", languageId=").append(languageId);
+        sb.append(", originalLanguageId=").append(originalLanguageId);
+        sb.append(", rentalRate=").append(rentalRate);
+        sb.append(", length=").append(length);
+        sb.append(", replacementCost=").append(replacementCost);
+        sb.append(", lastUpdate=").append(lastUpdate);
+        sb.append('}');
+        return sb.toString();
+    }
 
     public Long getId() {
         return id;
@@ -72,11 +94,11 @@ public class Film {
         this.description = description;
     }
 
-    public String getReleaseYear() {
+    public Integer getReleaseYear() {
         return releaseYear;
     }
 
-    public void setReleaseYear(String releaseYear) {
+    public void setReleaseYear(Integer releaseYear) {
         this.releaseYear = releaseYear;
     }
 
@@ -96,83 +118,46 @@ public class Film {
         this.originalLanguageId = originalLanguageId;
     }
 
-    public int getRentalDuration() {
-        return rentalDuration;
-    }
 
-    public void setRentalDuration(int rentalDuration) {
-        this.rentalDuration = rentalDuration;
-    }
-
-    public double getRentalRate() {
+    public BigDecimal getRentalRate() {
         return rentalRate;
     }
 
-    public void setRentalRate(double rentalRate) {
+    public void setRentalRate(BigDecimal rentalRate) {
         this.rentalRate = rentalRate;
     }
 
-    public int getLength() {
+    public Short getLength() {
         return length;
     }
 
-    public void setLength(int length) {
+    public void setLength(Short length) {
         this.length = length;
     }
 
-    public double getReplacementCost() {
+    public BigDecimal getReplacementCost() {
         return replacementCost;
     }
 
-    public void setReplacementCost(double replacementCost) {
+    public void setReplacementCost(BigDecimal replacementCost) {
         this.replacementCost = replacementCost;
     }
 
-    public String getRating() {
-        return rating;
-    }
 
-    public void setRating(String rating) {
-        this.rating = rating;
-    }
 
-    public String getSpecialFeatures() {
-        return specialFeatures;
-    }
-
-    public void setSpecialFeatures(String specialFeatures) {
-        this.specialFeatures = specialFeatures;
-    }
-
-    public LocalDateTime getLastUpdate() {
+    public Date getLastUpdate() {
         return lastUpdate;
     }
 
-    public void setLastUpdate(LocalDateTime lastUpdate) {
+    public void setLastUpdate(Date lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 
-    public Film() {
+    public List<Actor> getActors() {
+        return actors;
     }
 
-
-    @Override
-    public String toString() {
-        final StringBuffer sb = new StringBuffer("City{");
-            sb.append("id=").append(id);
-            sb.append(", title='").append(title).append('\'');
-            sb.append(", description='").append(description).append('\'');
-            sb.append(", releaseYear=").append(releaseYear);
-            sb.append(", languageId=").append(languageId);
-            sb.append(", originalLanguageId=").append(originalLanguageId);
-            sb.append(", rentalDuration=").append(rentalDuration);
-            sb.append(", rentalRate=").append(rentalRate);
-            sb.append(", length=").append(length);
-            sb.append(", replacementCost=").append(replacementCost);
-            sb.append(", rating='").append(rating).append('\'');
-            sb.append(", specialFeatures='").append(specialFeatures).append('\'');
-            sb.append(", lastUpdate=").append(lastUpdate);
-            sb.append('}');
-        return sb.toString();
+    public void setActors(List<Actor> actors) {
+        this.actors = actors;
     }
 }

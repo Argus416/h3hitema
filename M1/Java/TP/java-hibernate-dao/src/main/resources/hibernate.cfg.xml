@@ -16,6 +16,7 @@
         <mapping class="com.hitema.mysql.entities.Country" />
         <mapping class="com.hitema.mysql.entities.City" />
         <mapping class="com.hitema.mysql.entities.Film" />
+        <mapping class="com.hitema.mysql.entities.Actor" />
 
     </session-factory>
 </hibernate-configuration>
