@@ -13,10 +13,10 @@ public class CountryDao extends DaoSession implements Dao<Country, Long> {
 
 
     @Override
-    public void save(String name) {
+    public void save(Country entity) {
         try{
             Country country = new Country();
-            country.setCountry(name);
+            country.setCountry(entity.getCountry());
             country.setLastUpdate(java.time.LocalDateTime.now());
             getCurrentSession().save(country);
         }catch (Exception e){

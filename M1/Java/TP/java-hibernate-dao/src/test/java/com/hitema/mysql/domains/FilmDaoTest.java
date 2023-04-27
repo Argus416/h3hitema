@@ -21,7 +21,9 @@ class FilmDaoTest {
     @Order(1)
     @Test
     void save() {
-        filmDao.save(FILM_TITLE_TEST);
+        Film newFilm = new Film();
+        newFilm.setTitle(FILM_TITLE_TEST);
+        filmDao.save(newFilm);
 
         List<Film> film =  filmDao.searchByFilm(FILM_TITLE_TEST);
         assertEquals(FILM_TITLE_TEST, film.get(0).getTitle(), "Erreur lors de l'insertion");

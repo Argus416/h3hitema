@@ -9,16 +9,17 @@ import java.util.List;
 public class CityDao extends DaoSession implements Dao<City, Long> {
 
     @Override
-    public void save(String name) {
+    public void save(City entity) {
         try{
             City city = new City();
-            city.setCity(name);
+            city.setCity(city.getCity());
             city.setLastUpdate(java.time.LocalDateTime.now());
             getCurrentSession().save(city);
         }catch (Exception e){
             System.out.println("Erreur lors de l'insertion");
         }
     }
+
 
     @Override
     public City get(Long id) {

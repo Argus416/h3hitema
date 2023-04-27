@@ -12,10 +12,10 @@ import java.util.List;
 public class FilmDao extends DaoSession implements Dao<Film, Long> {
 
     @Override
-    public void save(String name) {
+    public void save(Film entity) {
         try{
             Film film = new Film();
-            film.setTitle(name);
+            film.setTitle(entity.getTitle());
             film.setLanguageId(1L);
             film.setOriginalLanguageId(1L);
             film.setLastUpdate(java.time.LocalDateTime.now());
