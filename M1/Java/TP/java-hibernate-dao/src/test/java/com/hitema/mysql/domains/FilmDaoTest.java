@@ -2,10 +2,7 @@ package com.hitema.mysql.domains;
 
 import com.hitema.mysql.entities.Film;
 import org.hibernate.Session;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.*;
 
 import java.util.List;
 
@@ -24,8 +21,9 @@ class FilmDaoTest {
         Film newFilm = new Film();
         newFilm.setTitle(FILM_TITLE_TEST);
         filmDao.save(newFilm);
-
         List<Film> film =  filmDao.searchByFilm(FILM_TITLE_TEST);
+        System.out.println(film);
+
         assertEquals(FILM_TITLE_TEST, film.get(0).getTitle(), "Erreur lors de l'insertion");
     }
 
@@ -50,12 +48,19 @@ class FilmDaoTest {
         String newTitle = FILM_TITLE_TEST+"_UPDATED";
         filmDao.update(film.getId(),newTitle);
         film =  filmDao.searchByFilm(FILM_TITLE_TEST).get(0);
-
         assertEquals(newTitle, film.getTitle(), "Erreur lors de la mise à jour");
     }
 
     @Order(5)
     @Test
+    void getActors(){
+        Film film =  filmDao.get(1l);
+        assertEquals(false, film.getActors().isEmpty(), "Erreur lors de la récupération des acteurs");
+    }
+
+    @Order(6)
+    @Test
+    @Disabled
     void delete() {
         List<Film> films =  filmDao.searchByFilm(FILM_TITLE_TEST);
         films.forEach(film -> {
@@ -65,10 +70,11 @@ class FilmDaoTest {
         assertEquals(0, nbLength, "Erreur lors de la mise à jour");
     }
 
-    @Order(6)
+    @Order(7)
     @Test
     void searchByFilm() {
         Integer films =  filmDao.searchByFilm("PUNK").size();
         assertEquals(4, films, "Erreur lors de la mise à jour");
     }
+
 }

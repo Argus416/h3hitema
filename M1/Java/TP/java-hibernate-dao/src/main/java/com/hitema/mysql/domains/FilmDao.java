@@ -7,6 +7,7 @@ import jakarta.persistence.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -15,14 +16,21 @@ public class FilmDao extends DaoSession implements Dao<Film, Long> {
     @Override
     public void save(Film entity) {
         try{
+            Session session = getCurrentSession();
+            Transaction transaction = (Transaction) session.beginTransaction();
+
             Film film = new Film();
             film.setTitle(entity.getTitle());
             film.setLanguageId(1L);
             film.setOriginalLanguageId(1L);
             film.setLastUpdate(Date.from(java.time.Instant.now()));
-            getCurrentSession().save(film);
+            film.setRentalRate(new BigDecimal(4));
+            film.setReplacementCost(new BigDecimal(4));
+
+            getCurrentSession().persist(film);
+            transaction.commit();
         }catch (Exception e){
-            System.out.println("Erreur lors de l'insertion");
+            System.out.println("Erreur lors de l'insertion"+ e);
         }
     }
 
