@@ -12,10 +12,9 @@ public class City {
     @Column(name = "city_id", nullable = false)
     private Long id;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "country_id", nullable = false)
-    private Long country_id;
+    @ManyToOne()
+    @JoinColumn(name = "country_id")
+    private Country country_id;
 
     @Column(name = "city")
     private String city;
@@ -33,13 +32,6 @@ public class City {
         this.id = id;
     }
 
-    public Long getCountry_id() {
-        return country_id;
-    }
-
-    public void setCountry_id(Long country_id) {
-        this.country_id = country_id;
-    }
 
     public String getCity() {
         return this.city;
@@ -57,7 +49,13 @@ public class City {
         this.lastUpdate = lastUpdate;
     }
 
+    public Country getCountry_id() {
+        return country_id;
+    }
 
+    public void setCountry_id(Country country_id) {
+        this.country_id = country_id;
+    }
 
     @Override
     public String toString() {

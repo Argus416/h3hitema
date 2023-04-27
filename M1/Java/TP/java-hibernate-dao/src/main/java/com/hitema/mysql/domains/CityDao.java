@@ -23,7 +23,12 @@ public class CityDao extends DaoSession implements Dao<City, Long> {
 
     @Override
     public City get(Long id) {
-        return null;
+        try{
+            return getCurrentSession().get(City.class, id);
+        }catch(Exception e){
+            System.out.println("Erreur lors de la récupération: " +e);
+            return null;
+        }
     }
 
     @Override

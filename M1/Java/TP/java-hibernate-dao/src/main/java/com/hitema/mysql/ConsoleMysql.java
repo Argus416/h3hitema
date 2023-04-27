@@ -12,15 +12,17 @@ public class ConsoleMysql {
 
     public static void main(String[] args) {
         DaoSession.Start();
-        CountryDao CountryDao = new CountryDao();
+//        CountryDao CountryDao = new CountryDao();
         CityDao CityDao = new CityDao();
-        City city = new City();
-        city.setCity("papariis");
+//        City city = new City();
+//        city.setCity("papariis");
+
+        System.out.println(CityDao.get(1l));
 //        List<Country> countries = CountryDao.getAll();
 //        CountryDao.update(111,"updated");
 ////        CountryDao.delete(110);
 //        CountryDao.save("gg");
 
-        CityDao.save(city);
+//        CityDao.save(city);
     }
 }
