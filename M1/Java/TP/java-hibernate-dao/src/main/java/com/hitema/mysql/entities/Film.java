@@ -52,24 +52,6 @@ public class Film {
     private List<Actor> actors;
 
 
-
-    @Override
-    public String toString() {
-        final StringBuffer sb = new StringBuffer("Film{");
-        sb.append("id=").append(id);
-        sb.append(", title='").append(title).append('\'');
-        sb.append(", description='").append(description).append('\'');
-        sb.append(", releaseYear='").append(releaseYear).append('\'');
-        sb.append(", languageId=").append(languageId);
-        sb.append(", originalLanguageId=").append(originalLanguageId);
-        sb.append(", rentalRate=").append(rentalRate);
-        sb.append(", length=").append(length);
-        sb.append(", replacementCost=").append(replacementCost);
-        sb.append(", lastUpdate=").append(lastUpdate);
-        sb.append('}');
-        return sb.toString();
-    }
-
     public Long getId() {
         return id;
     }
@@ -160,4 +142,23 @@ public class Film {
     public void setActors(List<Actor> actors) {
         this.actors = actors;
     }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Film{");
+        sb.append("id=").append(id);
+        sb.append(", title='").append(title).append('\'');
+        sb.append(", description='").append(description).append('\'');
+        sb.append(", releaseYear='").append(releaseYear).append('\'');
+        sb.append(", languageId=").append(languageId);
+        sb.append(", originalLanguageId=").append(originalLanguageId);
+        sb.append(", rentalRate=").append(rentalRate);
+        sb.append(", length=").append(length);
+        sb.append(", replacementCost=").append(replacementCost);
+        sb.append(", lastUpdate=").append(lastUpdate);
+        sb.append(", actors=").append(actors);
+        sb.append('}');
+        return sb.toString();
+    }
+
 }

@@ -57,4 +57,24 @@ public class Actor {
     public void setLastUpdate(Date lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
+
+    public List<Film> getFilms() {
+        return films;
+    }
+
+    public void setFilms(List<Film> films) {
+        this.films = films;
+    }
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Actor{");
+        sb.append("id=").append(id);
+        sb.append(", firstName='").append(firstName).append('\'');
+        sb.append(", lastName=").append(lastName);
+        sb.append(", lastUpdate=").append(lastUpdate);
+        sb.append(", films=").append(films);
+        sb.append('}');
+        return sb.toString();
+    }
+
 }
