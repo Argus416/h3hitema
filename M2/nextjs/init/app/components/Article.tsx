@@ -19,7 +19,7 @@ export default async function Article({ articleId }: { articleId: string }) {
 
 	return (
 		<div>
-			<h1 className='text-2xl font-bold mb-3'>{data.title}</h1>
+			<h1 className='text-2xl font-bold mb-3'>{_.capitalize(data.title)}</h1>
 			<p>{data.body}</p>
 		</div>
 	);
