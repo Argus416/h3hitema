@@ -1,3 +1,5 @@
+import notFound from '../not-found';
+
 async function getData(id: string) {
 	try {
 		const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
@@ -14,7 +16,10 @@ async function getData(id: string) {
 
 export default async function Article({ articleId }: { articleId: string }) {
 	const data = await getData(articleId);
-	console.log({ articleId });
+
+	if (!data) {
+		return notFound();
+	}
 
 	return (
 		<div>
