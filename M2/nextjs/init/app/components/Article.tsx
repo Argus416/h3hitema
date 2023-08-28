@@ -1,23 +1,19 @@
 import notFound from '../not-found';
-
+import _ from 'lodash';
 async function getData(id: string) {
 	try {
 		const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
-		// The return value is *not* serialized
-		// You can return Date, Map, Set, etc.
-
-		console.log({ res });
-
 		return res.json();
 	} catch (e) {
-		console.log({ e });
+		return false;
 	}
 }
 
 export default async function Article({ articleId }: { articleId: string }) {
 	const data = await getData(articleId);
 
-	if (!data) {
+	console.log(data);
+	if (_.isEmpty(data)) {
 		return notFound();
 	}
 
