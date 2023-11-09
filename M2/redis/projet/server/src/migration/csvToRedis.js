@@ -26,11 +26,17 @@ data = _.chain(data)
 const migrateData = async (data) => {
 	const requests = [];
 	data.forEach((e) => {
-		const id = 'vilib:' + e['nom_communes_equipees'];
 		const entries = Object.entries(e);
 
+		const idModelOne =
+			'vilib:' + e['nom_communes_equipees'] + ':' + e['identifiant_station'];
 		entries.forEach((j) => {
-			requests.push(client.hSet(id, j[0], j[1]));
+			requests.push(client.hSet(idModelOne, j[0], j[1]));
+		});
+
+		const idModelTwo = 'communes';
+		entries.forEach((j) => {
+			requests.push(client.sAdd(idModelTwo, e['nom_communes_equipees']));
 		});
 	});
 
@@ -39,6 +45,7 @@ const migrateData = async (data) => {
 		console.log('All data inserted', result);
 	});
 };
+
 module.exports = async () => {
 	await migrateData(data);
 };

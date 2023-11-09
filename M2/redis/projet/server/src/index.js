@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const { PORT } = require('./config');
-const router = require('./router');
+const router = require('./router/v1');
 const redis = require('./db');
 const csvToRedis = require('./migration/csvToRedis');
 
