@@ -1,9 +1,8 @@
+const Main = require('../services/Main');
 const express = require('express');
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-	res.send('hi');
-});
+router.get('/', Main.find);
 
 module.exports = router;
