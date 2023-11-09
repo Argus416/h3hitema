@@ -54,6 +54,7 @@ const App: React.FC = () => {
 				value: commune,
 			}));
 			setCommunes(communes);
+			setSelectedCommune(communes[0]?.id);
 		});
 	}, []);
 
