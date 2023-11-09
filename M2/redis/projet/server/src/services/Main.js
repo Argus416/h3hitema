@@ -1,9 +1,11 @@
 const redis = require('../db');
+const _ = require('lodash');
 
 class Main {
 	async findAllCommunes(req, res) {
 		try {
-			const communes = await redis.sMembers('communes');
+			let communes = await redis.sMembers('communes');
+			communes = _.orderBy(communes);
 			res.json(communes);
 		} catch (err) {
 			console.log(err);
@@ -19,6 +21,7 @@ class Main {
 			stations.forEach((station) => {
 				requests.push(redis.hGetAll(station));
 			});
+
 			Promise.all(requests).then((r) => {
 				res.json(r);
 			});
@@ -35,6 +38,19 @@ class Main {
 		} catch (err) {
 			console.log(err);
 		}
+	}
+
+	async updateCommuneStation(req, res) {
+		const { commune, id } = req.params;
+		const updateQuery = redis.hSet('vilib:' + commune + ':' + id, req.body);
+		res.json(updateQuery);
+	}
+
+	async deleteCommuneStation(req, res) {
+		const { commune, id } = req.params;
+		console.log('delete', 'vilib:' + commune + ':' + id);
+		const updateQuery = redis.del('vilib:' + commune + ':' + id, req.body);
+		res.json(updateQuery);
 	}
 }
 

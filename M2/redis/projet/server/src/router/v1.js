@@ -7,4 +7,7 @@ router.get('/communes', Main.findAllCommunes);
 router.get('/commune/station/:commune/:id', Main.findCommuneStation);
 router.get('/commune/:commune', Main.findCommuneStations);
 
+router.patch('/commune/station/:commune/:id', Main.updateCommuneStation);
+router.delete('/commune/station/:commune/:id', Main.deleteCommuneStation);
+
 module.exports = router;
