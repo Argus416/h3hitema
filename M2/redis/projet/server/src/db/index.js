@@ -1,7 +1,8 @@
+const { REDIS_URL } = require('../config');
 const createClient = require('redis').createClient;
 
 const client = createClient({
-	url: 'redis://redis-m2:6379',
+	url: REDIS_URL,
 });
 
 client.on('error', (err) => console.log('Redis Client Error', err));

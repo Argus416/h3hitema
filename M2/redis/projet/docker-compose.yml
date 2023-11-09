@@ -28,6 +28,7 @@ services:
             - redis
         environment:
             PORT: 3000
+            REDIS_URL: redis://redis-m2:6379
             # POSTGRES_URI: postgres://mohamad:123321@db:5432/postgres
         restart: on-failure
         networks:
