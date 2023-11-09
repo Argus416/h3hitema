@@ -1,0 +1,78 @@
+version: '3.5'
+services:
+    redis:
+        image: redis
+        container_name: redis-m2
+        ports:
+            - '7001:6379'
+        volumes:
+            - ${PWD}/7001:/7001
+        environment:
+            - REDIS_DATABASES=16
+            - REDIS_MAXMEMORY=256mb
+        command: redis-server /7001/n1_redis.conf &
+
+    redis-2:
+        image: redis
+        container_name: redis-m2-replica-2
+        volumes:
+            - ${PWD}/7002:/7002
+        ports:
+            - '7002:6379'
+
+        environment:
+            - REDIS_DATABASES=16
+            - REDIS_MAXMEMORY=256mb
+        command: redis-server /7002/n2_redis.conf &
+
+    redis-3:
+        image: redis
+        container_name: redis-m2-replica-3
+        volumes:
+            - ${PWD}/7003:/7003
+        ports:
+            - '7003:7003'
+
+        environment:
+            - REDIS_MAXMEMORY=256mb
+        command: redis-server /7003/n3_redis.conf &
+
+    redis-4:
+        image: redis
+        container_name: redis-m2-replica-4
+        volumes:
+            - ${PWD}/7004:/7004
+        ports:
+            - '7004:7004'
+
+        environment:
+            - REDIS_MAXMEMORY=256mb
+        command: redis-server /7004/n4_redis.conf &
+
+    redis-5:
+        image: redis
+        container_name: redis-m2-replica-5
+        ports:
+            - '7005:7005'
+        volumes:
+            - ${PWD}/7005:/7005
+
+        environment:
+            - REDIS_MAXMEMORY=256mb
+        command: redis-server /7005/n5_redis.conf &
+
+    redis-6:
+        image: redis
+        container_name: redis-m2-replica-6
+        ports:
+            - '7006:7006'
+        volumes:
+            - ${PWD}/7006:/7006
+
+        environment:
+            - REDIS_MAXMEMORY=256mb
+        command: redis-server /7006/n6_redis.conf &
+
+networks:
+    redis-replication:
+        driver: bridge
