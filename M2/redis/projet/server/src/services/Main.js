@@ -46,6 +46,24 @@ class Main {
 		res.json(updateQuery);
 	}
 
+	async addCommuneStation(req, res) {
+		const { commune, id } = req.params;
+
+		const data = { commune, id, ...req.body };
+		const requests = [];
+		Object.entries(data).forEach(([key, value]) => {
+			requests.push(redis.hSetNX('vilib:' + commune + ':' + id, key, value));
+		});
+
+		requests.push(redis.sAdd('communes', data.nom_communes_equipees));
+
+		console.log({ data });
+
+		Promise.all(requests).then((r) => {
+			res.json(data);
+		});
+	}
+
 	async deleteCommuneStation(req, res) {
 		const { commune, id } = req.params;
 		console.log('delete', 'vilib:' + commune + ':' + id);

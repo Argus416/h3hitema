@@ -1,10 +1,9 @@
 import React, { useEffect, useState, useRef, ChangeEvent, FormEvent } from 'react';
 import './App.css';
 import JSelect from './components/JSelect';
-import { transformString } from './util/String';
 import axiosClient from './util/axiosClient';
 import { loadedDetailsFromater } from './util/formatter';
-
+import JCard from './components/JCard';
 interface Commune {
 	id: string;
 	value: string;
@@ -29,6 +28,7 @@ interface FormattedResult {
 
 const App: React.FC = () => {
 	const formRef = useRef<HTMLFormElement>(null);
+	const [addMode, setAddMode] = useState<boolean>(false);
 	const [updateMode, setUpdateMode] = useState<boolean>(false);
 	const [communes, setCommunes] = useState<Commune[]>([]);
 	const [stations, setStations] = useState<Station[]>([]);
@@ -36,6 +36,7 @@ const App: React.FC = () => {
 	const [selectedStation, setSelectedStation] = useState<string>('');
 	const [result, setResult] = useState<FormattedResult>({});
 	const [refresh, setRefresh] = useState<boolean>(false);
+	const [randomId, setRandomId] = useState<string>('');
 
 	const fetchData = async (url: string, setDataCallback: (data: any) => void) => {
 		try {
@@ -75,7 +76,7 @@ const App: React.FC = () => {
 
 	useEffect(() => {
 		setUpdateMode(false);
-		if (selectedStation && selectedCommune) {
+		if (selectedStation && selectedCommune && !addMode) {
 			fetchData(
 				`/commune/station/${selectedCommune}/${selectedStation}`,
 				(data: any) => {
@@ -92,16 +93,53 @@ const App: React.FC = () => {
 			retour_velib_possible: 'NON',
 			station_en_fonctionnement: 'NON',
 		};
+
 		const formData = new FormData(formRef.current!);
 		const data: FormDataEntry = {
 			...checkboxes,
 			...Object.fromEntries(formData.entries()),
 		};
 
-		await axiosClient.patch(
-			`/commune/station/${selectedCommune}/${selectedStation}`,
-			data
-		);
+		if (addMode) {
+			data.identifiant_station = randomId;
+			data.borne_de_paiement_disponible =
+				data.borne_de_paiement_disponible === '' ? 'OUI' : 'NON';
+			data.retour_velib_possible = data.retour_velib_possible === '' ? 'OUI' : 'NON';
+			data.station_en_fonctionnement =
+				data.station_en_fonctionnement === '' ? 'OUI' : 'NON';
+			data.identifiant_station = randomId;
+		}
+
+		for (let i = 0; i < Object.values(data).length; i++) {
+			const e = Object.values(data)[i];
+			if (e.length === 0) {
+				alert('Veuillez remplir tous les champs');
+				return;
+			}
+		}
+
+		console.log({ data });
+
+		if (addMode)
+			await axiosClient.post(
+				`/commune/station/${data.nom_communes_equipees}/${data.identifiant_station}`,
+				data
+			);
+
+		if (updateMode)
+			await axiosClient.patch(
+				`/commune/station/${selectedCommune}/${selectedStation}`,
+				data
+			);
+
+		setRefresh(!refresh);
+
+		if (addMode) {
+			setSelectedStation(randomId);
+		}
+
+		setUpdateMode(false);
+		setAddMode(false);
 	};
 
 	const deleteStation = () => {
@@ -116,38 +154,19 @@ const App: React.FC = () => {
 		setRefresh(!refresh);
 	};
 
-	const renderFormFields = () => {
-		return Object.entries(result)?.map(([key, entry], index) => (
-			<div
-				key={index}
-				className='flex items-center justify-between mb-4'
-			>
-				<label className='font-bold'>{transformString(key)} : </label>
-				{updateMode ? (
-					<input
-						name={key}
-						disabled={key === 'identifiant_station'}
-						className={`block border border-gray-300 rounded-md p-1 disabled:bg-gray-300 ${
-							entry.type !== 'checkbox' ? 'w-350' : 'h-5 w-5'
-						}`}
-						type={entry.type}
-						defaultValue={
-							entry.type === 'date'
-								? new Date(entry.originalText).toISOString().split('T')[0]
-								: entry.originalText
-						}
-						defaultChecked={entry.originalText === 'OUI' ? true : false}
-					/>
-				) : (
-					<span
-						className='cursor-pointer'
-						onDoubleClick={() => setUpdateMode(!updateMode)}
-					>
-						{entry.text}
-					</span>
-				)}
-			</div>
-		));
+	const addModeHandler = () => {
+		const randomId = Math.ceil(Math.random() * 10000000).toString();
+
+		setAddMode(true);
+		setUpdateMode(false);
+		setSelectedStation(randomId);
+		setResult(
+			loadedDetailsFromater({
+				identifiant_station: randomId,
+				nom_communes_equipees: selectedCommune,
+			})
+		);
+		setRandomId(randomId);
 	};
 
 	return (
@@ -155,7 +174,7 @@ const App: React.FC = () => {
 			<div className='flex gap-8 flex-1'>
 				{communes?.length !== 0 && (
 					<JSelect
-						label='Select communes'
+						label='Selectionner une commune'
 						options={communes}
 						className={{ wrapper: 'flex-1' }}
 						onChange={(e: ChangeEvent<HTMLSelectElement>) =>
@@ -165,41 +184,57 @@ const App: React.FC = () => {
 				)}
 
 				<JSelect
-					label='Select select stations'
+					label='Selectionner une station'
 					options={stations}
 					className={{ wrapper: 'flex-1' }}
 					onChange={(e: ChangeEvent<HTMLSelectElement>) =>
 						setSelectedStation(e.target.value)
 					}
 				/>
+
+				<button
+					type='button'
+					className='mt-6 text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 focus:outline-none'
+					onClick={addModeHandler}
+				>
+					Ajouter
+				</button>
 			</div>
 
 			{Object.keys(result).length > 0 && (
 				<div className='mx-auto w-[900px] p-6 bg-white border border-gray-200 rounded-lg shadow mt-12'>
-					<div className='card-header relative flex items-center justify-center mb-8'>
-						<h5 className='text-2xl font-bold tracking-tight text-gray-900'>
-							{result?.nom_station.text}
-						</h5>
-						<button
-							type='button'
-							className='absolute end-0 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 '
-							onClick={deleteStation}
-						>
-							Delete
-						</button>
-					</div>
+					{!addMode && (
+						<div className='card-header relative flex items-center justify-center mb-8'>
+							<h5 className='text-2xl font-bold tracking-tight text-gray-900'>
+								{result?.nom_station.text}
+							</h5>
+							<button
+								type='button'
+								className='absolute end-0 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 '
+								onClick={deleteStation}
+							>
+								Delete
+							</button>
+						</div>
+					)}
 					<form
 						onSubmit={submitHandler}
 						className='font-normal text-gray-700'
 						ref={formRef}
 					>
-						{renderFormFields()}
-						{updateMode && (
+						{/* {renderFormFields()} */}
+						<JCard
+							result={result}
+							addMode={addMode}
+							updateMode={updateMode}
+							setUpdateMode={() => setUpdateMode(!updateMode)}
+						/>
+						{(updateMode || addMode) && (
 							<button
 								type='submit'
 								className='mt-6 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 focus:outline-none'
 							>
-								Mettre à jour
+								{updateMode ? 'Mettre à jour' : 'Ajouter'}
 							</button>
 						)}
 					</form>
