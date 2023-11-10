@@ -3,9 +3,10 @@ type JSelectProps = {
 	options: { id: string; value: string }[];
 	className?: { wrapper?: string; label?: string; select?: string };
 	onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+	selectedValue?: string;
 };
 
-const JSelect = ({ label, options, className, onChange }: JSelectProps) => {
+const JSelect = ({ label, options, className, selectedValue, onChange }: JSelectProps) => {
 	return (
 		<div className={className?.wrapper}>
 			<label
@@ -23,6 +24,7 @@ const JSelect = ({ label, options, className, onChange }: JSelectProps) => {
 					<option
 						key={option.id}
 						value={option.id}
+						defaultValue={option.id === selectedValue}
 					>
 						{option.value}
 					</option>

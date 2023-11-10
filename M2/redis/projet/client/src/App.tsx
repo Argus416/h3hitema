@@ -30,6 +30,7 @@ const App: React.FC = () => {
 	const formRef = useRef<HTMLFormElement>(null);
 	const [addMode, setAddMode] = useState<boolean>(false);
 	const [updateMode, setUpdateMode] = useState<boolean>(false);
+	const [deleteMode, setDeleteMode] = useState<boolean>(false);
 	const [communes, setCommunes] = useState<Commune[]>([]);
 	const [stations, setStations] = useState<Station[]>([]);
 	const [selectedCommune, setSelectedCommune] = useState<string>('');
@@ -48,38 +49,53 @@ const App: React.FC = () => {
 	};
 
 	useEffect(() => {
-		setUpdateMode(false);
 		fetchData('/communes', (data: string[]) => {
 			const communes = data.map((commune) => ({
 				id: commune,
 				value: commune,
 			}));
 			setCommunes(communes);
-			setSelectedCommune(communes[0]?.id);
+			setAddMode(false);
+			setUpdateMode(false);
+			setDeleteMode(false);
+			// setSelectedCommune(communes[0]?.id);
+			// setSelectedCommune(selectedCommune || communes[0]?.id);
 		});
-	}, []);
+	}, [refresh]);
 
 	useEffect(() => {
-		setUpdateMode(false);
 		setResult({});
+		setSelectedStation('');
+
 		if (selectedCommune) {
 			fetchData(`/commune/${selectedCommune}`, (data: any[]) => {
 				const stations = data.map((station) => ({
 					id: station.identifiant_station,
 					value: station.nom_station,
 				}));
+
 				setStations(stations);
-				if (stations.length) setSelectedStation(stations[0]?.id);
+
+				if (!updateMode && !addMode && deleteMode) {
+					console.log('first');
+					setSelectedStation(stations[0]?.id);
+				} else {
+					setSelectedStation(selectedStation);
+					console.log('second', selectedCommune);
+				}
+				setAddMode(false);
+				setUpdateMode(false);
+				setDeleteMode(false);
 			});
 		}
 	}, [selectedCommune, refresh]);
 
 	useEffect(() => {
-		setUpdateMode(false);
 		if (selectedStation && selectedCommune && !addMode) {
 			fetchData(
 				`/commune/station/${selectedCommune}/${selectedStation}`,
 				(data: any) => {
+					console.log({ data });
 					setResult(loadedDetailsFromater(data));
 				}
 			);
@@ -118,28 +134,22 @@ const App: React.FC = () => {
 			}
 		}
 
-		console.log({ data });
-
-		if (addMode)
-			await axiosClient.post(
-				`/commune/station/${data.nom_communes_equipees}/${data.identifiant_station}`,
-				data
-			);
-
 		if (updateMode)
 			await axiosClient.patch(
 				`/commune/station/${selectedCommune}/${selectedStation}`,
 				data
 			);
 
-		setRefresh(!refresh);
-
 		if (addMode) {
+			await axiosClient.post(
+				`/commune/station/${data.nom_communes_equipees}/${data.identifiant_station}`,
+				data
+			);
 			setSelectedStation(randomId);
+			setSelectedCommune(data.nom_communes_equipees);
 		}
 
-		setUpdateMode(false);
-		setAddMode(false);
+		setRefresh(!refresh);
 	};
 
 	const deleteStation = () => {
@@ -152,10 +162,11 @@ const App: React.FC = () => {
 		setResult({});
 		setSelectedStation('');
 		setRefresh(!refresh);
+		setDeleteMode(true);
 	};
 
 	const addModeHandler = () => {
-		const randomId = Math.ceil(Math.random() * 10000000).toString();
+		const randomId = Math.ceil(Math.random() * 100000000000).toString();
 
 		setAddMode(true);
 		setUpdateMode(false);
@@ -177,6 +188,7 @@ const App: React.FC = () => {
 						label='Selectionner une commune'
 						options={communes}
 						className={{ wrapper: 'flex-1' }}
+						selectedValue={selectedCommune}
 						onChange={(e: ChangeEvent<HTMLSelectElement>) =>
 							setSelectedCommune(e.target.value)
 						}
@@ -187,6 +199,7 @@ const App: React.FC = () => {
 					label='Selectionner une station'
 					options={stations}
 					className={{ wrapper: 'flex-1' }}
+					selectedValue={selectedStation}
 					onChange={(e: ChangeEvent<HTMLSelectElement>) =>
 						setSelectedStation(e.target.value)
 					}
@@ -201,7 +214,7 @@ const App: React.FC = () => {
 				</button>
 			</div>
 
-			{Object.keys(result).length > 0 && (
+			{Object.values(result).length > 0 && (
 				<div className='mx-auto w-[900px] p-6 bg-white border border-gray-200 rounded-lg shadow mt-12'>
 					{!addMode && (
 						<div className='card-header relative flex items-center justify-center mb-8'>
