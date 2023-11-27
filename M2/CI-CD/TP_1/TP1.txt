@@ -1,0 +1,1 @@
+docker commit --author "Mohamad Al Khatib" --message "Apache http running on port 8080" ubuntu-apache ubuntuApache

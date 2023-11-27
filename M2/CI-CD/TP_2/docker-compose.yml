@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - "8888:80"
+    networks: 
+      - mynet
+
+
+
+networks:
+  mynet:
+    driver: bridge
