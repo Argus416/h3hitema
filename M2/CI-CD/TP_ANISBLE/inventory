@@ -1,0 +1,8 @@
+[servers]
+ubuntu1 ansible_host=0.0.0.0 ansible_port=1011 ansible_ssh_pass=root ansible_user=root
+ubuntu2 ansible_host=0.0.0.0 ansible_port=1012 ansible_ssh_pass=root ansible_user=root
+ubuntu3 ansible_host=0.0.0.0 ansible_port=1013 ansible_ssh_pass=root ansible_user=root
+ubuntu4 ansible_host=0.0.0.0 ansible_port=1014 ansible_ssh_pass=root ansible_user=root
+
+[nginx_server]
+ubuntu5 ansible_host=0.0.0.0 ansible_port=1015 ansible_ssh_pass=root ansible_user=root

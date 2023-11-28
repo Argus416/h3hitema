@@ -1,0 +1,43 @@
+- name: Update packages on all servers
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Update packages
+      apt:
+        update_cache: yes
+        upgrade: yes
+
+    - name: Upgrade packages
+      apt:
+        name: "*"
+        state: latest
+
+- name: Create user on all servers
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Create user
+      user:
+        name: myuser
+        state: present
+        shell: /bin/bash
+        createhome: yes
+
+- name: Setup nginx
+  hosts: nginx_server
+  become: true
+
+  tasks:
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: present
+        update_cache: yes
+
+    - name: Start nginx
+      service:
+        name: nginx
+        state: started
+        enabled: yes 
