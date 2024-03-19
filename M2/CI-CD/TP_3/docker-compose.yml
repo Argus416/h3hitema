@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  api:
+    build: .
+    ports:
+      - "3300:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    networks:
+      - api-network
+
+networks:
+  api-network:
+    driver: bridge

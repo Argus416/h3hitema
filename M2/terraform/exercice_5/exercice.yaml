@@ -1,0 +1,10 @@
+---
+type: InputOutputExercice
+studentId: 6052
+activityId: 135591
+outputTests:
+- command: ansible --version
+  includes: []
+activityNumber: 5
+submissionUrl: https://nowledgeable.com/api/assessed-answer
+...
