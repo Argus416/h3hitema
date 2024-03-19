@@ -12,3 +12,46 @@
         upgrade: yes
         autoremove: yes
         autoclean: yes
+
+- name : Install python and pip
+  hosts: all
+  become: yes
+  tasks:
+    - name: Install build-essential
+      apt:
+        name: build-essential
+        state: present
+    - name: Install python and pip
+      apt:
+        name: python3-pip
+        state: present
+    - name: Install flask
+      apt:
+        name: python3-flask
+        state: present
+
+- name: Clone flask project from git
+  hosts: all
+  become: yes
+  tasks:
+    - name: Clone git repository
+      ansible.builtin.git:
+        repo: https://github.com/Argus416/init_flask
+        dest: /src/init_flask
+        version: main
+        update: yes
+        clone: yes
+
+- name: Run flask app
+  hosts: all
+  become: yes
+  vars_files:
+    - ./variables.yaml
+  tasks:
+    - name: Shutdown flask app if it's running
+      shell: "kill -9 $(lsof -t -i:{{OLD_PORT}}) >/dev/null 2>&1 || true"
+      ignore_errors: yes
+    - name: Run flask app
+      shell: cd /src/init_flask && nohup flask run --host=0.0.0.0 --port={{PORT}} &
+    
+
