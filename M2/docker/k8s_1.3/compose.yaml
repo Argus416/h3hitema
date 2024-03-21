@@ -1,0 +1,10 @@
+services:
+  web:
+    # image: "argus416/kflask2"
+    # build: .
+    image: "kflask2"
+    ports:
+      - "8000:5000"
+
+  redis:
+    image: "redis:alpine"

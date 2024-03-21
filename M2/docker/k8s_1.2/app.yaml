@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kflask-deployment
+spec:
+  selector:
+    matchLabels:
+      app: kflask
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: kflask
+    spec:
+      containers:
+      - name: kflask
+        image: argus416/mini_flask
+        ports:
+        - containerPort: 4325
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: kflask-service
+spec:
+  selector:
+    app: kflask
+  ports:
+    - protocol: TCP
+      port: 4325
+      targetPort: 4325
+  type: LoadBalancer
+

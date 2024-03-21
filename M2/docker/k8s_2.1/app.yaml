@@ -1,0 +1,38 @@
+# web deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: web
+        image: argus416/kflask_ip
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+          name: web
+---
+
+# web service
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+spec:
+  selector:
+    app: web
+  ports:
+  - protocol: TCP
+    port: 8001
+    targetPort: 5000
+  type: LoadBalancer
+
